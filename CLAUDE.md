@@ -52,19 +52,17 @@ This loop is how the framework improves over time.
 ## File Structure
 
 **What goes where:**
-- **Deliverables**: Final outputs go to cloud services (Google Sheets, Slides, etc.) where I can access them directly
+- **Deliverables**: Final outputs go into deliverables so I can access them
 - **Intermediates**: Temporary processing files that can be regenerated
 
 **Directory layout:**
 ```
 .tmp/           # Temporary files (scraped data, intermediate exports). Regenerated as needed.
+deliverables/   # Markdown, PDF files
 tools/          # Python scripts for deterministic execution
 workflows/      # Markdown SOPs defining what to do and how
 .env            # API keys and environment variables (NEVER store secrets anywhere else)
-credentials.json, token.json  # Google OAuth (gitignored)
 ```
-
-**Core principle:** Local files are just for processing. Anything I need to see or use lives in cloud services. Everything in `.tmp/` is disposable.
 
 ## Bottom Line
 
