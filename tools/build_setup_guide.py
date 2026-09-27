@@ -3,7 +3,8 @@
 
 Inputs:
   - .tmp/setup-guide/screens/*.png        from tools/capture_setup_screens.py
-  - Screenshots-GetResponse-API/*.png     supplied by hand (API key blurred)
+  - GetResponse-Screenshots-BUYER-SETUP-GUIDE/*.png  supplied by hand; the API key
+    shot is the -REDACTED copy made with tools/redact_image.py
   - the wp-dfy theme's fonts and style.css Version
 
 Every <img> must exist. The GetResponse screenshots may be missing only with
@@ -25,7 +26,7 @@ WAT = Path(__file__).resolve().parent.parent
 THEME = Path("/home/tevis/wp-dfy/wp-content/themes/affiliate-theme")
 TEMPLATES = WAT / "tools" / "templates"
 SCREENS = WAT / ".tmp" / "setup-guide" / "screens"
-GR = WAT / "Screenshots-GetResponse-API"
+GR = WAT / "GetResponse-Screenshots-BUYER-SETUP-GUIDE"
 RENDERED = WAT / ".tmp" / "setup-guide" / "guide.html"
 
 

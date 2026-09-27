@@ -21,7 +21,7 @@ It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-websit
 |---|---|---|
 | Theme source | `/home/tevis/wp-dfy` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
 | Dev site | `wp-dfy-wordpress-1`, https://wp-dfy.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
-| GetResponse screenshots | `Screenshots-GetResponse-API/Screenshot-1-GetResponse-API-Key.png`, `Screenshot-2-GetResponse-List-Token.png` | Supplied by hand. **Blur or crop the real API key before saving.** These files are committed. |
+| GetResponse screenshots | `GetResponse-Screenshots-BUYER-SETUP-GUIDE/Screenshot-API-key-Email-Marketing-Software-GetResponse-REDACTED.png`, `Screenshot-list-token-Marketing-Software-GetResponse.png` | Supplied by hand. The guide uses only the `-REDACTED` copy of the API key shot. The unredacted original is git-ignored and must never be committed. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
 ## Tools, in order
@@ -33,12 +33,21 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
    - It logs in with cookies minted by `wp eval` for user 1, and destroys the session token on exit. No password is needed.
    - It replaces the dev site's real list token, list name, affiliate URL, site name and page statuses in the DOM before each shot. Nothing is saved.
    - Shots 01–03 switch the dev site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "dev site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
-3. `.venv/bin/python tools/build_setup_guide.py [--draft]` writes `deliverables/SETUP-GUIDE.pdf`. It fails on any missing image. `--draft` only lets the two GetResponse screenshots be missing, and stamps DRAFT on every page.
+3. **Redact the API key shot.** A hand-drawn scribble is not enough: the first supplied shot still showed the key's first 8 characters and GetResponse's masked `lb9…yl6` row. Paint over the whole key field and the masked row, then view the result before building:
+
+   ```bash
+   G=GetResponse-Screenshots-BUYER-SETUP-GUIDE; IN=$G/Screenshot-API-key-Email-Marketing-Software-GetResponse.png
+   .venv/bin/python tools/redact_image.py "$IN" .tmp/setup-guide/gr/step1.png --fill '#ffffff' --box '436,299,414,38:••••••••••••••••••••••••••••••••'
+   .venv/bin/python tools/redact_image.py .tmp/setup-guide/gr/step1.png "${IN%.png}-REDACTED.png" --box 60,369,112,22
+   ```
+
+   The box coordinates fit the 1366×563 shot supplied on 2026-09-27. A new screenshot needs new boxes. The second box's fill is sampled from the pixel to its left, so it matches the dimmed background.
+4. `.venv/bin/python tools/build_setup_guide.py [--draft]` writes `deliverables/SETUP-GUIDE.pdf`. It fails on any missing image. `--draft` only lets the two GetResponse screenshots be missing, and stamps DRAFT on every page.
 
 ## Verification (all must pass before publishing)
 
 1. **Zip:** `unzip -l deliverables/affiliate-theme.zip` shows `affiliate-theme/style.css` one level down and no `CLAUDE.md`. The file list equals `git ls-tree -r --name-only HEAD:wp-content/themes/affiliate-theme` minus CLAUDE.md, and `php -l` passes on every PHP file extracted to `.tmp/`.
-2. **Screens:** open every PNG. Check that there's no real token, list name, affiliate URL or site name, and no modal or admin notice covering a marked control.
+2. **Screens:** open every PNG, including a 150-dpi render of the GetResponse page of the PDF. Check that no character of the API key shows. In the WordPress shots, check for no real list token, list name, affiliate URL or site name. (The GetResponse list-token shot shows the real token on purpose: a token is not a credential without the key.) Also check that no modal or admin notice covers a marked control.
 3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong. Add a row whenever the guide quotes a new string. `A static page` is not in this list: core wraps "static page" in a link, so check it against the Reading screenshot instead.
 
    ```bash
