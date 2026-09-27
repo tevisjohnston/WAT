@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Affiliate Theme Setup Guide</title>
+<style>{{CSS}}</style>
+</head>
+<body>
+{{DRAFT}}
+
+<!-- ============================== COVER ============================== -->
+<section class="cover">
+  <div class="kicker">Affiliate Market Connect &middot; Done-for-you website</div>
+  <h1>Affiliate Theme<br>Setup Guide</h1>
+  <p class="lede">Install the theme, connect your GetResponse list and your affiliate link, then publish your landing page and legal pages. Eight steps, all inside your WordPress dashboard.</p>
+
+  <div class="funnel">
+    <div class="funnel-label">What your site does when you finish</div>
+    <div class="flow">
+      <div class="chip"><b>1</b>A visitor lands on your landing page</div>
+      <div class="arrow">&rarr;</div>
+      <div class="chip"><b>2</b>They type their email into the form</div>
+      <div class="arrow">&rarr;</div>
+      <div class="chip"><b>3</b>They are added to your GetResponse list</div>
+      <div class="arrow">&rarr;</div>
+      <div class="chip"><b>4</b>Their browser goes to your affiliate link</div>
+    </div>
+  </div>
+
+  <div class="meta"><span>For Affiliate Theme version {{VERSION}}</span><span>affiliatemarketconnect.com</span></div>
+</section>
+
+<!-- ============================== BEFORE YOU START ============================== -->
+<section class="section" style="break-before: auto;">
+  <span class="eyebrow">Before you start</span>
+  <h2>Have these four things ready</h2>
+  <ul class="checklist">
+    <li><strong>A WordPress site you can log into as an administrator.</strong> The theme needs WordPress 6.6 or newer and PHP 8.1 or newer. Any good host meets both.</li>
+    <li><strong>A GetResponse account with a list.</strong> The emails you send to new subscribers run as a GetResponse automation workflow. Automation workflows need a paid plan, and new accounts get them free for the first 14 days.</li>
+    <li><strong>Your affiliate link</strong>: the full link from WarriorPlus, starting with <code>https://</code>.</li>
+    <li><strong>The theme file, <code>affiliate-theme.zip</code></strong>, from the <span class="path">Domain + Web Hosting</span> step of your members area.</li>
+  </ul>
+
+  <h3>The eight steps at a glance</h3>
+  <table>
+    <thead><tr><th></th><th>Step</th><th>Where in WordPress</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Download the theme</td><td>Your members area</td></tr>
+      <tr><td class="n">2</td><td>Upload and install it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes <span class="sep">&rsaquo;</span> Add Theme</span></td></tr>
+      <tr><td class="n">3</td><td>Activate it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span></td></tr>
+      <tr><td class="n">4</td><td>Connect GetResponse and your affiliate link</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span></td></tr>
+      <tr><td class="n">5</td><td>Edit and publish your landing page</td><td>The block editor</td></tr>
+      <tr><td class="n">6</td><td>Make the landing page your home page</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Reading</span></td></tr>
+      <tr><td class="n">7</td><td>Fill in and publish your legal pages</td><td>The block editor</td></tr>
+      <tr><td class="n">8</td><td>Point WordPress at your Privacy Policy</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Privacy</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="box tip">
+    <h4>Nothing goes public until you publish it</h4>
+    <p>The theme creates every page as a draft. You can take your time with each step. Visitors see a page only after you click <span class="ui">Publish</span>.</p>
+  </div>
+</section>
+
+<!-- ============================== STEP 1 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 1</span>
+  <h2>Download the theme</h2>
+  <p class="intro">In your members area, open the <span class="path">Domain + Web Hosting</span> step and download <code>affiliate-theme.zip</code>.</p>
+  <p><strong>Keep it zipped.</strong> WordPress installs the <code>.zip</code> file exactly as you downloaded it. Don't open it, rename it, or change what's inside.</p>
+  <div class="box warn">
+    <h4>On a Mac, Safari may unzip it for you</h4>
+    <p>If your Downloads folder shows a folder called <code>affiliate-theme</code> instead of <code>affiliate-theme.zip</code>, right-click the folder and choose <span class="ui">Compress &ldquo;affiliate-theme&rdquo;</span>. That makes a new <code>affiliate-theme.zip</code> you can upload. To stop Safari doing this, turn off <span class="path">Safari <span class="sep">&rsaquo;</span> Settings <span class="sep">&rsaquo;</span> General <span class="sep">&rsaquo;</span> Open &ldquo;safe&rdquo; files after downloading</span>.</p>
+  </div>
+
+</section>
+
+<!-- ============================== STEP 2 ============================== -->
+<section class="section">
+  <div>
+    <span class="eyebrow">Step 2</span>
+    <h2>Upload and install the theme</h2>
+    <p class="where">Log in to your dashboard at <b>yoursite.com/wp-admin</b>.</p>
+    <ol class="marks">
+      <li>In the left menu, click <span class="ui">Appearance</span>. The <span class="ui">Themes</span> screen opens.</li>
+      <li>Click <span class="ui">Add Theme</span> at the top.</li>
+    </ol>
+    <figure class="shot narrow"><img src="{{SCREENS}}/01-add-new-theme.png" alt="The Themes screen with Appearance and Add Theme marked"></figure>
+    <ol class="marks">
+      <li>Click <span class="ui">Upload Theme</span> next to the <span class="ui">Add Themes</span> title.</li>
+      <li>Click <span class="ui">Choose File</span> and pick <code>affiliate-theme.zip</code>.</li>
+      <li>Click <span class="ui">Install Now</span>. After a few seconds WordPress says <span class="ui">Theme installed successfully.</span></li>
+    </ol>
+    <figure class="shot"><img src="{{SCREENS}}/02-upload-theme.png" alt="The Upload Theme panel with Choose File and Install Now marked"></figure>
+  </div>
+</section>
+
+<!-- ============================== STEP 3 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 3</span>
+  <h2>Activate the theme</h2>
+  <p class="intro">On the <span class="ui">Theme installed successfully.</span> screen, click <span class="ui">Activate</span>. If you've already left that screen, go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span>, point at the <span class="ui">Affiliate Theme</span> card and click <span class="ui">Activate</span>.</p>
+  <figure class="shot narrow"><img src="{{SCREENS}}/03-activate-theme.png" alt="The Affiliate Theme card with its Activate button marked"></figure>
+
+  <div class="box">
+    <h4>What activation creates for you</h4>
+    <p>The moment you activate it, the theme adds seven pages, all as drafts:</p>
+    <ul>
+      <li><strong>Three landing pages</strong>, the same offer in three layouts: <em>Landing Page &mdash; Centered</em>, <em>Landing Page &mdash; Split</em> and <em>Landing Page &mdash; Long Form</em>. You'll use one.</li>
+      <li><strong>Four legal pages</strong>: <em>Privacy Policy</em>, <em>Terms of Service</em>, <em>Earnings Disclaimer</em> and <em>Affiliate Disclosure</em>.</li>
+    </ul>
+    <p>It also adds a new screen under <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, which is where the next step happens.</p>
+  </div>
+</section>
+
+<!-- ============================== STEP 4 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 4</span>
+  <h2>Connect GetResponse and your affiliate link</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b>.</p>
+  <p class="intro">This one screen wires up your whole funnel. Fill it in from top to bottom. The numbers match the screenshot.</p>
+  <figure class="shot w88"><img src="{{SCREENS}}/04-settings.png" alt="Affiliate Theme Settings with the seven fields numbered"></figure>
+
+  <ol class="marks">
+    <li><strong>GetResponse API key.</strong> In GetResponse, go to <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>, generate a key and copy it. Paste it here. After you save, the field shows only dots and the key is never displayed again. To change it, type a new key over the dots. <em>A key that goes unused for 90 days stops working</em>, so make a new one if the funnel sits idle that long.</li>
+    <li><strong>GetResponse list token.</strong> This is a short code that identifies your list, such as <code>7qhMJ</code>. It is not the list's name. In GetResponse, open your list's settings. The token is under the box labelled <span class="ui">List name</span>.</li>
+    <li><strong>Check list.</strong> Click it to test the key and token together. The note below the list changes to <span class="ui">GetResponse accepted this list.</span></li>
+    <li><strong>GetResponse list.</strong> This shows your list's name with its token after a successful check. When this list and the token field disagree, the list shown here is the one that gets saved.</li>
+    <li><strong>Affiliate redirect URL.</strong> Paste your full affiliate link, starting with <code>https://</code>. Each new subscriber's browser is sent here. The link never appears in your page's code, so nobody can copy it without subscribing first.</li>
+    <li><strong>Success message.</strong> This shows only if you leave the affiliate link empty, so you can usually skip it.</li>
+    <li>Click <span class="ui">Save Changes</span>.</li>
+  </ol>
+
+  <h3>Where to find these in GetResponse</h3>
+  <figure class="shot"><img data-gr src="{{GR}}/Screenshot-1-GetResponse-API-Key.png" alt="GetResponse: Integrations and API, API key"><figcaption>Your API key: <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>.</figcaption></figure>
+  <figure class="shot"><img data-gr src="{{GR}}/Screenshot-2-GetResponse-List-Token.png" alt="GetResponse: list settings, list token under List name"><figcaption>Your list token: in the list's settings, under <span class="ui">List name</span>.</figcaption></figure>
+
+  <div class="box tip">
+    <h4>Your API key is safe here</h4>
+    <p>The key stays on your server. It is never sent to visitors' browsers and never shown on your pages.</p>
+  </div>
+</section>
+
+<!-- ============================== STEP 5 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 5</span>
+  <h2>Edit and publish your landing page</h2>
+  <p class="intro">Scroll down the same <span class="path">Affiliate Theme Settings</span> screen to <span class="ui">Your landing pages</span>. Pick the layout you like and click its title to open it in the editor.</p>
+  <figure class="shot half"><img src="{{SCREENS}}/05-landing-list.png" alt="Your landing pages list, with Landing Page — Split marked"></figure>
+  <div class="box">
+    <h4>Publish only the landing page you use</h4>
+    <p>Every published page is added to your site's menu automatically, so leave the other two layouts as drafts. Keep the two short notes under the form (&ldquo;Results vary&hellip;&rdquo; and the commission note). They are your on-page earnings disclaimer and affiliate disclosure.</p>
+  </div>
+
+  <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form is the one exception. You don't edit it on the page itself:</p>
+  <ol class="marks">
+    <li>Click the form. The <span class="ui">Form</span> panel on the right holds its <span class="ui">Button text</span>, the <span class="ui">Email field label</span>, the <span class="ui">Ask for a first name</span> switch and the <span class="ui">Name field label</span>. If the right-hand panel is closed, click the square <span class="ui">Settings</span> icon next to <span class="ui">Publish</span>.</li>
+    <li>When the page reads the way you want, click <span class="ui">Publish</span>. WordPress asks <em>Are you ready to publish?</em>, so click <span class="ui">Publish</span> once more.</li>
+  </ol>
+  <figure class="shot w88"><img src="{{SCREENS}}/06-editor-publish.png" alt="The block editor with the Form panel and the Publish button marked"></figure>
+
+</section>
+
+<!-- ============================== STEP 6 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 6</span>
+  <h2>Make the landing page your home page</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Reading</b>.</p>
+  <ol class="marks">
+    <li>Under <span class="ui">Your homepage displays</span>, choose <span class="ui">A static page (select below)</span>.</li>
+    <li>In the <span class="ui">Homepage</span> list, choose the landing page you published in Step 5.</li>
+    <li>Click <span class="ui">Save Changes</span>.</li>
+  </ol>
+  <figure class="shot"><img src="{{SCREENS}}/07-reading.png" alt="Reading Settings with A static page, the Homepage list and Save Changes marked"></figure>
+  <p>Now visit your site's address. Your landing page is the first thing people see.</p>
+  <div class="box tip">
+    <h4>Is your landing page missing from the list?</h4>
+    <p>This list shows only published pages. Go back to Step 5 and click <span class="ui">Publish</span>.</p>
+  </div>
+</section>
+
+<!-- ============================== STEP 7 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 7</span>
+  <h2>Fill in and publish your legal pages</h2>
+  <p class="intro">Go back to <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span> and scroll to <span class="ui">Your legal pages</span>. Click each page's title to open it in the editor.</p>
+  <figure class="shot half"><img src="{{SCREENS}}/08-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
+
+  <p>Each page is written in plain English and uses square-bracket placeholders wherever your own details belong. Replace <strong>every</strong> one, on all four pages. Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
+  <figure class="shot"><img src="{{SCREENS}}/09-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>Placeholders are highlighted here to show them. In your editor they look like ordinary text.</figcaption></figure>
+
+  <table>
+    <thead><tr><th>Placeholder</th><th>Replace it with</th></tr></thead>
+    <tbody>
+      <tr><td class="ph"><code>[Your Business Name]</code></td><td>Your name or your business's legal name</td></tr>
+      <tr><td class="ph"><code>[yoursite.com]</code></td><td>Your domain, for example <em>mysite.com</em></td></tr>
+      <tr><td class="ph"><code>[you@example.com]</code></td><td>An email address where visitors can reach you</td></tr>
+      <tr><td class="ph"><code>[Your Mailing Address]</code></td><td>Your postal address</td></tr>
+      <tr><td class="ph"><code>[Your State/Country]</code></td><td>The state or country whose law applies to your business</td></tr>
+      <tr><td class="ph"><code>[Month Day, Year]</code></td><td>The date the page takes effect, usually the day you publish it</td></tr>
+    </tbody>
+  </table>
+
+  <p>Then click <span class="ui">Publish</span> on each page. A published legal page adds its own link to your site's footer, and that footer also appears at the bottom of your landing page. Draft pages are never linked.</p>
+
+  <div class="box warn">
+    <h4>If you ever add analytics, advertising or cookies</h4>
+    <p>Your Privacy Policy says you don't sell or share visitors' information. That stays true only while your site runs no analytics, no advertising pixels and no tracking cookies. If you add Google Analytics, a Facebook pixel or any similar tool, follow the <span class="ui">If you add analytics, advertising or cookies</span> steps on the <span class="path">Affiliate Theme Settings</span> screen. They swap in a ready-made section, <em>Legal &mdash; Privacy: Analytics and Advertising</em>, with one more placeholder, <code>[Provider Name]</code>, for each tool you use.</p>
+  </div>
+  <p><strong>Keep each page true to your business.</strong> These pages are a starting template, not legal advice.</p>
+</section>
+
+<!-- ============================== STEP 8 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 8</span>
+  <h2>Point WordPress at your Privacy Policy</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Privacy</b>.</p>
+  <p class="intro">WordPress creates its own draft privacy page when it's installed, so your page list now has two pages called <em>Privacy Policy</em>. Tell WordPress to use the theme's page, the one you just filled in and published.</p>
+  <ol class="marks">
+    <li>Open the <span class="ui">Change your Privacy Policy page</span> list. <em>Privacy Policy</em> appears twice. The one with the checkmark is WordPress's own unpublished draft, so choose the <strong>other</strong> <em>Privacy Policy</em>.</li>
+    <li>Click <span class="ui">Use This Page</span>.</li>
+  </ol>
+  <figure class="shot"><img src="{{SCREENS}}/10-privacy.png" alt="The Privacy Policy page list with the theme's page and Use This Page marked"><figcaption>The list is drawn open here so you can see both entries. On your screen it's a dropdown.</figcaption></figure>
+  <div class="box tip">
+    <h4>Check you picked the right one</h4>
+    <p>After you click <span class="ui">Use This Page</span>, the top of the <span class="path">Privacy</span> screen reads <em>Edit or view your Privacy Policy page content.</em> Click <span class="ui">view</span>. Your page opens with the line <em>Effective date:</em> and the date you entered. If the line says <span class="ui">preview</span> instead of <span class="ui">view</span>, you picked WordPress's unpublished draft. Choose the other entry and click <span class="ui">Use This Page</span> again.</p>
+  </div>
+
+</section>
+
+<!-- ============================== TEST ============================== -->
+<section class="section">
+  <div>
+    <span class="eyebrow">Finish</span>
+    <h2>Test your funnel</h2>
+    <ol class="steps">
+      <li>Open a private or incognito browser window and go to your site's address.</li>
+      <li>Type an email address you own into the form and submit it.</li>
+      <li>Your browser should land on your affiliate link. That's the whole funnel working.</li>
+      <li>In GetResponse, open <span class="ui">Contacts</span>. The new contact can take a few minutes to appear, because GetResponse processes new sign-ups in a queue.</li>
+    </ol>
+    <p>If you submit the same address again, you're still sent to your affiliate link, because returning subscribers aren't turned away. Submitting the same address twice within a minute shows <span class="ui">Please try again in a moment.</span> Wait a minute before testing it again.</p>
+  </div>
+</section>
+
+<!-- ============================== TROUBLESHOOTING ============================== -->
+<section class="section">
+  <span class="eyebrow">Help</span>
+  <h2>Troubleshooting</h2>
+
+  <div class="qa">
+    <h4>Uploading the theme shows <span class="msg">The theme is missing the style.css stylesheet.</span></h4>
+    <p>You uploaded a different zip, or one whose contents were changed. Download <code>affiliate-theme.zip</code> again and upload it exactly as downloaded (see the Mac note in Step 1).</p>
+  </div>
+  <div class="qa">
+    <h4>Uploading shows <span class="msg">The link you followed has expired.</span></h4>
+    <p>Reload the <span class="ui">Add Themes</span> page and upload again. If it keeps happening, your host's upload limit is too small. The theme is about 1&nbsp;MB, so ask your host to allow uploads of at least 2&nbsp;MB.</p>
+  </div>
+  <div class="qa">
+    <h4>WordPress says <span class="msg">This theme is already installed.</span></h4>
+    <p>You're uploading a newer copy over an older one. Click <span class="ui">Replace installed with uploaded</span>. Your pages are safe: a theme update never overwrites a landing page or legal page you've edited.</p>
+  </div>
+  <div class="qa">
+    <h4>My landing page says <span class="msg">Opt-in form is not ready.</span></h4>
+    <p>Step 4 isn't finished. Add your API key and list token, then save. Only administrators see this note. Until then, visitors see no form at all.</p>
+  </div>
+  <div class="qa">
+    <h4>Saving shows <span class="msg">That does not look like a GetResponse API key.</span></h4>
+    <p>The text you pasted isn't a key. A key is at least 16 letters and numbers with no spaces. Copy it again from <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>. Your previous key, if you had one, is kept.</p>
+  </div>
+  <div class="qa">
+    <h4>Check list says <span class="msg">GetResponse rejected the API key.</span></h4>
+    <p>The key is wrong or has expired (keys stop after 90 days unused). Make a new key in GetResponse, paste it in, then save.</p>
+  </div>
+  <div class="qa">
+    <h4>Check list says <span class="msg">GetResponse did not accept that list token.</span></h4>
+    <p>You probably pasted the list's name. The token is the short code, such as <code>7qhMJ</code>, under the <span class="ui">List name</span> box in the list's settings.</p>
+  </div>
+  <div class="qa">
+    <h4>Saving shows <span class="msg">The affiliate redirect URL is not a usable address.</span></h4>
+    <p>Paste the complete link, including the <code>https://</code> at the start.</p>
+  </div>
+  <div class="qa">
+    <h4>Visitors see <span class="msg">Something went wrong. Please try again.</span></h4>
+    <p>GetResponse turned the sign-up down. Go to <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, click <span class="ui">Check list</span> and fix whatever it reports. The most common cause is an expired API key.</p>
+  </div>
+  <div class="qa">
+    <h4>A legal page isn't in my footer</h4>
+    <p>Only published pages are linked. Open the page and click <span class="ui">Publish</span>. The link then appears on every page at once.</p>
+  </div>
+  <div class="qa">
+    <h4>How do I change the copyright line in the footer?</h4>
+    <p>Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Editor</span>, open the footer, click the <em>&copy; 2026 &mdash; All rights reserved.</em> line and type your own. Then save.</p>
+  </div>
+
+  <p class="closing">The legal pages that come with this theme are a starting template, not legal advice. Review them for your own business, or have a professional review them.</p>
+</section>
+
+</body>
+</html>
