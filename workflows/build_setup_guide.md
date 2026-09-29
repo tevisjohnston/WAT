@@ -6,7 +6,7 @@ Produce the buyer-facing `SETUP-GUIDE.pdf` and the `affiliate-theme.zip` it tell
 
 download → upload → install → activate → Settings › Permalinks (Post name) → Settings › Affiliate Theme Settings (key, list token, affiliate URL) → edit and publish a landing page → Settings › Reading → edit and publish the legal pages → Settings › Privacy.
 
-The Permalinks step (guide Step 4) is not in the theme CLAUDE.md's buyer path. It was added to the guide on 2026-09-28 so buyers' pages get readable addresses before anything is published.
+The Permalinks step (guide Step 4) was added on 2026-09-28 so buyers' pages get readable addresses before anything is published.
 
 It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-website.zip` (theme v1.1.0) is a separate deliverable.
 
@@ -23,7 +23,7 @@ It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-websit
 |---|---|---|
 | Theme source | `/home/tevis/wp-dfy` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
 | Dev site | `wp-dfy-wordpress-1`, https://wp-dfy.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
-| GetResponse screenshots | `setup-guide-edits/setup-guide-screenshots-getresponse/`: seven 1366×563 shots of the click path (Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-REDACTED` Copy API Key box, list settings) | Supplied by hand. The guide uses only the `-REDACTED` copy of the API key shot. Any unredacted `Screenshot-API-key-…GetResponse.png` is git-ignored and must never be committed. |
+| GetResponse screenshots | `setup-guide-edits/setup-guide-screenshots-getresponse/`: nine shots of the two click paths. API key: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-REDACTED` Copy API Key box. List token: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All others are 1366×563 | Supplied by hand. The guide uses only the `-REDACTED` copy of the API key shot. Any unredacted `Screenshot-API-key-…GetResponse.png` is git-ignored and must never be committed. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
 ## Tools, in order
@@ -46,14 +46,14 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
    ```
 
    The box coordinates fit the 1366×563 shot supplied on 2026-09-27. A new screenshot needs new boxes. The second box's fill is sampled from the pixel to its left, so it matches the dimmed background. The `-REDACTED` copy supplied on 2026-09-28 is byte-identical to the 2026-09-27 one, so it did not need redacting again.
-4. `.venv/bin/python tools/mark_getresponse_shots.py` crops the GetResponse shots and draws the same red boxes and badges as the WordPress shots, into `.tmp/setup-guide/screens/gr-*.png`. The crops and marks are measured in source pixels on the 2026-09-28 shots. The tool stops on any shot that isn't 1366×563, and a replaced shot of the same size still needs its numbers checked.
+4. `.venv/bin/python tools/mark_getresponse_shots.py` crops the GetResponse shots and draws the same red boxes and badges as the WordPress shots, into `.tmp/setup-guide/screens/gr-*.png`. The crops and marks are measured in source pixels on the 2026-09-28 shots. The tool stops on any shot that isn't the size it was measured on (1366×563; the three-dot menu shot is 1366×606, set in `SIZES`), and a replaced shot of the same size still needs its numbers checked. The list-token mark has no badge on purpose: a badge there covers the start of "List token:".
 5. `.venv/bin/python tools/build_setup_guide.py [--draft]` writes `deliverables/SETUP-GUIDE.pdf`. It fails on any missing image. `--draft` only lets the GetResponse screenshots be missing, and stamps DRAFT on every page.
 
 ## Verification (all must pass before publishing)
 
 1. **Zip:** `unzip -l deliverables/affiliate-theme.zip` shows `affiliate-theme/style.css` one level down and no `CLAUDE.md`. The file list equals `git ls-tree -r --name-only HEAD:wp-content/themes/affiliate-theme` minus CLAUDE.md, and `php -l` passes on every PHP file extracted to `.tmp/`.
 2. **Screens:** open every PNG, including the `gr-*` crops and a 150-dpi render of the PDF page holding the GetResponse click path (page 8). Check that no character of the API key shows. In the WordPress shots, check for no real list token, list name, affiliate URL or site name. (The GetResponse list-token shot shows the real token on purpose: a token is not a credential without the key.) Also check that no modal or admin notice covers a marked control.
-3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong. Add a row whenever the guide quotes a new string, and remove a row when the guide stops quoting it. `A static page` is not in this list: core wraps "static page" in a link, so check it against the Reading screenshot instead. GetResponse's labels (`Tools`, `Connect`, `Integrations and API`, `API`, `Generate API key`, `Generate`, `Copy`, `List token:`, `List name`, `List ID`) can't be grepped, so check them against the supplied shots. GetResponse now says "Integrations and API". The theme's own settings screen still says "Integrations & API", and the guide follows GetResponse.
+3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong. Add a row whenever the guide quotes a new string, and remove a row when the guide stops quoting it. `A static page` is not in this list: core wraps "static page" in a link, so check it against the Reading screenshot instead. GetResponse's labels (`Tools`, `Connect`, `Integrations and API`, `API`, `Generate API key`, `Generate`, `Copy`, `Contacts`, `Lists`, `Settings`, `List token:`, `List name`, `List ID`) can't be grepped, so check them against the supplied shots. GetResponse now says "Integrations and API", and since theme 1.2.6 the theme's settings screen and its rejected-key message do too.
 
    ```bash
    T=/home/tevis/wp-dfy/wp-content/themes/affiliate-theme; W=/home/tevis/wp-dfy
@@ -119,4 +119,5 @@ Members download them through `/wp-json/amc/v1/download?file=SETUP-GUIDE.pdf` an
 - **A Site Editor save shadows the theme's template files.** If a template or part looks wrong in a shot, check `wp post list --post_type=wp_template_part` for an override.
 - **Chrome embeds the variable fonts as Type 3.** Poppler prints "Bad bounding box in Type 3 glyph" warnings. They're harmless, and the text renders and extracts correctly.
 - **The theme's `screenshot.png` (1200×900) arrived in wp-dfy commit `63c1940`.** Its card on the Themes screen (shot 03) shows the landing page. An older zip without it shows a blank checkerboard.
+- **Page 7 (Step 5) has no slack.** Its last item, "Click Save Changes.", ends at the bottom margin. Anything that makes the page taller, even a line 0.75pt taller because it gained a `.ui` span, pushes that item onto page 8 and slices its red badge in two. After any Step 5 copy edit, check that `pdftotext -f 7 -l 7` still ends with "Click Save Changes."
 - **Selecting a Permalinks radio fills the Custom Structure box** (`wp-admin/js/common.js`), so Post name shows `/%postname%/` there. The guide quotes that.

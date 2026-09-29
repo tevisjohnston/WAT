@@ -147,8 +147,6 @@ ol.marks.start-3 { counter-reset: m 2; }
 ol.marks.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt 16pt; align-items: start; }
 ol.marks.cards > li { margin: 0; break-inside: avoid; }
 ol.marks.cards figure.shot { margin: 6pt 0 0 -26pt; }
-.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; align-items: start; break-inside: avoid; }
-.pair figure.shot { margin: 0; }
 
 ol.steps > li { margin-bottom: 6pt; }
 ol.steps > li::marker { font: 700 10pt var(--sans); color: var(--primary); }

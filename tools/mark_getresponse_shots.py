@@ -3,8 +3,9 @@
 
 The marks are the same boxes and badges that capture_setup_screens.py draws on the
 WordPress shots, rendered at 2x. Every crop and mark is in source-image pixels and
-was measured on the 1366x563 shots supplied on 2026-09-28; a replaced screenshot
-needs new numbers, so any other size stops the tool.
+was measured on the shots supplied on 2026-09-28 (1366x563, except the list menu
+shot at 1366x606); a replaced screenshot needs new numbers, so any other size stops
+the tool.
 
 Only the -REDACTED copy of the API key shot is read (see tools/redact_image.py).
 
@@ -24,6 +25,7 @@ WAT = Path(__file__).resolve().parent.parent
 SRC = WAT / "setup-guide-edits" / "setup-guide-screenshots-getresponse"
 OUT = WAT / ".tmp" / "setup-guide" / "screens"
 SIZE = (1366, 563)
+SIZES = {"gr-8-list-menu": (1366, 606)}
 
 # name: (source file, crop x,y,w,h, marks [(x,y,w,h, label[, pad])])
 SHOTS = {
@@ -39,7 +41,11 @@ SHOTS = {
                       (323, 120, 720, 323), [(433, 270, 500, 44, ""), (801, 341, 132, 44, "5")]),
     "gr-6-copy-key": ("Screenshot-API-key-Email-Marketing-Software-GetResponse-REDACTED.png",
                       (323, 70, 720, 300), [(853, 296, 80, 44, "6")]),
-    "gr-7-list-token": ("Screenshot-2-list-token-Marketing-Software-GetResponse.png",
+    "gr-7-lists": ("Screenshot-lists-Marketing-Software-GetResponse.png",
+                   (0, 0, 650, 430), [(212, 14, 86, 34, "1")]),
+    "gr-8-list-menu": ("Screenshot-lists-3-dots-settings-Marketing-Software-GetResponse.png",
+                       (1010, 108, 340, 330), [(1280, 380, 24, 28, ""), (1068, 181, 80, 34, "2")]),
+    "gr-9-list-token": ("Screenshot-2-list-token-Marketing-Software-GetResponse.png",
                         (413, 250, 540, 135), [(430, 354, 93, 15, "", 2)]),
 }
 
@@ -50,12 +56,14 @@ def main() -> int:
         browser = p.chromium.launch(channel="chrome", args=["--no-sandbox"])
         page = browser.new_page(viewport={"width": SIZE[0], "height": SIZE[1]}, device_scale_factor=2)
         for name, (src, (x, y, w, h), marks) in SHOTS.items():
+            want = SIZES.get(name, SIZE)
+            page.set_viewport_size({"width": want[0], "height": want[1]})
             data = base64.b64encode((SRC / src).read_bytes()).decode()
             page.set_content(f'<body style="margin:0"><img src="data:image/png;base64,{data}" style="display:block"></body>')
             page.wait_for_function("() => document.images[0].complete && document.images[0].naturalWidth > 0")
             size = tuple(page.evaluate("() => [document.images[0].naturalWidth, document.images[0].naturalHeight]"))
-            if size != SIZE:
-                print(f"ERROR: {src} is {size[0]}x{size[1]}, not {SIZE[0]}x{SIZE[1]}; re-measure its crop and marks",
+            if size != want:
+                print(f"ERROR: {src} is {size[0]}x{size[1]}, not {want[0]}x{want[1]}; re-measure its crop and marks",
                       file=sys.stderr)
                 return 1
             for mx, my, mw, mh, label, *pad in marks:
