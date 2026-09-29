@@ -4,14 +4,15 @@
 Logs in as user 1 with auth cookies minted by WP-CLI inside the container, so no
 password is needed; the session token is destroyed again on exit. Every value
 that would identify the dev install (list token, list name, affiliate URL, site
-name, page statuses) is replaced in the DOM before the shot and never saved.
+name, page statuses, the dev domain in example addresses) is replaced in the DOM
+before the shot and never saved.
 
 The Activate shot switches the dev site to twentytwentyfive and back. The theme's
 seeder is guarded by the affiliate-theme_pages_created flag, which this tool
 checks first, so switching back creates no pages.
 
 Usage:
-    .venv/bin/python tools/capture_setup_screens.py [--only 04-settings-getresponse ...]
+    .venv/bin/python tools/capture_setup_screens.py [--only 05-settings ...]
 """
 
 import argparse
@@ -29,6 +30,7 @@ WAT = Path(__file__).resolve().parent.parent
 OUT = WAT / ".tmp" / "setup-guide" / "screens"
 
 SITE_NAME = "My Site"
+SITE_URL = "https://yoursite.com"
 SAMPLE_TOKEN = "7qhMJ"
 SAMPLE_LIST = "My List"
 SAMPLE_URL = "https://example.com/your-affiliate-link"
@@ -223,6 +225,26 @@ def shot_activate(page: Page, ids: dict) -> None:
     shoot(page, "03-activate-theme", region(page, [card, ".theme.active"], pad=24))
 
 
+def shot_permalinks(page: Page, ids: dict) -> None:
+    open_admin(page, "/wp-admin/options-permalink.php")
+    page.check("#permalink-input-post-name")
+    # The structure examples and the Optional section's help text print the
+    # dev site's own address.
+    page.evaluate(
+        """([base, url]) => {
+          const walker = document.createTreeWalker(document.querySelector('.wrap'), NodeFilter.SHOW_TEXT);
+          while (walker.nextNode()) {
+            const n = walker.currentNode;
+            if (n.data.includes(base)) { n.data = n.data.split(base).join(url); }
+          }
+        }""",
+        [BASE, SITE_URL],
+    )
+    mark(page, "#permalink-input-post-name >> xpath=..", "1", pad=4)
+    mark(page, "#submit", "2")
+    shoot(page, "04-permalinks", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
+
+
 def shot_settings(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
     page.evaluate(
@@ -239,9 +261,8 @@ def shot_settings(page: Page, ids: dict) -> None:
     mark(page, "#affiliate-theme-check-list", "3")
     mark(page, "#affiliate-theme-gr-list", "4")
     mark(page, "#affiliate-theme-redirect-url", "5")
-    mark(page, "#affiliate-theme-success-message", "6")
-    mark(page, "#submit", "7")
-    shoot(page, "04-settings", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
+    mark(page, "#submit", "6")
+    shoot(page, "05-settings", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
 
 
 def _status_all_draft(page: Page) -> None:
@@ -259,7 +280,7 @@ def shot_landing_list(page: Page, ids: dict) -> None:
     h2 = "xpath=//h2[normalize-space()='Your landing pages']"
     ul = "xpath=//h2[normalize-space()='Your landing pages']/following-sibling::ul[1]"
     mark(page, f"{ul}/li[2]/a", "1", pad=4, side="right")
-    shoot(page, "05-landing-list", region(page, [h2, ul], pad=14, left=160, right=900))
+    shoot(page, "06-landing-list", region(page, [h2, ul], pad=14, left=160, right=900))
 
 
 def shot_editor(page: Page, ids: dict) -> None:
@@ -282,14 +303,14 @@ def shot_editor(page: Page, ids: dict) -> None:
         page.wait_for_timeout(400)
     mark(page, ".components-panel__body.is-opened:has(button:text-is('Form'))", "1", pad=2)
     mark(page, ".editor-post-publish-button__button", "2", pad=4)
-    shoot(page, "06-editor-publish", {"x": 0, "y": 0, "width": 1366, "height": 620})
+    shoot(page, "07-editor-publish", {"x": 0, "y": 0, "width": 1366, "height": 620})
 
 
 def shot_reading(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-reading.php")
     page.check("input[name='show_on_front'][value='page']")
     # Only published pages are listed. The dev site's published landing page is
-    # Centered; relabel it so the example matches the Split page edited in shot 06.
+    # Centered; relabel it so the example matches the Split page edited in shot 07.
     page.evaluate(
         """() => {
           const s = document.querySelector('#page_on_front');
@@ -301,7 +322,7 @@ def shot_reading(page: Page, ids: dict) -> None:
     page.evaluate("() => { const c = document.querySelector('#blog_public'); if (c) { c.checked = false; } }")
     mark(page, "#page_on_front", "2")
     mark(page, "#submit", "3")
-    shoot(page, "07-reading", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
+    shoot(page, "08-reading", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
 
 
 def shot_legal_list(page: Page, ids: dict) -> None:
@@ -309,7 +330,7 @@ def shot_legal_list(page: Page, ids: dict) -> None:
     _status_all_draft(page)
     ul = "xpath=//h2[normalize-space()='Your legal pages']/following-sibling::ul[1]"
     mark(page, f"{ul}/li[1]/a", "1", pad=4, side="right")
-    shoot(page, "08-legal-list", region(page, [ul], pad=16, left=160, right=620))
+    shoot(page, "09-legal-list", region(page, [ul], pad=16, left=160, right=620))
 
 
 def shot_legal_editor(page: Page, ids: dict) -> None:
@@ -338,7 +359,7 @@ def shot_legal_editor(page: Page, ids: dict) -> None:
     page.wait_for_timeout(300)
     # Below the toolbar: the dev page is published, so its button reads Save,
     # where a buyer's draft reads Publish.
-    shoot(page, "09-legal-editor", {"x": 0, "y": 100, "width": 1366, "height": 560})
+    shoot(page, "10-legal-editor", {"x": 0, "y": 100, "width": 1366, "height": 560})
 
 
 def shot_privacy(page: Page, ids: dict) -> None:
@@ -358,7 +379,7 @@ def shot_privacy(page: Page, ids: dict) -> None:
     mark(page, theirs % selected, "✓ WordPress’s own draft — skip", pad=1, side="right")
     mark(page, theirs % ids["privacy"], "1  Choose this one", pad=1, side="right")
     mark(page, "#set-page", "2")
-    shoot(page, "10-privacy", region(page, ["#page_for_privacy_policy", "#set-page",
+    shoot(page, "11-privacy", region(page, ["#page_for_privacy_policy", "#set-page",
                                             "xpath=//th[contains(., 'Change your Privacy Policy page')]"],
                                      pad=28, left=340, right=1366))
 
@@ -367,13 +388,14 @@ SHOTS = {
     "01-add-new-theme": ("inactive", shot_add_new),
     "02-upload-theme": ("inactive", shot_upload),
     "03-activate-theme": ("inactive", shot_activate),
-    "04-settings": ("active", shot_settings),
-    "05-landing-list": ("active", shot_landing_list),
-    "06-editor-publish": ("active", shot_editor),
-    "07-reading": ("active", shot_reading),
-    "08-legal-list": ("active", shot_legal_list),
-    "09-legal-editor": ("active", shot_legal_editor),
-    "10-privacy": ("active", shot_privacy),
+    "04-permalinks": ("active", shot_permalinks),
+    "05-settings": ("active", shot_settings),
+    "06-landing-list": ("active", shot_landing_list),
+    "07-editor-publish": ("active", shot_editor),
+    "08-reading": ("active", shot_reading),
+    "09-legal-list": ("active", shot_legal_list),
+    "10-legal-editor": ("active", shot_legal_editor),
+    "11-privacy": ("active", shot_privacy),
 }
 
 

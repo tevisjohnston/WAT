@@ -2,9 +2,9 @@
 """Render SETUP-GUIDE.pdf from tools/templates/setup_guide.{html,css}.
 
 Inputs:
-  - .tmp/setup-guide/screens/*.png        from tools/capture_setup_screens.py
-  - GetResponse-Screenshots-BUYER-SETUP-GUIDE/*.png  supplied by hand; the API key
-    shot is the -REDACTED copy made with tools/redact_image.py
+  - .tmp/setup-guide/screens/[0-9]*.png   from tools/capture_setup_screens.py
+  - .tmp/setup-guide/screens/gr-*.png     from tools/mark_getresponse_shots.py, which
+    crops and marks the GetResponse screenshots supplied by hand
   - the wp-dfy theme's fonts and style.css Version
 
 Every <img> must exist. The GetResponse screenshots may be missing only with
@@ -26,7 +26,6 @@ WAT = Path(__file__).resolve().parent.parent
 THEME = Path("/home/tevis/wp-dfy/wp-content/themes/affiliate-theme")
 TEMPLATES = WAT / "tools" / "templates"
 SCREENS = WAT / ".tmp" / "setup-guide" / "screens"
-GR = WAT / "GetResponse-Screenshots-BUYER-SETUP-GUIDE"
 RENDERED = WAT / ".tmp" / "setup-guide" / "guide.html"
 
 
@@ -43,7 +42,6 @@ def render_html(draft: bool) -> tuple[str, list[str]]:
     html = html.replace("{{CSS}}", css)
     html = html.replace("{{FONTS}}", (THEME / "assets" / "fonts").as_uri())
     html = html.replace("{{SCREENS}}", SCREENS.as_uri())
-    html = html.replace("{{GR}}", GR.as_uri())
     html = html.replace("{{VERSION}}", theme_version())
     html = html.replace("{{DRAFT}}", '<div class="draft-mark">DRAFT</div>' if draft else "")
 
@@ -76,7 +74,7 @@ def main() -> int:
 
     html, missing = render_html(args.draft)
     if missing:
-        print("ERROR: missing images (run capture_setup_screens.py, or add the GetResponse shots):",
+        print("ERROR: missing images (run capture_setup_screens.py and mark_getresponse_shots.py):",
               *missing, sep="\n  ", file=sys.stderr)
         return 1
 

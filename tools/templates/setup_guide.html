@@ -12,7 +12,7 @@
 <section class="cover">
   <div class="kicker">Affiliate Market Connect &middot; Done-for-you website</div>
   <h1>Affiliate Theme<br>Setup Guide</h1>
-  <p class="lede">Install the theme, connect your GetResponse list and your affiliate link, then publish your landing page and legal pages. Eight steps, all inside your WordPress dashboard.</p>
+  <p class="lede">Install the theme, connect your GetResponse list and your affiliate link, then publish your landing page and legal pages. Nine steps, all inside your WordPress dashboard.</p>
 
   <div class="funnel">
     <div class="funnel-label">What your site does when you finish</div>
@@ -41,18 +41,19 @@
     <li><strong>The theme file, <code>affiliate-theme.zip</code></strong>, from the <span class="path">Domain + Web Hosting</span> step of your members area.</li>
   </ul>
 
-  <h3>The eight steps at a glance</h3>
+  <h3>The nine steps at a glance</h3>
   <table>
     <thead><tr><th></th><th>Step</th><th>Where in WordPress</th></tr></thead>
     <tbody>
       <tr><td class="n">1</td><td>Download the theme</td><td>Your members area</td></tr>
       <tr><td class="n">2</td><td>Upload and install it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes <span class="sep">&rsaquo;</span> Add Theme</span></td></tr>
       <tr><td class="n">3</td><td>Activate it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span></td></tr>
-      <tr><td class="n">4</td><td>Connect GetResponse and your affiliate link</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span></td></tr>
-      <tr><td class="n">5</td><td>Edit and publish your landing page</td><td>The block editor</td></tr>
-      <tr><td class="n">6</td><td>Make the landing page your home page</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Reading</span></td></tr>
-      <tr><td class="n">7</td><td>Fill in and publish your legal pages</td><td>The block editor</td></tr>
-      <tr><td class="n">8</td><td>Point WordPress at your Privacy Policy</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Privacy</span></td></tr>
+      <tr><td class="n">4</td><td>Set your permalinks</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Permalinks</span></td></tr>
+      <tr><td class="n">5</td><td>Connect GetResponse and your affiliate link</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span></td></tr>
+      <tr><td class="n">6</td><td>Edit and publish your landing page</td><td>The block editor</td></tr>
+      <tr><td class="n">7</td><td>Make the landing page your home page</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Reading</span></td></tr>
+      <tr><td class="n">8</td><td>Fill in and publish your legal pages</td><td>The block editor</td></tr>
+      <tr><td class="n">9</td><td>Point WordPress at your Privacy Policy</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Privacy</span></td></tr>
     </tbody>
   </table>
 
@@ -109,47 +110,72 @@
       <li><strong>Three landing pages</strong>, the same offer in three layouts: <em>Landing Page &mdash; Centered</em>, <em>Landing Page &mdash; Split</em> and <em>Landing Page &mdash; Long Form</em>. You'll use one.</li>
       <li><strong>Four legal pages</strong>: <em>Privacy Policy</em>, <em>Terms of Service</em>, <em>Earnings Disclaimer</em> and <em>Affiliate Disclosure</em>.</li>
     </ul>
-    <p>It also adds a new screen under <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, which is where the next step happens.</p>
+    <p>It also adds a new screen under <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, which is where Step 5 happens.</p>
   </div>
 </section>
 
 <!-- ============================== STEP 4 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 4</span>
-  <h2>Connect GetResponse and your affiliate link</h2>
-  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b>.</p>
-  <p class="intro">This one screen wires up your whole funnel. Fill it in from top to bottom. The numbers match the screenshot.</p>
-  <figure class="shot w88"><img src="{{SCREENS}}/04-settings.png" alt="Affiliate Theme Settings with the seven fields numbered"></figure>
-
+  <h2>Set your permalinks</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Permalinks</b>.</p>
+  <p class="intro">Permalinks are your pages' web addresses. <span class="ui">Post name</span> gives each page a short, readable one, such as <b>yoursite.com/privacy/</b>. Set it now, before you publish anything, so no address changes after you share it.</p>
   <ol class="marks">
-    <li><strong>GetResponse API key.</strong> In GetResponse, go to <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>, generate a key and copy it. Paste it here. After you save, the field shows only dots and the key is never displayed again. To change it, type a new key over the dots. <em>A key that goes unused for 90 days stops working</em>, so make a new one if the funnel sits idle that long.</li>
-    <li><strong>GetResponse list token.</strong> This is a short code that identifies your list, such as <code>7qhMJ</code>. It is not the list's name. In GetResponse, open your list's settings. The token is under the box labelled <span class="ui">List name</span>.</li>
-    <li><strong>Check list.</strong> Click it to test the key and token together. The note below the list changes to <span class="ui">GetResponse accepted this list.</span></li>
-    <li><strong>GetResponse list.</strong> This shows your list's name with its token after a successful check. When this list and the token field disagree, the list shown here is the one that gets saved.</li>
-    <li><strong>Affiliate redirect URL.</strong> Paste your full affiliate link, starting with <code>https://</code>. Each new subscriber's browser is sent here. The link never appears in your page's code, so nobody can copy it without subscribing first.</li>
-    <li><strong>Success message.</strong> This shows only if you leave the affiliate link empty, so you can usually skip it.</li>
-    <li>Click <span class="ui">Save Changes</span>.</li>
+    <li>Under <span class="ui">Permalink structure</span>, choose <span class="ui">Post name</span>. The <span class="ui">Custom Structure</span> box below it changes to <code>/%postname%/</code>.</li>
+    <li>Click <span class="ui">Save Changes</span> at the bottom of the screen.</li>
   </ol>
-
-  <h3>Where to find these in GetResponse</h3>
-  <figure class="shot"><img data-gr src="{{GR}}/Screenshot-API-key-Email-Marketing-Software-GetResponse-REDACTED.png" alt="GetResponse: Integrations and API, API key"><figcaption>Your API key: <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>.</figcaption></figure>
-  <figure class="shot"><img data-gr src="{{GR}}/Screenshot-list-token-Marketing-Software-GetResponse.png" alt="GetResponse: list settings, list token under List name"><figcaption>Your list token: in the list's settings, under <span class="ui">List name</span>.</figcaption></figure>
-
-  <div class="box tip">
-    <h4>Your API key is safe here</h4>
-    <p>The key stays on your server. It is never sent to visitors' browsers and never shown on your pages.</p>
-  </div>
+  <figure class="shot w88"><img src="{{SCREENS}}/04-permalinks.png" alt="Permalink Settings with Post name and Save Changes marked"></figure>
 </section>
 
 <!-- ============================== STEP 5 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 5</span>
+  <h2>Connect GetResponse and your affiliate link</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b>.</p>
+  <p class="intro">This one screen wires up your whole funnel. Fill it in from top to bottom. The numbers match the screenshot.</p>
+  <figure class="shot w80"><img src="{{SCREENS}}/05-settings.png" alt="Affiliate Theme Settings with its five fields and Save Changes numbered"></figure>
+
+  <ol class="marks">
+    <li><strong>GetResponse API key.</strong> In GetResponse, go to <span class="path">Tools <span class="sep">&rsaquo;</span> Integrations and API <span class="sep">&rsaquo;</span> API</span>, generate a key and copy it (pictured below). Paste it here. After you save, the field shows only dots and the key is never displayed again. It stays on your server and is never sent to visitors' browsers or shown on your pages. To change it, type a new key over the dots. <em>A key that goes unused for 90 days stops working</em>, so make a new one if the funnel sits idle that long.</li>
+    <li><strong>GetResponse list token.</strong> This is a short code that identifies your list, such as <code>7qhMJ</code>. It is not the list's name. In GetResponse, open your list's settings. The token is under the box labelled <span class="ui">List name</span> (pictured below).</li>
+    <li><strong>Check list.</strong> Click it to test the key and token together. The note below the list changes to <span class="ui">GetResponse accepted this list.</span></li>
+    <li><strong>GetResponse list.</strong> This shows your list's name with its token after a successful check. It only displays the list. The token field is what gets saved, so if you change the token, click <span class="ui">Check list</span> again before you save.</li>
+    <li><strong>Affiliate redirect URL.</strong> Paste your full affiliate link, starting with <code>https://</code>. Each new subscriber's browser is sent here. The link never appears in your page's code, so nobody can copy it without subscribing first.</li>
+    <li>Click <span class="ui">Save Changes</span>.</li>
+  </ol>
+
+  <h3>Get your API key in GetResponse</h3>
+  <ol class="marks cards">
+    <li>Click <span class="ui">Tools</span> in the top bar.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-1-tools.png" alt="GetResponse top bar with Tools marked"></figure></li>
+    <li>Under <span class="ui">Connect</span>, click <span class="ui">Integrations and API</span>.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-2-integrations.png" alt="The Tools menu with Integrations and API marked"></figure></li>
+    <li>Click the <span class="ui">API</span> tab.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-3-api-tab.png" alt="The Integrations and API tabs with API marked"></figure></li>
+    <li>Click <span class="ui">Generate API key</span>.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-4-generate.png" alt="The API tab with Generate API key marked"></figure></li>
+    <li>Type a name you'll recognize, such as your site's name. Click <span class="ui">Generate</span>.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-5-name-key.png" alt="The Generate API key box with the name field and Generate marked"></figure></li>
+    <li>Click <span class="ui">Copy</span> and paste the key into <span class="ui">GetResponse API key</span>. GetResponse shows each key only once.
+      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-6-copy-key.png" alt="The Copy API Key box with Copy marked; the key is hidden"></figure></li>
+  </ol>
+
+  <h3>Find your list token</h3>
+  <div class="pair">
+    <p>In GetResponse, open your list's settings. The token is the short code after <span class="ui">List token:</span>, under the <span class="ui">List name</span> box. Copy only the token, not the <span class="ui">List ID</span> next to it.</p>
+    <figure class="shot"><img data-gr src="{{SCREENS}}/gr-7-list-token.png" alt="GetResponse list settings with the list token marked under List name"></figure>
+  </div>
+</section>
+
+<!-- ============================== STEP 6 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 6</span>
   <h2>Edit and publish your landing page</h2>
   <p class="intro">Scroll down the same <span class="path">Affiliate Theme Settings</span> screen to <span class="ui">Your landing pages</span>. Pick the layout you like and click its title to open it in the editor.</p>
-  <figure class="shot half"><img src="{{SCREENS}}/05-landing-list.png" alt="Your landing pages list, with Landing Page — Split marked"></figure>
+  <figure class="shot half"><img src="{{SCREENS}}/06-landing-list.png" alt="Your landing pages list, with Landing Page — Split marked"></figure>
   <div class="box">
     <h4>Publish only the landing page you use</h4>
-    <p>Every published page is added to your site's menu automatically, so leave the other two layouts as drafts. Keep the two short notes under the form (&ldquo;Results vary&hellip;&rdquo; and the commission note). They are your on-page earnings disclaimer and affiliate disclosure.</p>
+    <p>Every published page is added to your site's menu automatically, so leave the other two layouts as drafts.</p>
   </div>
 
   <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form is the one exception. You don't edit it on the page itself:</p>
@@ -157,37 +183,37 @@
     <li>Click the form. The <span class="ui">Form</span> panel on the right holds its <span class="ui">Button text</span>, the <span class="ui">Email field label</span>, the <span class="ui">Ask for a first name</span> switch and the <span class="ui">Name field label</span>. If the right-hand panel is closed, click the square <span class="ui">Settings</span> icon next to <span class="ui">Publish</span>.</li>
     <li>When the page reads the way you want, click <span class="ui">Publish</span>. WordPress asks <em>Are you ready to publish?</em>, so click <span class="ui">Publish</span> once more.</li>
   </ol>
-  <figure class="shot w88"><img src="{{SCREENS}}/06-editor-publish.png" alt="The block editor with the Form panel and the Publish button marked"></figure>
+  <figure class="shot w88"><img src="{{SCREENS}}/07-editor-publish.png" alt="The block editor with the Form panel and the Publish button marked"></figure>
 
-</section>
-
-<!-- ============================== STEP 6 ============================== -->
-<section class="section">
-  <span class="eyebrow">Step 6</span>
-  <h2>Make the landing page your home page</h2>
-  <p class="where">Go to <b>Settings &rsaquo; Reading</b>.</p>
-  <ol class="marks">
-    <li>Under <span class="ui">Your homepage displays</span>, choose <span class="ui">A static page (select below)</span>.</li>
-    <li>In the <span class="ui">Homepage</span> list, choose the landing page you published in Step 5.</li>
-    <li>Click <span class="ui">Save Changes</span>.</li>
-  </ol>
-  <figure class="shot"><img src="{{SCREENS}}/07-reading.png" alt="Reading Settings with A static page, the Homepage list and Save Changes marked"></figure>
-  <p>Now visit your site's address. Your landing page is the first thing people see.</p>
-  <div class="box tip">
-    <h4>Is your landing page missing from the list?</h4>
-    <p>This list shows only published pages. Go back to Step 5 and click <span class="ui">Publish</span>.</p>
-  </div>
 </section>
 
 <!-- ============================== STEP 7 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 7</span>
+  <h2>Make the landing page your home page</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Reading</b>.</p>
+  <ol class="marks">
+    <li>Under <span class="ui">Your homepage displays</span>, choose <span class="ui">A static page (select below)</span>.</li>
+    <li>In the <span class="ui">Homepage</span> list, choose the landing page you published in Step 6.</li>
+    <li>Click <span class="ui">Save Changes</span>.</li>
+  </ol>
+  <figure class="shot"><img src="{{SCREENS}}/08-reading.png" alt="Reading Settings with A static page, the Homepage list and Save Changes marked"></figure>
+  <p>Now visit your site's address. Your landing page is the first thing people see.</p>
+  <div class="box tip">
+    <h4>Is your landing page missing from the list?</h4>
+    <p>This list shows only published pages. Go back to Step 6 and click <span class="ui">Publish</span>.</p>
+  </div>
+</section>
+
+<!-- ============================== STEP 8 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 8</span>
   <h2>Fill in and publish your legal pages</h2>
   <p class="intro">Go back to <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span> and scroll to <span class="ui">Your legal pages</span>. Click each page's title to open it in the editor.</p>
-  <figure class="shot half"><img src="{{SCREENS}}/08-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
+  <figure class="shot half"><img src="{{SCREENS}}/09-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
 
   <p>Each page is written in plain English and uses square-bracket placeholders wherever your own details belong. Replace <strong>every</strong> one, on all four pages. Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
-  <figure class="shot"><img src="{{SCREENS}}/09-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>Placeholders are highlighted here to show them. In your editor they look like ordinary text.</figcaption></figure>
+  <figure class="shot"><img src="{{SCREENS}}/10-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>Placeholders are highlighted here to show them. In your editor they look like ordinary text.</figcaption></figure>
 
   <table>
     <thead><tr><th>Placeholder</th><th>Replace it with</th></tr></thead>
@@ -210,9 +236,9 @@
   <p><strong>Keep each page true to your business.</strong> These pages are a starting template, not legal advice.</p>
 </section>
 
-<!-- ============================== STEP 8 ============================== -->
+<!-- ============================== STEP 9 ============================== -->
 <section class="section">
-  <span class="eyebrow">Step 8</span>
+  <span class="eyebrow">Step 9</span>
   <h2>Point WordPress at your Privacy Policy</h2>
   <p class="where">Go to <b>Settings &rsaquo; Privacy</b>.</p>
   <p class="intro">WordPress creates its own draft privacy page when it's installed, so your page list now has two pages called <em>Privacy Policy</em>. Tell WordPress to use the theme's page, the one you just filled in and published.</p>
@@ -220,7 +246,7 @@
     <li>Open the <span class="ui">Change your Privacy Policy page</span> list. <em>Privacy Policy</em> appears twice. The one with the checkmark is WordPress's own unpublished draft, so choose the <strong>other</strong> <em>Privacy Policy</em>.</li>
     <li>Click <span class="ui">Use This Page</span>.</li>
   </ol>
-  <figure class="shot"><img src="{{SCREENS}}/10-privacy.png" alt="The Privacy Policy page list with the theme's page and Use This Page marked"><figcaption>The list is drawn open here so you can see both entries. On your screen it's a dropdown.</figcaption></figure>
+  <figure class="shot"><img src="{{SCREENS}}/11-privacy.png" alt="The Privacy Policy page list with the theme's page and Use This Page marked"><figcaption>The list is drawn open here so you can see both entries. On your screen it's a dropdown.</figcaption></figure>
   <div class="box tip">
     <h4>Check you picked the right one</h4>
     <p>After you click <span class="ui">Use This Page</span>, the top of the <span class="path">Privacy</span> screen reads <em>Edit or view your Privacy Policy page content.</em> Click <span class="ui">view</span>. Your page opens with the line <em>Effective date:</em> and the date you entered. If the line says <span class="ui">preview</span> instead of <span class="ui">view</span>, you picked WordPress's unpublished draft. Choose the other entry and click <span class="ui">Use This Page</span> again.</p>
@@ -262,11 +288,11 @@
   </div>
   <div class="qa">
     <h4>My landing page says <span class="msg">Opt-in form is not ready.</span></h4>
-    <p>Step 4 isn't finished. Add your API key and list token, then save. Only administrators see this note. Until then, visitors see no form at all.</p>
+    <p>Step 5 isn't finished. Add your API key and list token, then save. Only administrators see this note. Until then, visitors see no form at all.</p>
   </div>
   <div class="qa">
     <h4>Saving shows <span class="msg">That does not look like a GetResponse API key.</span></h4>
-    <p>The text you pasted isn't a key. A key is at least 16 letters and numbers with no spaces. Copy it again from <span class="path">Integrations &amp; API <span class="sep">&rsaquo;</span> API</span>. Your previous key, if you had one, is kept.</p>
+    <p>The text you pasted isn't a key. A key is at least 16 letters and numbers with no spaces. GetResponse shows each key only once, so if you no longer have it, generate a new one in <span class="path">Tools <span class="sep">&rsaquo;</span> Integrations and API <span class="sep">&rsaquo;</span> API</span>. Your previous key, if you had one, is kept.</p>
   </div>
   <div class="qa">
     <h4>Check list says <span class="msg">GetResponse rejected the API key.</span></h4>
@@ -274,7 +300,7 @@
   </div>
   <div class="qa">
     <h4>Check list says <span class="msg">GetResponse did not accept that list token.</span></h4>
-    <p>You probably pasted the list's name. The token is the short code, such as <code>7qhMJ</code>, under the <span class="ui">List name</span> box in the list's settings.</p>
+    <p>You probably pasted the list's name or the List ID. The token is the short code, such as <code>7qhMJ</code>, under the <span class="ui">List name</span> box, next to the <span class="ui">List ID</span> in the list's settings.</p>
   </div>
   <div class="qa">
     <h4>Saving shows <span class="msg">The affiliate redirect URL is not a usable address.</span></h4>

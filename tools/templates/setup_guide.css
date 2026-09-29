@@ -129,6 +129,7 @@ figure.shot img { display: block; width: 100%; height: auto; border: 0.8pt solid
 figure.shot.narrow img { width: 72%; }
 figure.shot.half img { width: 55%; }
 figure.shot.w88 img { width: 88%; margin: 0 auto; }
+figure.shot.w80 img { width: 80%; margin: 0 auto; }
 figcaption { font-size: 8pt; color: var(--muted); margin-top: 5pt; }
 .missing { border: 1.5pt dashed var(--mark); color: var(--mark); border-radius: 5pt; padding: 26pt 14pt;
   text-align: center; font: 700 10pt var(--sans); background: #fff5f7; }
@@ -141,6 +142,13 @@ ol.marks > li::before {
   background: var(--mark); color: #fff; font: 700 9pt/17pt var(--sans); text-align: center;
 }
 ol.marks.start-3 { counter-reset: m 2; }
+
+/* A click path through another site: one cropped shot per step, two steps per row. */
+ol.marks.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt 16pt; align-items: start; }
+ol.marks.cards > li { margin: 0; break-inside: avoid; }
+ol.marks.cards figure.shot { margin: 6pt 0 0 -26pt; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; align-items: start; break-inside: avoid; }
+.pair figure.shot { margin: 0; }
 
 ol.steps > li { margin-bottom: 6pt; }
 ol.steps > li::marker { font: 700 10pt var(--sans); color: var(--primary); }
