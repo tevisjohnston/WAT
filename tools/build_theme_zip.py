@@ -45,6 +45,13 @@ def main() -> int:
         return 1
 
     archive = git("archive", "--format=zip", f"HEAD:{THEME_PATH}", binary=True)
+    # git archive writes MS-DOS entries with no Unix mode, which unzip on a Mac
+    # turns into 000 folders and 600 files. Take each file's mode from git.
+    executable = {
+        line.split("\t", 1)[1]
+        for line in git("ls-tree", "-r", f"HEAD:{THEME_PATH}").splitlines()
+        if line.startswith("100755 ")
+    }
 
     out.parent.mkdir(parents=True, exist_ok=True)
     names = []
@@ -56,7 +63,13 @@ def main() -> int:
                 continue
             data = b"" if info.is_dir() else src.read(info)
             new = zipfile.ZipInfo(PREFIX + info.filename, date_time=info.date_time)
-            new.external_attr = info.external_attr
+            new.create_system = 3
+            if info.is_dir():
+                new.external_attr = (0o40755 << 16) | 0x10
+            elif info.filename in executable:
+                new.external_attr = 0o100755 << 16
+            else:
+                new.external_attr = 0o100644 << 16
             new.compress_type = zipfile.ZIP_STORED if info.is_dir() else zipfile.ZIP_DEFLATED
             dst.writestr(new, data)
             if not info.is_dir():

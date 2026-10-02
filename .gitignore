@@ -11,3 +11,6 @@ Screenshot-API-key-*GetResponse.png
 
 # Python bytecode (tools/mark_getresponse_shots.py imports capture_setup_screens)
 __pycache__/
+
+# Temporary files (scraped data, intermediate exports)
+.tmp
