@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Agent Instructions
 
 You're working inside the **WAT framework** (Workflows, Agents, Tools). This architecture separates concerns so that probabilistic AI handles reasoning while deterministic code handles execution. That separation is what makes this system reliable.
@@ -63,6 +67,42 @@ tools/          # Python scripts for deterministic execution
 workflows/      # Markdown SOPs defining what to do and how
 .env            # API keys and environment variables (NEVER store secrets anywhere else)
 ```
+
+**Also in this repo:**
+- `tools/templates/` — HTML/CSS that `build_setup_guide.py` fills and prints to PDF (guide copy is edited here, not in Python)
+- `setup-guide-edits/` — hand-supplied GetResponse screenshots the guide uses, plus `setup-guide-edits.md`, an edit list from a past revision round
+- `email-automation-setup-guide/` — GetResponse screenshots only; no workflow or tool uses them yet
+
+## What exists today
+
+One workflow: `workflows/build_setup_guide.md`. It builds the two buyer deliverables for the `wp-dfy` affiliate theme — `deliverables/affiliate-theme.zip` and `deliverables/SETUP-GUIDE.pdf` — and publishes them to `affiliatemarketconnect.com`'s secure downloads. Read it before touching any tool; its rebuild triggers, verification steps and "Known quirks" are not repeated here.
+
+The tools reach outside this repo, so they have side effects elsewhere:
+- `build_theme_zip.py` reads `git archive HEAD` of `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme` and refuses a dirty theme dir — commit in `wp-dfy/` first.
+- `capture_setup_screens.py` drives the live `wp-dfy-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-dfy's `.htaccess`. Check `git -C /home/tevis/wp-dfy status` afterwards.
+- `build_setup_guide.py` pulls the theme's `style.css` `Version` and its `assets/fonts/` straight from the wp-dfy checkout.
+
+Pipeline data flow: `capture_setup_screens.py` → `.tmp/setup-guide/screens/NN-*.png`; `mark_getresponse_shots.py` (imports `MARK_JS` from the capture tool, so the red boxes match) → `.tmp/setup-guide/screens/gr-*.png`; `build_setup_guide.py` fills `{{CSS}}/{{FONTS}}/{{SCREENS}}/{{VERSION}}/{{DRAFT}}` in the template and fails on any missing image or unfilled token.
+
+The GetResponse crops and marks in `mark_getresponse_shots.py` and the redaction boxes in the workflow are hard-coded pixel coordinates for specific supplied screenshots. A replaced screenshot needs its numbers re-measured, even at the same size. Never commit an unredacted `Screenshot-API-key-*GetResponse.png` (git-ignored); only the `-REDACTED` copy is used.
+
+## Commands
+
+All from `/home/tevis/WAT`. Every tool uses Playwright with the host's `/usr/bin/google-chrome` (`channel="chrome"`) — no `playwright install`.
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # one-time; redo (rm -rf .venv first) after a host Python upgrade
+.venv/bin/python tools/build_theme_zip.py
+.venv/bin/python tools/capture_setup_screens.py [--only 05-settings ...]   # re-capture single shots
+.venv/bin/python tools/mark_getresponse_shots.py
+.venv/bin/python tools/build_setup_guide.py [--draft]
+```
+
+There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screenshot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).
+
+## Commits
+
+Deliverables are committed alongside the tools that built them. Messages follow the existing style: `Added - <paths> && Modified - <paths> && Moved - <a> to <b> - <one-sentence summary, incl. theme version>`.
 
 ## Bottom Line
 
