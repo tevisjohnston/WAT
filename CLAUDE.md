@@ -69,18 +69,22 @@ workflows/      # Markdown SOPs defining what to do and how
 ```
 
 **Also in this repo:**
-- `tools/templates/` — HTML/CSS that `build_setup_guide.py` fills and prints to PDF (guide copy is edited here, not in Python)
+- `tools/templates/` — HTML/CSS that `build_setup_guide.py` and `build_lead_guide.py` fill and print to PDF (copy is edited here, not in Python)
 - `setup-guide-edits/` — hand-supplied GetResponse screenshots the guide uses, plus `setup-guide-edits.md`, an edit list from a past revision round
-- `email-automation-setup-guide/` — GetResponse screenshots only; no workflow or tool uses them yet
+- `email-automation-setup-guide/` — GetResponse screenshots of the automation-message upload path (shot 6 is the Upload from ZIP dialog). They set the per-email ZIP format the theme's email download follows; no tool uses them yet
 
 ## What exists today
 
-One workflow: `workflows/build_setup_guide.md`. It builds the two buyer deliverables for the `wp-dfy` affiliate theme — `deliverables/affiliate-theme.zip` and `deliverables/SETUP-GUIDE.pdf` — and publishes them to `affiliatemarketconnect.com`'s secure downloads. Read it before touching any tool; its rebuild triggers, verification steps and "Known quirks" are not repeated here.
+Two workflows. Read the relevant one before touching any tool; their rebuild triggers, verification steps and "Known quirks" are not repeated here.
+
+- `workflows/build_setup_guide.md` builds the two buyer deliverables for the `wp-dfy` affiliate theme — `deliverables/affiliate-theme.zip` and `deliverables/SETUP-GUIDE.pdf` — and publishes them to `affiliatemarketconnect.com`'s secure downloads.
+- `workflows/build_lead_guide.md` prints `guide.pdf`, the guide the theme's Long Form landing page promises, straight into the theme at `emails/landing-3/guide.pdf`. The theme ships it inside the first email of its landing-3 email download (the emails themselves are theme code: see **Email sequences** in the theme's CLAUDE.md). Commit it in `wp-dfy/`, then rebuild the zip with the first workflow.
 
 The tools reach outside this repo, so they have side effects elsewhere:
 - `build_theme_zip.py` reads `git archive HEAD` of `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme` and refuses a dirty theme dir — commit in `wp-dfy/` first.
 - `capture_setup_screens.py` drives the live `wp-dfy-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-dfy's `.htaccess`. Check `git -C /home/tevis/wp-dfy status` afterwards.
 - `build_setup_guide.py` pulls the theme's `style.css` `Version` and its `assets/fonts/` straight from the wp-dfy checkout.
+- `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and writes `emails/landing-3/guide.pdf` into the wp-dfy theme, leaving the theme dir dirty until you commit (`--no-copy` builds into `.tmp/lead-guide/` only).
 
 Pipeline data flow: `capture_setup_screens.py` → `.tmp/setup-guide/screens/NN-*.png`; `mark_getresponse_shots.py` (imports `MARK_JS` from the capture tool, so the red boxes match) → `.tmp/setup-guide/screens/gr-*.png`; `build_setup_guide.py` fills `{{CSS}}/{{FONTS}}/{{SCREENS}}/{{VERSION}}/{{DRAFT}}` in the template and fails on any missing image or unfilled token.
 
@@ -96,6 +100,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # one-time;
 .venv/bin/python tools/capture_setup_screens.py [--only 05-settings ...]   # re-capture single shots
 .venv/bin/python tools/mark_getresponse_shots.py
 .venv/bin/python tools/build_setup_guide.py [--draft]
+.venv/bin/python tools/build_lead_guide.py [--no-copy]                      # landing-3 guide.pdf into the wp-dfy theme
 ```
 
 There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screenshot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).

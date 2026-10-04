@@ -1,0 +1,173 @@
+/* The Lead-First Affiliate Guide (guide.pdf) — print stylesheet. Colors and fonts are the
+   Affiliate Theme's own (theme.json palette; Archivo + Newsreader variable woff2 from the theme),
+   as in setup_guide.css. The PDF goes to the buyer's subscribers, so it names no brand. */
+
+@font-face { font-family: "Archivo"; font-weight: 100 900; font-stretch: 62% 125%;
+  src: url("{{FONTS}}/Archivo/Archivo-VariableFont_wdth_wght.woff2") format("woff2"); }
+@font-face { font-family: "Newsreader"; font-weight: 200 800;
+  src: url("{{FONTS}}/Newsreader/Newsreader-VariableFont_opsz_wght.woff2") format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 200 800;
+  src: url("{{FONTS}}/Newsreader/Newsreader-Italic-VariableFont_opsz_wght.woff2") format("woff2"); }
+
+:root {
+  --base: #ffffff;
+  --surface: #f4f6fb;
+  --contrast: #111827;
+  --deep: #0b1220;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --muted: #5b6577;
+  --line: #e4e8f0;
+  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.75in 0.85in 0.8in;
+  @bottom-left {
+    content: "The Lead-First Affiliate Guide";
+    font: 500 8pt var(--sans); color: var(--muted); letter-spacing: 0.02em;
+  }
+  @bottom-right {
+    content: counter(page);
+    font: 600 8pt var(--sans); color: var(--muted);
+  }
+}
+@page cover { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  margin: 0; background: var(--base); color: var(--contrast);
+  font: 400 11pt/1.58 var(--serif);
+}
+
+h1, h2, h3, h4, .eyebrow, .chip, th, .kicker, .label { font-family: var(--sans); }
+h2, h3, h4 { break-after: avoid; line-height: 1.2; }
+h2 { font-size: 22pt; font-weight: 750; margin: 0 0 10pt; letter-spacing: -0.01em; }
+h3 { font-size: 13pt; font-weight: 700; margin: 18pt 0 6pt; }
+h4 { font-size: 11pt; font-weight: 700; margin: 12pt 0 4pt; }
+p { margin: 0 0 8pt; }
+ul, ol { margin: 0 0 10pt; padding-left: 18pt; }
+li { margin: 0 0 4pt; }
+.keep { break-inside: avoid; }
+strong { font-weight: 650; }
+
+/* ---------- Cover ---------- */
+.cover {
+  page: cover; break-after: page; height: 11in; width: 8.5in; position: relative;
+  background: var(--deep); color: #fff; padding: 1.2in 0.9in 0.8in; overflow: hidden;
+}
+.cover::before {
+  content: ""; position: absolute; right: -2.2in; top: -2.4in; width: 6.5in; height: 6.5in;
+  border-radius: 50%; background: radial-gradient(circle, rgba(37,99,235,.55), rgba(37,99,235,0) 70%);
+}
+.cover .kicker { position: relative; font-size: 9pt; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #93b4ff; margin-bottom: 18pt; }
+.cover h1 { position: relative; font-size: 48pt; line-height: 1.02; font-weight: 800;
+  letter-spacing: -0.02em; margin: 0 0 20pt; font-stretch: 92%; }
+.cover .lede { position: relative; font-size: 15pt; line-height: 1.5; color: #cbd3e1; max-width: 5.6in; }
+.cover .funnel { position: absolute; left: 0.9in; right: 0.9in; bottom: 2.1in; }
+.cover .funnel-label { font: 700 8pt var(--sans); letter-spacing: 0.18em; text-transform: uppercase;
+  color: #9aa3b5; margin-bottom: 10pt; }
+.cover .meta { position: absolute; left: 0.9in; right: 0.9in; bottom: 0.8in;
+  font: 500 8.5pt var(--sans); color: #9aa3b5;
+  border-top: 0.8pt solid rgba(255,255,255,.14); padding-top: 12pt; }
+
+/* A row of steps with arrows between them, on the cover and in the chapters. */
+.flow { display: flex; align-items: stretch; gap: 0; margin: 8pt 0 12pt; break-inside: avoid; }
+.flow .chip {
+  flex: 1; border-radius: 8pt; padding: 9pt 9pt 10pt; font-size: 9.5pt; font-weight: 600; line-height: 1.3;
+  background: var(--surface); border: 0.8pt solid var(--line); color: var(--contrast);
+}
+.flow .chip b { display: block; font-size: 7.5pt; color: var(--primary); font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3pt; }
+.flow .chip.end { background: #eaf1ff; border-color: #c9dafd; }
+.flow .chip.lost { background: #fff5f5; border-color: #f3d4d4; color: #8f1d1d; }
+.flow .chip.lost b { color: #b91c1c; }
+.flow .arrow { flex: 0 0 16pt; display: flex; align-items: center; justify-content: center;
+  color: var(--primary); font: 700 12pt var(--sans); }
+.cover .flow .chip { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); color: #fff; }
+.cover .flow .chip b { color: #93b4ff; }
+.cover .flow .arrow { color: #5d7bd6; }
+.flow-label { font: 700 8pt var(--sans); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 10pt 0 -2pt; }
+
+/* ---------- Sections ---------- */
+.section { break-before: page; }
+.eyebrow { display: inline-block; font-size: 8pt; font-weight: 750; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--primary); margin-bottom: 5pt; }
+.intro { font-size: 12.5pt; line-height: 1.5; color: #2b3445; margin-bottom: 12pt; }
+
+/* ---------- Boxes ---------- */
+.box { border: 0.8pt solid var(--line); background: var(--surface); border-radius: 7pt;
+  padding: 11pt 13pt 5pt; margin: 10pt 0 12pt; break-inside: avoid; }
+.box h4 { margin-top: 0; }
+.box.tip { border-left: 3pt solid var(--primary); }
+.box.action { background: var(--deep); color: #dfe5f1; border-color: var(--deep); }
+.box.action h4 { color: #fff; }
+.box.action h4::before { content: "Your action"; display: block; font: 750 7.5pt var(--sans);
+  letter-spacing: 0.18em; text-transform: uppercase; color: #93b4ff; margin-bottom: 4pt; }
+
+.checklist { list-style: none; padding: 0; }
+.checklist li { position: relative; padding-left: 20pt; margin-bottom: 6pt; }
+.checklist li::before { content: ""; position: absolute; left: 0; top: 3pt; width: 10pt; height: 10pt;
+  border: 1.2pt solid var(--primary); border-radius: 2.5pt; }
+
+ol.big { list-style: none; padding: 0; counter-reset: n; }
+ol.big > li { counter-increment: n; position: relative; padding-left: 26pt; margin-bottom: 7pt; }
+ol.big > li::before {
+  content: counter(n); position: absolute; left: 0; top: 0; width: 17pt; height: 17pt; border-radius: 50%;
+  background: var(--primary); color: #fff; font: 700 9pt/17pt var(--sans); text-align: center;
+}
+
+/* ---------- Tables ---------- */
+table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 10pt; break-inside: avoid; }
+th { text-align: left; font-size: 7.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; border-bottom: 1pt solid var(--contrast); padding: 5pt 6pt; }
+td { border-bottom: 0.6pt solid var(--line); padding: 6pt; vertical-align: top; }
+td.name { font: 700 10pt var(--sans); white-space: nowrap; }
+table.blank td { height: 22pt; }
+table.blank td:first-child { width: 34pt; font: 700 9pt var(--sans); color: var(--muted); }
+
+/* ---------- The page wireframe (chapter 2) ---------- */
+.layout { display: flex; gap: 18pt; align-items: flex-start; margin: 6pt 0 12pt; break-inside: avoid; }
+/* The badges sit in the wire's wide left padding: Chrome clips anything that crosses into
+   the page margin, and the wire starts at the margin's edge. */
+.wire { flex: 0 0 2.6in; border: 1pt solid #cfd5e1; border-radius: 8pt; padding: 12pt 12pt 10pt 30pt;
+  background: #fff; box-shadow: 0 1pt 5pt rgba(11,18,32,.08); }
+.wire > div { position: relative; min-height: 14pt; margin-bottom: 7pt; }
+.wire .n { position: absolute; left: -22pt; top: -1pt; width: 14pt; height: 14pt; border-radius: 50%;
+  background: var(--primary); color: #fff; font: 700 7.5pt/14pt var(--sans); text-align: center; }
+.wire .eye { width: 34%; height: 5pt; background: var(--primary); border-radius: 2pt; margin: 0 auto; }
+.wire .hl { height: 11pt; background: var(--contrast); border-radius: 2pt; }
+.wire .hl2 { height: 11pt; width: 78%; background: var(--contrast); border-radius: 2pt; margin: 3pt auto 0; }
+.wire .sub { height: 5pt; background: #b5bdcc; border-radius: 2pt; margin-top: 3pt; }
+.wire .sub.short { width: 70%; margin: 3pt auto 0; }
+.wire .field { height: 14pt; border: 0.8pt solid #b5bdcc; border-radius: 3pt; margin-top: 4pt; }
+.wire .btn { height: 15pt; background: var(--primary); border-radius: 3pt; margin-top: 4pt;
+  color: #fff; font: 700 6.5pt/15pt var(--sans); text-align: center; letter-spacing: 0.04em; }
+.wire .fine { height: 3.5pt; width: 60%; background: #d5dae4; border-radius: 2pt; margin: 2pt auto 0; }
+.wire .bul { height: 4.5pt; background: #b5bdcc; border-radius: 2pt; margin-top: 5pt; width: 88%; }
+.wire .bul::before { content: ""; position: absolute; }
+.wire .box2 { border-top: 0.8pt dashed #cfd5e1; padding-top: 6pt; }
+.layout ol { flex: 1; }
+
+.closing { margin-top: 18pt; font-size: 9.5pt; color: var(--muted); border-top: 1pt solid var(--contrast); padding-top: 9pt; }
+.closing p { margin-bottom: 6pt; }
+
+/* ---------- Email templates (chapter 3) ---------- */
+.email { border: 0.8pt solid var(--line); border-radius: 7pt; margin: 0 0 12pt; break-inside: avoid; overflow: hidden; }
+.email .head { display: flex; align-items: baseline; gap: 8pt; background: var(--surface);
+  border-bottom: 0.8pt solid var(--line); padding: 7pt 11pt; }
+.email .num { font: 800 15pt var(--sans); color: var(--primary); }
+.email .title { font: 750 12pt var(--sans); }
+.email .when { margin-left: auto; font: 600 8pt var(--sans); color: var(--muted); letter-spacing: 0.04em; }
+.email .body { padding: 8pt 11pt 4pt; }
+.email .job { margin-bottom: 5pt; }
+.email .label { font-size: 7.5pt; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.email .subjects { margin-bottom: 5pt; font-style: italic; }
+.email .tpl { font-size: 10pt; line-height: 1.5; background: #fbfcfe; border-left: 2.5pt solid var(--primary);
+  padding: 6pt 9pt 2pt; margin: 3pt 0 6pt; }
+.email .tpl p { margin-bottom: 4pt; }
