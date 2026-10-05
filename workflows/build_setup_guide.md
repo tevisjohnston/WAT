@@ -23,7 +23,7 @@ It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-websit
 |---|---|---|
 | Theme source | `/home/tevis/wp-dfy` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
 | Dev site | `wp-dfy-wordpress-1`, https://wp-dfy.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
-| GetResponse screenshots | `setup-guide-edits/setup-guide-screenshots-getresponse/`: nine shots of the two click paths. API key: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-REDACTED` Copy API Key box. List token: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All others are 1366×563 | Supplied by hand. The guide uses only the `-REDACTED` copy of the API key shot. Any unredacted `Screenshot-API-key-…GetResponse.png` is git-ignored and must never be committed. |
+| GetResponse screenshots | `setup-guides/affiliate-theme/screen-shots/getresponse/`: nine shots of the two click paths. API key: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-REDACTED` Copy API Key box. List token: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All others are 1366×563 | Supplied by hand. The guide uses only the `-REDACTED` copy of the API key shot. Any unredacted `Screenshot-API-key-…GetResponse.png` is git-ignored and must never be committed. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
 ## Tools, in order
@@ -40,7 +40,7 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
 3. **Redact the API key shot.** A hand-drawn scribble is not enough: the first supplied shot still showed the key's first 8 characters and GetResponse's masked `lb9…yl6` row. Paint over the whole key field and the masked row, then view the result before building:
 
    ```bash
-   G=setup-guide-edits/setup-guide-screenshots-getresponse; IN=$G/Screenshot-API-key-Email-Marketing-Software-GetResponse.png
+   G=setup-guides/affiliate-theme/screen-shots/getresponse; IN=$G/Screenshot-API-key-Email-Marketing-Software-GetResponse.png
    .venv/bin/python tools/redact_image.py "$IN" .tmp/setup-guide/gr/step1.png --fill '#ffffff' --box '436,299,414,38:••••••••••••••••••••••••••••••••'
    .venv/bin/python tools/redact_image.py .tmp/setup-guide/gr/step1.png "${IN%.png}-REDACTED.png" --box 60,369,112,22
    ```

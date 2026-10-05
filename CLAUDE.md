@@ -70,8 +70,8 @@ workflows/      # Markdown SOPs defining what to do and how
 
 **Also in this repo:**
 - `tools/templates/` — HTML/CSS that `build_setup_guide.py` and `build_lead_guide.py` fill and print to PDF (copy is edited here, not in Python)
-- `setup-guide-edits/` — hand-supplied GetResponse screenshots the guide uses, plus `setup-guide-edits.md`, an edit list from a past revision round
-- `email-automation-setup-guide/` — GetResponse screenshots of the automation-message upload path (shot 6 is the Upload from ZIP dialog). They set the per-email ZIP format the theme's email download follows; no tool uses them yet
+- `setup-guides/affiliate-theme/screen-shots/getresponse/` — the nine hand-supplied GetResponse screenshots the setup guide uses (`mark_getresponse_shots.py` reads them)
+- `setup-guides/getresponse-email-automation/screen-shots/` — GetResponse screenshots of the automation-message upload path (shot 6 is the Upload from ZIP dialog), plus `emails/` Gmail shots of landing-3 email 1 on desktop and mobile. They set the per-email ZIP format the theme's email download follows; no tool uses them yet
 
 ## What exists today
 

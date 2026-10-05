@@ -22,7 +22,7 @@ from playwright.sync_api import sync_playwright
 from capture_setup_screens import MARK_JS
 
 WAT = Path(__file__).resolve().parent.parent
-SRC = WAT / "setup-guide-edits" / "setup-guide-screenshots-getresponse"
+SRC = WAT / "setup-guides" / "affiliate-theme" / "screen-shots" / "getresponse"
 OUT = WAT / ".tmp" / "setup-guide" / "screens"
 SIZE = (1366, 563)
 SIZES = {"gr-8-list-menu": (1366, 606)}
