@@ -96,12 +96,15 @@ All from `/home/tevis/WAT`. Every tool uses Playwright with the host's `/usr/bin
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # one-time; redo (rm -rf .venv first) after a host Python upgrade
-.venv/bin/python tools/build_theme_zip.py
+.venv/bin/python tools/build_theme_zip.py [--out PATH]
 .venv/bin/python tools/capture_setup_screens.py [--only 05-settings ...]   # re-capture single shots
 .venv/bin/python tools/mark_getresponse_shots.py
-.venv/bin/python tools/build_setup_guide.py [--draft]
+.venv/bin/python tools/build_setup_guide.py [--draft] [--out PATH]
 .venv/bin/python tools/build_lead_guide.py [--no-copy]                      # landing-3 guide.pdf into the wp-dfy theme
+.venv/bin/python tools/redact_image.py IN.png OUT.png --box x,y,w,h[:TEXT] [--fill '#rrggbb']   # one-off; the workflow has the exact API-key boxes
 ```
+
+The only dependency is Playwright, and no current tool reads `.env` (`.env.example` holds only placeholder keys).
 
 There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screenshot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).
 
