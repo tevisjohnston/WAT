@@ -70,8 +70,8 @@ workflows/      # Markdown SOPs defining what to do and how
 
 **Also in this repo:**
 - `tools/templates/` — HTML/CSS that `build_setup_guide.py` and `build_lead_guide.py` fill and print to PDF (copy is edited here, not in Python)
-- `materials/setup-guides/affiliate-theme/screen-shots/getresponse/` — the nine hand-supplied GetResponse screenshots the setup guide uses (`mark_getresponse_shots.py` reads them)
-- `materials/setup-guides/getresponse-email-automation/screen-shots/` — GetResponse screenshots of the automation-message upload path (shot 6 is the Upload from ZIP dialog), plus `emails/` Gmail shots of landing-3 email 1 on desktop and mobile. They set the per-email ZIP format the theme's email download follows; no tool uses them yet
+- `materials/setup-guides/affiliate-theme/screen-shots/getresponse/` — the nine hand-supplied GetResponse screen-shots the setup guide uses (`mark_getresponse_shots.py` reads them)
+- `materials/setup-guides/getresponse-email-automation/screen-shots/` — GetResponse screen-shots of the automation-message upload path (shot 6 is the Upload from ZIP dialog), plus `emails/` Gmail shots of landing-3 email 1 on desktop and mobile, and `emails/emails-centered/` versions of the same two shots. They set the per-email ZIP format the theme's email download follows; no tool uses them yet
 
 ## What exists today
 
@@ -88,7 +88,9 @@ The tools reach outside this repo, so they have side effects elsewhere:
 
 Pipeline data flow: `capture_setup_screens.py` → `.tmp/setup-guide/screens/NN-*.png`; `mark_getresponse_shots.py` (imports `MARK_JS` from the capture tool, so the red boxes match) → `.tmp/setup-guide/screens/gr-*.png`; `build_setup_guide.py` fills `{{CSS}}/{{FONTS}}/{{SCREENS}}/{{VERSION}}/{{DRAFT}}` in the template and fails on any missing image or unfilled token.
 
-The GetResponse crops and marks in `mark_getresponse_shots.py` and the redaction boxes in the workflow are hard-coded pixel coordinates for specific supplied screenshots. A replaced screenshot needs its numbers re-measured, even at the same size. Never commit an unredacted `Screenshot-API-key-*GetResponse.png` (git-ignored); only the `-REDACTED` copy is used.
+The GetResponse crops and marks in `mark_getresponse_shots.py` and the redaction boxes in the workflow are hard-coded pixel coordinates for specific supplied screen-shots. A replaced screen-shot needs its numbers re-measured, even at the same size. Never commit an unredacted `screen-shot-api-key-*getresponse.png` (git-ignored); only the `-redacted` copy is used.
+
+Files under `materials/` are named in lowercase kebab-case, and `mark_getresponse_shots.py` hard-codes each one in `SHOTS`. Paths are case-sensitive, so renaming a shot means editing `SHOTS` too.
 
 ## Commands
 
@@ -106,7 +108,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # one-time;
 
 The only dependency is Playwright, and no current tool reads `.env` (`.env.example` holds only placeholder keys).
 
-There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screenshot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).
+There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screen-shot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).
 
 ## Commits
 

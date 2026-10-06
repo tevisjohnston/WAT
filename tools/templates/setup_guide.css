@@ -122,7 +122,7 @@ td { border-bottom: 0.6pt solid var(--line); padding: 6pt; vertical-align: top; 
 td.n { font: 800 11pt var(--sans); color: var(--primary); width: 22pt; }
 td.ph { white-space: nowrap; }
 
-/* ---------- Screenshots ---------- */
+/* ---------- screen-shots ---------- */
 figure.shot { margin: 8pt 0 14pt; break-inside: avoid; }
 figure.shot img { display: block; width: 100%; height: auto; border: 0.8pt solid #cfd5e1;
   border-radius: 5pt; box-shadow: 0 1pt 5pt rgba(11,18,32,.09); }
@@ -134,7 +134,7 @@ figcaption { font-size: 8pt; color: var(--muted); margin-top: 5pt; }
 .missing { border: 1.5pt dashed var(--mark); color: var(--mark); border-radius: 5pt; padding: 26pt 14pt;
   text-align: center; font: 700 10pt var(--sans); background: #fff5f7; }
 
-/* Numbered steps that match the red badges in the screenshots. */
+/* Numbered steps that match the red badges in the screen-shots. */
 ol.marks { list-style: none; padding: 0; counter-reset: m; }
 ol.marks > li { counter-increment: m; position: relative; padding-left: 26pt; margin-bottom: 8pt; }
 ol.marks > li::before {

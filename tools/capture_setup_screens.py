@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Capture the WordPress admin screenshots for SETUP-GUIDE.pdf from the wp-dfy dev site.
+"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-dfy dev site.
 
 Logs in as user 1 with auth cookies minted by WP-CLI inside the container, so no
 password is needed; the session token is destroyed again on exit. Every value
@@ -364,7 +364,7 @@ def shot_legal_editor(page: Page, ids: dict) -> None:
 
 def shot_privacy(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-privacy.php")
-    # A native dropdown's open list cannot be screenshotted, so show it as a list box.
+    # A native dropdown's open list cannot be screen-shotted, so show it as a list box.
     page.evaluate(
         """() => {
           const s = document.querySelector('#page_for_privacy_policy');

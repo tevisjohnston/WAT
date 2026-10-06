@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Paint solid boxes over parts of a screenshot and write a new PNG.
+"""Paint solid boxes over parts of a screen-shot and write a new PNG.
 
 Each box is x,y,w,h in image pixels, optionally followed by :TEXT to print in it.
 The fill colour is sampled from the pixel just left of the box, so the patch

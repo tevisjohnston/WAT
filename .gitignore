@@ -6,8 +6,8 @@ credentials.json
 # OS / editor
 .DS_Store
 
-# Unredacted GetResponse API key screenshots, in any folder; the guide uses the -REDACTED copy
-Screenshot-API-key-*GetResponse.png
+# Unredacted GetResponse API key screen-shots, in any folder; the guide uses the -redacted copy
+screen-shot-api-key-*getresponse.png
 
 # Python bytecode (tools/mark_getresponse_shots.py imports capture_setup_screens)
 __pycache__/

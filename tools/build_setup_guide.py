@@ -4,10 +4,10 @@
 Inputs:
   - .tmp/setup-guide/screens/[0-9]*.png   from tools/capture_setup_screens.py
   - .tmp/setup-guide/screens/gr-*.png     from tools/mark_getresponse_shots.py, which
-    crops and marks the GetResponse screenshots supplied by hand
+    crops and marks the GetResponse screen-shots supplied by hand
   - the wp-dfy theme's fonts and style.css Version
 
-Every <img> must exist. The GetResponse screenshots may be missing only with
+Every <img> must exist. The GetResponse screen-shots may be missing only with
 --draft, which swaps in a dashed placeholder and stamps DRAFT on every page, so
 a buyer-facing PDF never ships with a hole in it.
 
@@ -57,7 +57,7 @@ def render_html(draft: bool) -> tuple[str, list[str]]:
         if Path(src).is_file():
             return tag
         if draft and "data-gr" in tag:
-            return f'<div class="missing">GetResponse screenshot pending: {Path(src).name}</div>'
+            return f'<div class="missing">GetResponse screen-shot pending: {Path(src).name}</div>'
         problems.append(src)
         return tag
 
@@ -67,7 +67,7 @@ def render_html(draft: bool) -> tuple[str, list[str]]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--draft", action="store_true", help="allow missing GetResponse screenshots")
+    parser.add_argument("--draft", action="store_true", help="allow missing GetResponse screen-shots")
     parser.add_argument("--out", default=str(WAT / "deliverables" / "SETUP-GUIDE.pdf"))
     args = parser.parse_args()
     out = Path(args.out)
