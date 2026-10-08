@@ -1,0 +1,238 @@
+/* The Affiliate Marketing Blueprint — print stylesheet. The 7figure site's brand: Manrope body
+   (woff2 read from the 7_Figure_Affiliate theme), Fraunces display (vendored in materials/fonts/,
+   since the theme declares it but never loads it), slate with an amber accent. */
+
+@font-face { font-family: "Manrope"; font-weight: 300; src: url("{{FONTS}}/manrope-v20-latin-300.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 400; src: url("{{FONTS}}/manrope-v20-latin-regular.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 500; src: url("{{FONTS}}/manrope-v20-latin-500.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; src: url("{{FONTS}}/manrope-v20-latin-600.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; src: url("{{FONTS}}/manrope-v20-latin-700.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces"; font-weight: 100 900;
+  src: url("{{FRAUNCES}}/fraunces-latin-opsz-normal.woff2") format("woff2"); }
+
+:root {
+  --ink: #0f172a;        /* slate-900 */
+  --ink-2: #1e293b;      /* slate-800 */
+  --text: #334155;       /* slate-700 */
+  --muted: #64748b;      /* slate-500 */
+  --line: #e2e8f0;       /* slate-200 */
+  --surface: #f8fafc;    /* slate-50 */
+  --surface-2: #f1f5f9;  /* slate-100 */
+  --amber: #f59e0b;      /* amber-500 */
+  --amber-2: #fbbf24;    /* amber-400 */
+  --amber-soft: #fef3c7; /* amber-100 */
+  --amber-ink: #b45309;  /* amber-700, for amber text on white */
+  --sans: "Manrope", "Segoe UI", Arial, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.7in 0.8in 0.75in;
+  @bottom-left {
+    content: "The Affiliate Marketing Blueprint";
+    font: 500 8pt var(--sans); color: var(--muted); letter-spacing: 0.02em;
+  }
+  @bottom-right {
+    content: counter(page);
+    font: 700 8pt var(--sans); color: var(--muted);
+  }
+}
+/* Full-bleed pages (the cover and the roadmap opener) carry no footer. */
+@page bleed { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; background: #fff; color: var(--text); font: 400 11pt/1.6 var(--sans); }
+
+h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 600; break-after: avoid; }
+h2 { font-size: 27pt; line-height: 1.12; margin: 0 0 6pt; letter-spacing: -0.01em; }
+h3 { font-size: 15pt; line-height: 1.2; margin: 0 0 4pt; }
+h4 { font: 700 11pt/1.3 var(--sans); color: var(--ink); margin: 0 0 3pt; break-after: avoid; }
+p { margin: 0 0 8pt; }
+ul, ol { margin: 0 0 8pt; padding-left: 16pt; }
+li { margin: 0 0 2pt; }
+strong { font-weight: 700; color: var(--ink); }
+a { color: var(--ink); text-decoration-color: var(--amber); text-decoration-thickness: 1.2pt; text-underline-offset: 2pt; font-weight: 700; }
+.keep { break-inside: avoid; }
+
+/* ---------- Section headers ---------- */
+.section { break-before: page; }
+.eyebrow { display: block; font: 700 8pt var(--sans); letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber-ink); margin-bottom: 6pt; }
+.rule { height: 0; border-top: 1pt solid var(--line); margin: 10pt 0 14pt; position: relative; }
+.rule::before { content: ""; position: absolute; left: 0; top: -2pt; width: 42pt; height: 3pt; background: var(--amber); border-radius: 2pt; }
+.lede { font-size: 13pt; line-height: 1.55; color: var(--ink-2); }
+
+/* Each step's illustration sits beside its intro text, so the step fits on one page. */
+.intro-row { display: grid; grid-template-columns: 1fr 2.85in; gap: 18pt; align-items: center; margin-bottom: 4pt; }
+.art { display: block; width: 100%; border-radius: 10pt; border: 0.8pt solid var(--line); }
+
+/* Manrope and Fraunces ship no arrow or check-mark glyphs (Chrome would fall back to another
+   font), so both are drawn as masks in the current text color. */
+.arr { display: inline-block; width: 0.95em; height: 0.7em; background: currentColor; vertical-align: 0.02em;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14'%3E%3Cpath d='M1 7h16M11 1.5 17.5 7 11 12.5' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* ---------- Cover ---------- */
+.cover { page: bleed; break-after: page; position: relative; width: 8.5in; height: 11in; overflow: hidden;
+  background: #fefefe url("{{IMAGES}}/cover.jpg") top center / 8.5in auto no-repeat; }
+/* Positions are in the 896 x 1152 px grid of clipboard.jpg (1 px = 8.5in / 896); the paper runs
+   x 200-718, y 243-922, and build_blueprint.py moves the drawn checklist to y 578-902. */
+.cover .paper { position: absolute; left: calc(8.5in * 232 / 896); width: calc(8.5in * 454 / 896);
+  top: calc(8.5in * 268 / 896); text-align: center; }
+.cover .kicker { font: 700 7.5pt var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber-ink); margin-bottom: 7pt; }
+.cover h1 { font-size: 30pt; line-height: 1.02; margin: 0 0 10pt; letter-spacing: -0.015em; font-weight: 650; }
+.cover .intro { font-size: 10.5pt; line-height: 1.5; color: var(--ink-2); margin: 0; }
+.cover .step { position: absolute; left: calc(8.5in * 396 / 896); width: calc(8.5in * 190 / 896);
+  font: 700 9.5pt/1 var(--sans); color: var(--ink); white-space: nowrap; }
+.cover .site { position: absolute; left: 0; right: 0; bottom: 0.45in; text-align: center;
+  font: 600 8pt var(--sans); letter-spacing: 0.08em; color: var(--muted); }
+
+/* ---------- The Foundation ---------- */
+.mantra { margin: 4pt 0 14pt; padding: 0; list-style: none; }
+.mantra li { font: 600 21pt/1.25 var(--serif); color: var(--ink); margin: 0 0 3pt; }
+.mantra li:last-child { color: var(--amber-ink); }
+.mission { background: var(--ink); color: #e2e8f0; border-radius: 10pt; padding: 15pt 18pt 9pt; margin: 14pt 0; break-inside: avoid; }
+.mission .label { font: 700 7.5pt var(--sans); letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-2); margin-bottom: 4pt; }
+.mission p.big { font: 600 17pt/1.3 var(--serif); color: #fff; }
+
+/* ---------- Boxes ---------- */
+.note { background: var(--amber-soft); border-left: 3.5pt solid var(--amber); border-radius: 0 8pt 8pt 0;
+  padding: 11pt 14pt 4pt; margin: 12pt 0; break-inside: avoid; color: var(--ink-2); }
+.note .label { font: 700 7.5pt var(--sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber-ink); margin-bottom: 3pt; }
+.callout { font: 600 19pt/1.2 var(--serif); color: var(--ink); margin: 6pt 0 10pt; }
+.callout em { font-style: normal; color: var(--amber-ink); }
+
+/* ---------- Overview: four steps ---------- */
+.steps { display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 18pt; margin: 14pt 0 6pt; }
+.steps > div { border-top: 1.5pt solid var(--ink); padding-top: 7pt; break-inside: avoid; }
+.steps .n { font: 700 8pt var(--sans); letter-spacing: 0.14em; color: var(--amber-ink); }
+.steps h3 { margin: 3pt 0 4pt; }
+.steps p { font-size: 10pt; color: var(--text); }
+
+/* ---------- Cards ---------- */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; margin: 10pt 0; break-inside: avoid; }
+.card { background: var(--surface); border: 0.8pt solid var(--line); border-radius: 9pt; padding: 12pt 13pt 6pt; break-inside: avoid; }
+.card .icon { width: 22pt; height: 22pt; border-radius: 50%; background: var(--ink); color: var(--amber-2);
+  font: 700 10pt/22pt var(--sans); text-align: center; margin-bottom: 7pt; }
+.card h4 { font-size: 11.5pt; }
+.card p { font-size: 9.5pt; line-height: 1.5; }
+
+.platform { font-size: 12pt; margin-bottom: 8pt; }
+.platform .k { font: 700 7.5pt var(--sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-right: 6pt; }
+
+/* ---------- Hosting providers ---------- */
+.hosts { margin: 8pt 0 12pt; break-inside: avoid; }
+.host { display: flex; align-items: baseline; gap: 10pt; padding: 7pt 2pt; border-bottom: 0.8pt solid var(--line); }
+.host:first-child { border-top: 1.5pt solid var(--ink); }
+.host .name { flex: 0 0 1.25in; font: 600 13pt var(--serif); color: var(--ink); }
+.host .plan { flex: 1; font-size: 9.5pt; color: var(--muted); }
+.host a { font-size: 9.5pt; white-space: nowrap; }
+.split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18pt; align-items: start; break-inside: avoid; }
+.checks { list-style: none; padding: 0; margin: 4pt 0 0; }
+.checks li { position: relative; padding-left: 19pt; margin-bottom: 5pt; font-size: 10.5pt; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 1.5pt; width: 12pt; height: 12pt; border-radius: 3pt; background: var(--amber); }
+.checks li::after { content: ""; position: absolute; left: 2pt; top: 3.5pt; width: 8pt; height: 8pt; background: var(--ink);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.3 4.8 9 10 3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+.domains { list-style: none; padding: 0; margin: 4pt 0 0; }
+.domains li { font: 600 11pt var(--sans); color: var(--ink); background: var(--surface-2); border-radius: 6pt;
+  padding: 6pt 10pt; margin-bottom: 6pt; }
+.small-label { font: 700 7.5pt var(--sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 0 0 5pt; }
+
+/* ---------- Website creation: the five-part funnel ---------- */
+.parts { list-style: none; padding: 0; margin: 6pt 0 0; counter-reset: part; }
+.parts > li { counter-increment: part; position: relative; padding: 0 0 8pt 34pt; margin: 0; break-inside: avoid; }
+.parts > li::before { content: counter(part); position: absolute; left: 0; top: 1pt; width: 22pt; height: 22pt; border-radius: 50%;
+  background: var(--ink); color: var(--amber-2); font: 700 10pt/22pt var(--sans); text-align: center; }
+.parts > li::after { content: ""; position: absolute; left: 10.6pt; top: 26pt; bottom: 2pt; width: 0.8pt; background: var(--line); }
+.parts > li:last-child::after { content: none; }
+.parts h3 { font-size: 15pt; margin-bottom: 2pt; }
+.parts p, .parts li li { font-size: 10.5pt; }
+.parts ol { margin: 2pt 0 5pt; }
+.btn-chip { display: inline-block; background: var(--ink); color: #fff; font: 700 8.5pt/1 var(--sans); padding: 3pt 7pt; border-radius: 4pt; }
+
+.flow { display: flex; align-items: stretch; margin: 6pt 0 12pt; break-inside: avoid; }
+.flow .chip { flex: 1; background: var(--surface); border: 0.8pt solid var(--line); border-radius: 7pt;
+  padding: 7pt 7pt 8pt; font: 600 8.5pt/1.3 var(--sans); color: var(--ink); }
+.flow .chip b { display: block; font-size: 7pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber-ink); margin-bottom: 2pt; }
+.flow .chip.end { background: var(--amber-soft); border-color: var(--amber-2); }
+.flow .arrow { flex: 0 0 14pt; display: flex; align-items: center; justify-content: center; color: var(--amber); font-size: 11pt; }
+
+/* ---------- Traffic sources ---------- */
+.equation { font: 600 17pt/1.25 var(--serif); color: var(--ink); margin: 0 0 8pt; }
+.equation .nw { white-space: nowrap; }
+.equation .arr { color: var(--amber-ink); }
+.sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9pt; margin: 10pt 0; break-inside: avoid; }
+.source { border: 0.8pt solid var(--line); border-top: 3pt solid var(--ink); border-radius: 4pt 4pt 8pt 8pt; padding: 10pt 11pt 4pt; font-size: 9.3pt; line-height: 1.45; }
+.source.top { border-top-color: var(--amber); background: #fffdf5; }
+.source .badge { display: inline-block; font: 700 6.5pt var(--sans); letter-spacing: 0.14em; text-transform: uppercase;
+  background: var(--amber); color: var(--ink); border-radius: 3pt; padding: 2pt 5pt; margin-bottom: 5pt; }
+.source h4 { font-size: 11.5pt; margin-bottom: 1pt; }
+.source .sub { font: 600 8.5pt var(--sans); color: var(--muted); margin-bottom: 6pt; }
+.source ul { padding-left: 12pt; margin-bottom: 6pt; }
+.source table { width: 100%; border-collapse: collapse; margin: 2pt 0 6pt; }
+.source td { padding: 2pt 0; border-bottom: 0.6pt solid var(--line); }
+.source td:last-child { text-align: right; font-weight: 700; color: var(--ink); }
+
+/* ---------- The Road to $5k opener ---------- */
+.opener { page: bleed; break-before: page; break-after: page; position: relative; width: 8.5in; height: 11in; overflow: hidden; color: #e2e8f0; }
+/* The image is on a child, not on .opener itself: Chrome paints a 1px sliver of .opener's own
+   background at the foot of the page before it. */
+.opener .bg { position: absolute; inset: 0; background: #0b0d12 url("{{IMAGES}}/funnel.jpg") top center / 8.5in auto no-repeat; }
+.opener::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2.6in;
+  background: linear-gradient(to bottom, rgba(11,13,18,.92), rgba(11,13,18,.7) 55%, rgba(11,13,18,0)); }
+.opener .top { position: absolute; left: 0.8in; right: 0.8in; top: 0.55in; text-align: center; }
+.opener .eyebrow { color: var(--amber-2); }
+.opener h2 { color: #fff; font-size: 40pt; margin: 0; }
+.opener .bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.3in 1in 0.75in;
+  background: linear-gradient(to bottom, rgba(11,13,18,0), rgba(11,13,18,.88) 40%, rgba(11,13,18,.96)); }
+.opener .bottom p { font: 500 13.5pt/1.55 var(--sans); color: #e2e8f0; text-align: center; margin: 0; }
+
+/* ---------- Your numbers ---------- */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16pt 12pt; margin: 14pt 0 8pt; }
+.stat { text-align: center; break-inside: avoid; }
+.stat .v { font: 600 24pt/1.1 var(--serif); color: var(--ink); }
+.stat .v.amber { color: var(--amber-ink); }
+.stat h4 { font-size: 9.5pt; margin: 4pt 0 2pt; }
+.stat p { font-size: 8.5pt; line-height: 1.4; color: var(--muted); margin: 0; }
+
+/* ---------- Campaign breakdown ---------- */
+.campaign { border: 0.8pt solid var(--line); border-left: 3pt solid var(--ink); border-radius: 3pt 8pt 8pt 3pt;
+  padding: 5pt 12pt 4pt; margin: 0 0 5pt; break-inside: avoid; display: grid; grid-template-columns: 1.35in 1fr; gap: 0 12pt; }
+.campaign.goal { border-left-color: var(--amber); background: #fffdf5; }
+.campaign .head .n { font: 700 7pt var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber-ink); }
+.campaign .head h3 { font-size: 13.5pt; margin: 1pt 0 2pt; }
+.campaign .head .budget { font: 600 8.5pt var(--sans); color: var(--muted); }
+.campaign .head .budget b { color: var(--ink); font-size: 10.5pt; }
+.campaign dl { margin: 0; display: grid; grid-template-columns: 0.85in 1fr; gap: 0 8pt; font-size: 9pt; line-height: 1.38; }
+.campaign dt { font: 700 7pt/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-top: 1.5pt; }
+.campaign dd { margin: 0; color: var(--text); }
+.campaign dd b { color: var(--ink); }
+.fineprint { font-size: 8.5pt; line-height: 1.45; color: var(--muted); }
+
+/* ---------- Summary ---------- */
+.costs { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin: 10pt 0 16pt; }
+.cost { border-radius: 8pt; padding: 11pt 14pt; color: #fff; break-inside: avoid; }
+.cost:nth-child(1) { background: #0f172a; } .cost:nth-child(2) { background: #1e293b; }
+.cost:nth-child(3) { background: #334155; } .cost:nth-child(4) { background: #475569; }
+.cost h4 { color: #fff; font-size: 11.5pt; margin-bottom: 2pt; }
+.cost p { margin: 0; font-size: 10pt; color: #e2e8f0; }
+.cost a { color: #fff; }
+.rings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12pt; margin: 6pt 0 14pt; break-inside: avoid; }
+.ring { text-align: center; }
+.ring .circle { width: 1.35in; height: 1.35in; border-radius: 50%; border: 7pt solid var(--ink); margin: 0 auto 8pt;
+  display: flex; align-items: center; justify-content: center; font: 600 22pt var(--serif); color: var(--ink); }
+.ring.goal .circle { border-color: var(--amber); }
+.ring h4 { font-size: 10.5pt; }
+.ring p { font-size: 9pt; color: var(--muted); line-height: 1.45; margin: 0; }
+.ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; break-inside: avoid; }
+.cta { display: block; text-decoration: none; border-radius: 10pt; padding: 13pt 15pt 11pt; background: var(--ink); color: #fff; }
+.cta.primary { background: var(--amber); color: var(--ink); }
+.cta .t { display: block; font: 600 15pt/1.2 var(--serif); margin-bottom: 3pt; }
+.cta .d { display: block; font: 500 9pt/1.4 var(--sans); opacity: 0.9; }
+.cta .go { display: block; font: 700 8pt var(--sans); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6pt; }
+.cta.primary .go { color: var(--ink); } .cta:not(.primary) .go { color: var(--amber-2); }
+
+.disclaimer { margin-top: 18pt; border-top: 1pt solid var(--ink); padding-top: 9pt; font-size: 8.5pt; line-height: 1.5; color: var(--muted); break-inside: avoid; }
+.disclaimer p { margin-bottom: 5pt; }
+.disclaimer strong { color: var(--text); }
