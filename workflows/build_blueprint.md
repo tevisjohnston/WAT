@@ -28,6 +28,7 @@ The tool does not check these promises. Re-read them after any copy change.
 | Illustrations | `materials/lead-magnets/The-Affiliate-Marketing-Blueprint/images/` | The four step PNGs, `clipboard.jpg` (cover), `funnel.jpg` (roadmap opener). `blueprint-cover.jpg` has its text baked in and is not used. |
 | Manrope | `/home/tevis/7figure.affiliatemarketconnect.com/wp-content/themes/7_Figure_Affiliate/assets/css/src/fonts/` | Read in place through `{{FONTS}}`. |
 | Fraunces | `materials/fonts/fraunces/` | Through `{{FRAUNCES}}`. OFL, from `@fontsource-variable/fraunces` 5.2.9. The 7figure theme declares Fraunces but never loads it, so the live site's headings actually render in Georgia. |
+| Newsreader | `materials/fonts/newsreader/` | Through `{{NEWSREADER}}`. OFL, from `@fontsource-variable/newsreader` 5.3.0. Supplies only the display face's lowercase f (see Known quirks). |
 
 ## Tools
 
@@ -37,8 +38,8 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
    - Re-encodes the illustrations to JPEG in `.tmp/blueprint/images/`. Chrome embeds a PNG losslessly, which is why the Gamma export was 2.9 MB.
    - Builds `cover.jpg` from `clipboard.jpg`, moving its drawn checklist down the paper to make room for the live title.
    - Fills `{{CSS}}`, `{{FONTS}}`, `{{FRAUNCES}}` and `{{IMAGES}}`, and fails on a missing image or an unfilled token.
-   - **Checks the roadmap arithmetic.** Each `.campaign` block's `data-*` numbers must chain: budget − spend + revenue = the next campaign's budget, and the list grows by the new subscribers. The last campaign must end at `#roadmap`'s `data-goal`, and `data-roi` must equal (goal − start) ÷ start. Every `data-v` cell must show exactly the value the numbers give. **When you change a figure, change its `data-*` attribute and its visible cell together.**
-   - Prints the PDF and checks that Manrope and Fraunces loaded. Fails over 2 MB.
+   - **Checks the roadmap arithmetic.** Each `.campaign` block's `data-*` numbers must chain: budget − spend + revenue = the next campaign's budget, and the list grows by the new subscribers. The last campaign must end at `#roadmap`'s `data-goal`, and `data-roi` must equal (goal − start) ÷ start. Every `data-v` cell must show exactly the value the numbers give, and a figure that appears twice in a card gets a `data-v` each time. The cells `list`, `prev` (the list before the campaign) and `left` (the unspent reserve) are optional, because the copy shows them only in some campaigns. **When you change a figure, change its `data-*` attribute and its visible cell together.**
+   - Prints the PDF and checks that Manrope, Fraunces and the Newsreader f loaded. Fails over 2 MB.
 
    `--out .tmp/blueprint/draft.pdf` builds a draft without touching `deliverables/`.
 2. Commit the PDF in WAT together with the template.
@@ -46,14 +47,14 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
 
 ## Verification (all must pass before committing)
 
-1. **PDF:** `pdfinfo` shows 12 Letter pages, all the same size; expect a different count after copy changes. `pdffonts` lists only Manrope (embedded as `ManropeExtraLight-*`, Google's family name) and Fraunces. A DejaVu or Liberation font means a glyph fell back (see Known quirks).
+1. **PDF:** `pdfinfo` shows 12 Letter pages, all the same size; expect a different count after copy changes. `pdffonts` lists only Manrope (embedded as `ManropeExtraLight-*`, Google's family name), Fraunces and `Newsreader16pt-Regular` (the f). A DejaVu or Liberation font means a glyph fell back (see Known quirks).
 2. **Pages:** run `pdftoppm -r 50 -png` on every page, tile them with `montage`, and review them. Look for:
    - a box or card pushed alone onto a new page
    - widowed headings
    - the cover's step names sitting on their drawn lines
    - no thin dark line at the foot of the page before the roadmap opener
 
-   Step 3 runs over two pages by design.
+   Step 3 runs over two pages by design. The campaign breakdown must fit on one page with the Key insight box and the fine print; if a Results line wraps "sales" onto a second line, the page overflows.
 3. **Links:** scan the PDF for `/URI` entries (decompress the streams). Expect 11: WarriorPlus, Hostinger (with `REFERRALCODE=7V0TEVISJDTJ`), Bluehost, HostGator, Namecheap, GoDaddy, the ClickBank PLR hop link, AWeber, GetResponse, the 7figure SOP page, and Udimi `a/muu3o`.
 
 ## Known quirks
@@ -61,5 +62,7 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
 - **Manrope and Fraunces have no arrow (→) or check mark (✓) glyphs.** Google's latin subset stops short of them, so Chrome would fall back to DejaVu or Liberation. Draw them with the `.arr` mask and the `.checks li::after` mask instead.
 - **A full-bleed section's background leaks.** Chrome paints a 1px sliver of a `page: bleed` section's own background at the foot of the page before it. The roadmap opener therefore puts its image on an absolutely positioned `.bg` child.
 - **The cover is pixel-coupled to `clipboard.jpg` (896 × 1152 px).** The checklist crop, scale and position are in `build_blueprint.py` (`CHECKLIST*`). The text positions in `blueprint.html`/`.css` use the same grid (`calc(8.5in * N / 896)`). A replaced image needs all of them re-measured.
-- **Fraunces is variable, so Chrome embeds it as Type 3.** Poppler's "Bad bounding box in Type 3 glyph" warnings are harmless.
+- **Fraunces' lowercase f has a tall flag-shaped hook.** It is in the design at every opsz, wght, SOFT and WONK setting, and the font has no alternate f. `--serif` therefore starts with `"Newsreader f"`, a face limited to `unicode-range: U+0066`, so only the f comes from Newsreader. That also stops Fraunces' fi/ff ligatures from forming.
+- **A heading that ends a grid item stops page breaks between cards.** `h3`'s `break-after: avoid` propagates through `.campaign .head` to the card itself. That chains every card to the next one, so Chrome moves the whole list off the heading's page. `.campaign .head h3` resets it to `auto`.
+- **Fraunces and Newsreader are variable, so Chrome embeds them as Type 3.** Poppler's "Bad bounding box in Type 3 glyph" warnings are harmless.
 - **Hosting prices are left out on purpose.** The Gamma version's multi-year prices went stale, so the page says "check the current offer" and budgets about $20 a month.

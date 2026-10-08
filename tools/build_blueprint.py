@@ -10,6 +10,7 @@ Inputs:
   - materials/lead-magnets/The-Affiliate-Marketing-Blueprint/images/   the illustrations
   - the 7_Figure_Affiliate theme's Manrope woff2           assets/css/src/fonts/
   - materials/fonts/fraunces/                              Fraunces (the theme never loads it)
+  - materials/fonts/newsreader/                            Newsreader, for Fraunces' lowercase f only
 
 The illustrations are re-encoded to JPEG first: Chrome embeds a PNG losslessly, which is
 what made the Gamma export 2.9 MB. The cover is clipboard.jpg with its drawn checklist
@@ -37,6 +38,7 @@ TEMPLATES = WAT / "tools" / "templates"
 IMAGES = WAT / "materials" / "lead-magnets" / "The-Affiliate-Marketing-Blueprint" / "images"
 FONTS = Path("/home/tevis/7figure.affiliatemarketconnect.com/wp-content/themes/7_Figure_Affiliate/assets/css/src/fonts")
 FRAUNCES = WAT / "materials" / "fonts" / "fraunces"
+NEWSREADER = WAT / "materials" / "fonts" / "newsreader"
 OUT_DIR = WAT / ".tmp" / "blueprint"
 RENDERED = OUT_DIR / "blueprint.html"
 DEFAULT_OUT = WAT / "deliverables" / "The-Affiliate-Marketing-Blueprint.pdf"
@@ -81,6 +83,7 @@ def render_html(images: Path) -> str:
     html = html.replace("{{CSS}}", css)
     html = html.replace("{{FONTS}}", FONTS.as_uri())
     html = html.replace("{{FRAUNCES}}", FRAUNCES.as_uri())
+    html = html.replace("{{NEWSREADER}}", NEWSREADER.as_uri())
     html = html.replace("{{IMAGES}}", images.as_uri())
 
     leftover = sorted(set(re.findall(r"\{\{[A-Z]+\}\}", html)))
@@ -143,6 +146,7 @@ def check_roadmap(html: str) -> list[str]:
         new = d["clicks"] * d["optin"] / 100
         if new != new.to_integral_value():
             errors.append(f"campaign {i}: {d['optin']}% of {d['clicks']} clicks is not a whole number")
+        prev = subscribers
         subscribers += int(new)
         revenue = d["sales"] * d["price"] * d["commission"] / 100
         left = d["budget"] - spend
@@ -150,14 +154,15 @@ def check_roadmap(html: str) -> list[str]:
             errors.append(f"campaign {i}: spends {spend} of a {d['budget']} budget")
         budget = left + revenue
         expect = {
-            "budget": money(d["budget"]), "clicks": f"{d['clicks']:,.0f}", "spend": money(-spend),
-            "new": f"{new:,.0f}", "list": f"{subscribers:,}", "sales": f"{d['sales']:,.0f}",
+            "budget": money(d["budget"]), "clicks": f"{d['clicks']:,.0f}", "spend": money(spend),
+            "new": f"{new:,.0f}", "prev": f"{prev:,}", "list": f"{subscribers:,}", "sales": f"{d['sales']:,.0f}",
             "revenue": money(revenue), "left": money(left), "next": money(budget),
         }
         for name, shown in c["cells"]:
             if shown != expect.get(name):
                 errors.append(f"campaign {i}: {name} shows {shown!r}, the numbers give {expect.get(name)!r}")
-        missing = set(expect) - {name for name, _ in c["cells"]}
+        # The list, its previous total and the unspent reserve are shown only where the copy needs them.
+        missing = set(expect) - {"list", "prev", "left"} - {name for name, _ in c["cells"]}
         if missing:
             errors.append(f"campaign {i}: no data-v cell for {sorted(missing)}")
 
@@ -193,7 +198,7 @@ def main() -> int:
         page.evaluate("() => document.fonts.ready")
         loaded = page.evaluate("() => [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family)")
         loaded = {name.strip('"') for name in loaded}
-        if not {"Manrope", "Fraunces"} <= loaded:
+        if not {"Manrope", "Fraunces", "Newsreader f"} <= loaded:
             print(f"ERROR: the fonts did not load (loaded: {sorted(loaded)})", file=sys.stderr)
             return 1
         page.pdf(path=str(args.out), format="Letter", print_background=True, prefer_css_page_size=True,

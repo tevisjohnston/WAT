@@ -296,7 +296,8 @@
 <!-- ============================== CAMPAIGN BREAKDOWN ============================== -->
 <!-- build_blueprint.py checks the arithmetic: each campaign's data-* attributes must chain
      (budget - spend + revenue = the next budget, list = previous list + new), and each
-     data-v cell must show exactly the value they give. -->
+     data-v cell must show exactly the value they give ("left" is the unspent reserve,
+     "prev" the list before this campaign). -->
 <section class="section" id="roadmap" data-start="540" data-traffic="500" data-goal="5000" data-roi="826">
   <span class="eyebrow">The road to $5k</span>
   <h2>Campaign-by-Campaign Breakdown</h2>
@@ -305,62 +306,68 @@
   <p>Here is your roadmap. Each campaign builds on the one before it, and this is the exact progression that takes you from startup to $5k.</p>
 
   <div class="campaign" data-budget="500" data-clicks="1000" data-cpc="0.40" data-optin="30" data-sales="10" data-price="20" data-commission="50">
-    <div class="head"><span class="n">Campaign 1</span><h3>Foundation</h3><div class="budget">Budget <b data-v="budget">$500</b></div></div>
+    <div class="head"><span class="n">Campaign 1</span><h3>Foundation</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">1,000</b> clicks &times; $0.40 = <b data-v="spend">&minus;$400</b></dd>
-      <dt>Subscribers</dt><dd>30% opt in = <b data-v="new">300</b> new, <b data-v="list">300</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">10</b> sales &times; $20 at 50% commission = <b data-v="revenue">$100</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$200</b> (<span data-v="left">$100</span> left + <span data-v="revenue">$100</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$500</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">1,000</span> clicks &times; $0.40/click = <b data-v="spend">$400</b> (<span data-v="left">$100</span> held in reserve)</dd>
+      <dt>Results</dt><dd>30% opt-in = <b data-v="new">300</b> subscribers <span class="arr"></span> <b data-v="sales">10</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 50% commission ($10/sale) &times; <span data-v="sales">10</span> sales = <b data-v="revenue">$100</b></dd>
+      <dt>Carried forward</dt><dd><span data-v="left">$100</span> unspent + <span data-v="revenue">$100</span> revenue = <b data-v="next">$200</b></dd>
     </dl>
   </div>
 
   <div class="campaign" data-budget="200" data-clicks="500" data-cpc="0.40" data-optin="40" data-sales="20" data-price="20" data-commission="50">
-    <div class="head"><span class="n">Campaign 2</span><h3>Momentum</h3><div class="budget">Budget <b data-v="budget">$200</b></div></div>
+    <div class="head"><span class="n">Campaign 2</span><h3>Momentum</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">500</b> clicks &times; $0.40 = <b data-v="spend">&minus;$200</b></dd>
-      <dt>Subscribers</dt><dd>40% opt in = <b data-v="new">200</b> new, <b data-v="list">500</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">20</b> sales &times; $20 at 50% commission = <b data-v="revenue">$200</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$200</b> (<span data-v="left">$0</span> left + <span data-v="revenue">$200</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$200</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">500</span> clicks &times; $0.40/click = <b data-v="spend">$200</b></dd>
+      <dt>Results</dt><dd>40% opt-in = <b data-v="new">200</b> new subscribers (<span data-v="prev">300</span> + <span data-v="new">200</span> = <span data-v="list">500</span> total) <span class="arr"></span> <b data-v="sales">20</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 50% commission &times; <span data-v="sales">20</span> sales = <b data-v="revenue">$200</b></dd>
+      <dt>Carried forward</dt><dd><span data-v="left">$0</span> unspent + <span data-v="revenue">$200</span> revenue = <b data-v="next">$200</b></dd>
     </dl>
   </div>
 
   <div class="campaign" data-budget="200" data-clicks="500" data-cpc="0.40" data-optin="50" data-sales="40" data-price="20" data-commission="100">
-    <div class="head"><span class="n">Campaign 3</span><h3>Acceleration</h3><div class="budget">Budget <b data-v="budget">$200</b></div></div>
+    <div class="head"><span class="n">Campaign 3</span><h3>Acceleration</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">500</b> clicks &times; $0.40 = <b data-v="spend">&minus;$200</b></dd>
-      <dt>Subscribers</dt><dd>50% opt in = <b data-v="new">250</b> new, <b data-v="list">750</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">40</b> sales &times; $20 at 100% commission = <b data-v="revenue">$800</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$800</b> (<span data-v="left">$0</span> left + <span data-v="revenue">$800</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$200</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">500</span> clicks &times; $0.40/click = <b data-v="spend">$200</b></dd>
+      <dt>Results</dt><dd>50% opt-in = <b data-v="new">250</b> new subscribers (<span data-v="prev">500</span> + <span data-v="new">250</span> = <span data-v="list">750</span> total) <span class="arr"></span> <b data-v="sales">40</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 100% commission &times; <span data-v="sales">40</span> sales = <b data-v="revenue">$800</b></dd>
+      <dt>Carried forward</dt><dd><b data-v="next">$800</b></dd>
     </dl>
   </div>
 
   <div class="campaign" data-budget="800" data-clicks="2000" data-cpc="0.40" data-optin="50" data-sales="70" data-price="20" data-commission="100">
-    <div class="head"><span class="n">Campaign 4</span><h3>Scaling</h3><div class="budget">Budget <b data-v="budget">$800</b></div></div>
+    <div class="head"><span class="n">Campaign 4</span><h3>Scaling</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">2,000</b> clicks &times; $0.40 = <b data-v="spend">&minus;$800</b></dd>
-      <dt>Subscribers</dt><dd>50% opt in = <b data-v="new">1,000</b> new, <b data-v="list">1,750</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">70</b> sales &times; $20 at 100% commission = <b data-v="revenue">$1,400</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$1,400</b> (<span data-v="left">$0</span> left + <span data-v="revenue">$1,400</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$800</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">2,000</span> clicks &times; $0.40/click = <b data-v="spend">$800</b></dd>
+      <dt>Results</dt><dd>50% opt-in = <b data-v="new">1,000</b> new subscribers (<span data-v="prev">750</span> + <span data-v="new">1,000</span> = <span data-v="list">1,750</span> total) <span class="arr"></span> <b data-v="sales">70</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 100% commission &times; <span data-v="sales">70</span> sales = <b data-v="revenue">$1,400</b></dd>
+      <dt>Carried forward</dt><dd><b data-v="next">$1,400</b></dd>
     </dl>
   </div>
 
   <div class="campaign" data-budget="1400" data-clicks="2000" data-cpc="0.40" data-optin="50" data-sales="100" data-price="20" data-commission="100">
-    <div class="head"><span class="n">Campaign 5</span><h3>Expansion</h3><div class="budget">Budget <b data-v="budget">$1,400</b></div></div>
+    <div class="head"><span class="n">Campaign 5</span><h3>Expansion</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">2,000</b> clicks &times; $0.40 = <b data-v="spend">&minus;$800</b></dd>
-      <dt>Subscribers</dt><dd>50% opt in = <b data-v="new">1,000</b> new, <b data-v="list">2,750</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">100</b> sales &times; $20 at 100% commission = <b data-v="revenue">$2,000</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$2,600</b> (<span data-v="left">$600</span> left + <span data-v="revenue">$2,000</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$1,400</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">2,000</span> clicks &times; $0.40/click = <b data-v="spend">$800</b> (<span data-v="left">$600</span> held in reserve)</dd>
+      <dt>Results</dt><dd>50% opt-in = <b data-v="new">1,000</b> new subscribers (<span data-v="prev">1,750</span> + <span data-v="new">1,000</span> = <span data-v="list">2,750</span> total) <span class="arr"></span> <b data-v="sales">100</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 100% commission &times; <span data-v="sales">100</span> sales = <b data-v="revenue">$2,000</b></dd>
+      <dt>Carried forward</dt><dd><span data-v="left">$600</span> unspent + <span data-v="revenue">$2,000</span> revenue = <b data-v="next">$2,600</b></dd>
     </dl>
   </div>
 
   <div class="campaign goal" data-budget="2600" data-clicks="2000" data-cpc="0.40" data-optin="50" data-sales="160" data-price="20" data-commission="100">
-    <div class="head"><span class="n">Campaign 6</span><h3>Target Achieved</h3><div class="budget">Budget <b data-v="budget">$2,600</b></div></div>
+    <div class="head"><span class="n">Campaign 6</span><h3>Target Achieved</h3></div>
     <dl>
-      <dt>Traffic</dt><dd><b data-v="clicks">2,000</b> clicks &times; $0.40 = <b data-v="spend">&minus;$800</b></dd>
-      <dt>Subscribers</dt><dd>50% opt in = <b data-v="new">1,000</b> new, <b data-v="list">3,750</b> on your list</dd>
-      <dt>Sales</dt><dd><b data-v="sales">160</b> sales &times; $20 at 100% commission = <b data-v="revenue">$3,200</b></dd>
-      <dt>New budget</dt><dd><b data-v="next">$5,000</b> (<span data-v="left">$1,800</span> left + <span data-v="revenue">$3,200</span> revenue)</dd>
+      <dt>Starting budget</dt><dd><b data-v="budget">$2,600</b></dd>
+      <dt>Spend</dt><dd><span data-v="clicks">2,000</span> clicks &times; $0.40/click = <b data-v="spend">$800</b> (<span data-v="left">$1,800</span> held in reserve)</dd>
+      <dt>Results</dt><dd>50% opt-in = <b data-v="new">1,000</b> new subscribers (<span data-v="prev">2,750</span> + <span data-v="new">1,000</span> = <span data-v="list">3,750</span> total) <span class="arr"></span> <b data-v="sales">160</b> sales</dd>
+      <dt>Revenue</dt><dd>$20 product &times; 100% commission &times; <span data-v="sales">160</span> sales = <b data-v="revenue">$3,200</b></dd>
+      <dt>Total</dt><dd><span data-v="revenue">$3,200</span> revenue + <span data-v="left">$1,800</span> reserve = <b data-v="next">$5,000</b> &mdash; target reached</dd>
     </dl>
   </div>
 

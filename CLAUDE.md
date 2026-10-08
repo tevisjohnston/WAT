@@ -74,6 +74,7 @@ workflows/      # Markdown SOPs defining what to do and how
 - `materials/setup-guides/getresponse-email-automation/screen-shots/` — GetResponse screen-shots of the automation-message upload path (shot 6 is the Upload from ZIP dialog), plus `emails/` Gmail shots of landing-3 email 1 on desktop and mobile, and `emails/emails-centered/` versions of the same two shots. They set the per-email ZIP format the theme's email download follows; no tool uses them yet
 - `materials/lead-magnets/The-Affiliate-Marketing-Blueprint/` — the old Gamma export of the 7figure lead magnet (reference only) and `images/`, the illustrations `build_blueprint.py` uses
 - `materials/fonts/fraunces/` — Fraunces (OFL) for the blueprint: the 7figure theme declares it but never loads it
+- `materials/fonts/newsreader/` — Newsreader (OFL), used by the blueprint for its display face's lowercase f only, in place of Fraunces' hooked f
 
 ## What exists today
 

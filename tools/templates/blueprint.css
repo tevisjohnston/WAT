@@ -9,6 +9,11 @@
 @font-face { font-family: "Manrope"; font-weight: 700; src: url("{{FONTS}}/manrope-v20-latin-700.woff2") format("woff2"); }
 @font-face { font-family: "Fraunces"; font-weight: 100 900;
   src: url("{{FRAUNCES}}/fraunces-latin-opsz-normal.woff2") format("woff2"); }
+/* Fraunces' lowercase f has a tall flag of a hook (in every axis setting, with no alternate glyph),
+   so the display face borrows only the f (U+0066) from Newsreader. It also keeps Fraunces' fi/ff
+   ligatures from forming. */
+@font-face { font-family: "Newsreader f"; font-weight: 200 800; unicode-range: U+0066;
+  src: url("{{NEWSREADER}}/newsreader-latin-opsz-normal.woff2") format("woff2"); }
 
 :root {
   --ink: #0f172a;        /* slate-900 */
@@ -23,7 +28,7 @@
   --amber-soft: #fef3c7; /* amber-100 */
   --amber-ink: #b45309;  /* amber-700, for amber text on white */
   --sans: "Manrope", "Segoe UI", Arial, sans-serif;
-  --serif: "Fraunces", Georgia, serif;
+  --serif: "Newsreader f", "Fraunces", Georgia, serif;
 }
 
 @page {
@@ -198,16 +203,18 @@ a { color: var(--ink); text-decoration-color: var(--amber); text-decoration-thic
 
 /* ---------- Campaign breakdown ---------- */
 .campaign { border: 0.8pt solid var(--line); border-left: 3pt solid var(--ink); border-radius: 3pt 8pt 8pt 3pt;
-  padding: 5pt 12pt 4pt; margin: 0 0 5pt; break-inside: avoid; display: grid; grid-template-columns: 1.35in 1fr; gap: 0 12pt; }
+  padding: 4pt 10pt 3pt; margin: 0 0 4pt; break-inside: avoid; display: grid; grid-template-columns: 1.12in 1fr; gap: 0 6pt; }
 .campaign.goal { border-left-color: var(--amber); background: #fffdf5; }
 .campaign .head .n { font: 700 7pt var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber-ink); }
-.campaign .head h3 { font-size: 13.5pt; margin: 1pt 0 2pt; }
-.campaign .head .budget { font: 600 8.5pt var(--sans); color: var(--muted); }
-.campaign .head .budget b { color: var(--ink); font-size: 10.5pt; }
-.campaign dl { margin: 0; display: grid; grid-template-columns: 0.85in 1fr; gap: 0 8pt; font-size: 9pt; line-height: 1.38; }
-.campaign dt { font: 700 7pt/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-top: 1.5pt; }
+/* The h3 ends .head, so its break-after: avoid would propagate to the card and chain every card
+   to the next one, pushing the whole list off the heading's page. */
+.campaign .head h3 { font-size: 13pt; margin: 1pt 0 2pt; break-after: auto; }
+.campaign dl { margin: 0; display: grid; grid-template-columns: minmax(1in, max-content) 1fr; gap: 0 6pt; font-size: 8.6pt; line-height: 1.36; }
+.campaign dt { font: 700 7pt/1.4 var(--sans); letter-spacing: 0.07em; white-space: nowrap; text-transform: uppercase; color: var(--muted); padding-top: 1.5pt; }
 .campaign dd { margin: 0; color: var(--text); }
 .campaign dd b { color: var(--ink); }
+.campaign dd .arr { color: var(--amber-ink); margin: 0 1pt; }
+#roadmap .note { margin: 8pt 0 6pt; }
 .fineprint { font-size: 8.5pt; line-height: 1.45; color: var(--muted); }
 
 /* ---------- Summary ---------- */
