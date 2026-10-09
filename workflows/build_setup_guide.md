@@ -13,7 +13,7 @@ It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-websit
 ## When to rebuild
 
 - The theme's `Version` in `style.css` changes. The cover prints it, and the zip must match it.
-- Any settings-screen label, help text or error string that the guide quotes changes (`inc/affiliate-theme-getresponse.php`, `inc/affiliate-theme-legal.php`, `blocks/optin-form/`).
+- Any settings-screen label, help text or error string that the guide quotes changes (`inc/affiliate-theme-funnel.php`, `inc/affiliate-theme-resend.php`, `inc/affiliate-theme-emails.php`, `inc/affiliate-theme-legal.php`, `blocks/optin-form/`).
 - The buyer path in the theme's CLAUDE.md changes.
 - A WordPress core update renames a screen or button that the guide quotes (for example, 7.1 says **Add Theme**, not "Add New Theme").
 

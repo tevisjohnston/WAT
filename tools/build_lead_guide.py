@@ -40,7 +40,7 @@ MAX_BYTES = 2 * 1024 * 1024
 
 def landing_promises() -> list[str]:
     """The <li> texts under "What Is In The Guide" in the Long Form pattern function."""
-    src = (THEME / "inc" / "affiliate-theme-getresponse.php").read_text()
+    src = (THEME / "inc" / "affiliate-theme-funnel.php").read_text()
     body = re.search(r"function Affiliate_Theme_Theme_landing_pattern_long\b(.*?)\nfunction ", src, re.S)
     if not body:
         raise RuntimeError("Affiliate_Theme_Theme_landing_pattern_long() not found")

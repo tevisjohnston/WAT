@@ -22,7 +22,7 @@ A theme `Version` bump alone does not need a rebuild: the guide prints no versio
 |---|---|---|
 | Copy and layout | `tools/templates/lead_guide.html`, `lead_guide.css` | Edit the copy here. Same palette and fonts as `setup_guide.css`. |
 | Theme fonts | `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme/assets/fonts/` | Read in place through `{{FONTS}}`. |
-| The landing promise | `inc/affiliate-theme-getresponse.php`, `Affiliate_Theme_Theme_landing_pattern_long()` | The tool reads its `<li>` items under "What Is In The Guide". |
+| The landing promise | `inc/affiliate-theme-funnel.php`, `Affiliate_Theme_Theme_landing_pattern_long()` | The tool reads its `<li>` items under "What Is In The Guide". |
 
 ## Tools, in order
 
