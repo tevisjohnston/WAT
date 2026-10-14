@@ -94,7 +94,7 @@ The wp-dfy theme is at **1.5.0** (check `style.css`). 1.5.0 removed GetResponse 
 
 The tools reach outside this repo, so they have side effects elsewhere:
 - `build_theme_zip.py` reads `git archive HEAD` of `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme` and refuses a dirty theme dir — commit in `wp-dfy/` first.
-- `capture_setup_screens.py` drives the live `wp-dfy-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-dfy's `.htaccess`. Check `git -C /home/tevis/wp-dfy status` afterwards.
+- `capture_setup_screens.py` drives the live `wp-dfy-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-dfy's `.htaccess`. Check `git -C /home/tevis/wp-dfy status` afterwards. If it reports "dev site not restored", run `wp theme activate affiliate-theme` in that container.
 - `build_setup_guide.py` pulls the theme's `style.css` `Version` and its `assets/fonts/` straight from the wp-dfy checkout.
 - `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and without `--no-copy` writes `emails/landing-3/guide.pdf` into the wp-dfy theme (`--no-copy` builds into `.tmp/lead-guide/` only; see Current state).
 - `build_blueprint.py` only reads outside the repo: Manrope from the 7figure theme's `assets/css/src/fonts/`. It never writes to the 7figure site.
