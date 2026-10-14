@@ -70,8 +70,7 @@ workflows/      # Markdown SOPs defining what to do and how
 
 **Also in this repo:**
 - `tools/templates/` — HTML/CSS that `build_setup_guide.py`, `build_lead_guide.py` and `build_blueprint.py` fill and print to PDF (copy is edited here, not in Python)
-- `materials/setup-guides/affiliate-theme/screen-shots/getresponse/` — the nine hand-supplied GetResponse screen-shots the setup guide uses (`mark_getresponse_shots.py` reads them)
-- `materials/setup-guides/getresponse-email-automation/screen-shots/` — GetResponse screen-shots of the automation-message upload path (shot 6 is the Upload from ZIP dialog), plus `emails/` Gmail shots of landing-3 email 1 on desktop and mobile, and `emails/emails-centered/` versions of the same two shots. They set the per-email ZIP format the theme's email download follows; no tool uses them yet
+- `materials/setup-guides/affiliate-theme/screenshots/resend/` and `materials/setup-guides/resend-email-automation/`: empty placeholders, on disk only (git does not track empty dirs), waiting for the hand-supplied Resend screenshots. dc169e3 deleted the GetResponse screen-shots that used to sit in `.../affiliate-theme/screen-shots/getresponse/` and `getresponse-email-automation/`. They survive only in git history (`git show 1ec2bd4:<path>`).
 - `materials/lead-magnets/The-Affiliate-Marketing-Blueprint/` — the old Gamma export of the 7figure lead magnet (reference only) and `images/`, the illustrations `build_blueprint.py` uses
 - `materials/fonts/fraunces/` — Fraunces (OFL) for the blueprint: the 7figure theme declares it but never loads it
 - `materials/fonts/newsreader/` — Newsreader (OFL), used by the blueprint for its display face's lowercase f only, in place of Fraunces' hooked f
@@ -81,23 +80,32 @@ workflows/      # Markdown SOPs defining what to do and how
 Three workflows. Read the relevant one before touching any tool; their rebuild triggers, verification steps and "Known quirks" are not repeated here.
 
 - `workflows/build_setup_guide.md` builds the two buyer deliverables for the `wp-dfy` affiliate theme — `deliverables/affiliate-theme.zip` and `deliverables/SETUP-GUIDE.pdf` — and publishes them to `affiliatemarketconnect.com`'s secure downloads.
-- `workflows/build_lead_guide.md` prints `guide.pdf`, the guide the theme's Long Form landing page promises, straight into the theme at `emails/landing-3/guide.pdf`. The theme ships it inside the first email of its landing-3 email download (the emails themselves are theme code: see **Email sequences** in the theme's CLAUDE.md). Commit it in `wp-dfy/`, then rebuild the zip with the first workflow.
+- `workflows/build_lead_guide.md` prints `guide.pdf`, the guide the theme's Long Form landing page promises.
 - `workflows/build_blueprint.md` builds `deliverables/The-Affiliate-Marketing-Blueprint.pdf`, the lead magnet that 7figure's `WelcomeEmail` links from `wp-content/uploads/lead-magnets/`. Copying it to the 7figure site, and committing it there, is a manual step after the build.
+
+### Current state: GetResponse is gone, Resend is not in yet
+
+The wp-dfy theme is at **1.5.0** (check `style.css`). 1.5.0 removed GetResponse ahead of the move to Resend. Its sign-up is unconnected, and it deleted `emails/`, which held the landing-3 email package and `guide.pdf`. Until the Resend work lands:
+
+- **Do not rebuild `affiliate-theme.zip` or `SETUP-GUIDE.pdf`.** Both stay at 1.4.1. A 1.5.0 zip would ship a funnel that collects nothing, and the setup guide's template and label grep still describe GetResponse. `mark_getresponse_shots.py` now crashes (`FileNotFoundError`) because its `SRC` folder was deleted.
+- **Run `build_lead_guide.py` only with `--no-copy`.** A plain run builds the PDF, then crashes copying into the missing `emails/landing-3/` (the tool doesn't create it). The guide's delivery path will be decided with the Resend integration.
+- Each of the two workflows has a **Status** section listing what is on hold and what to change when Resend lands. Their GetResponse steps are kept as the record of how 1.4.1 was built.
+- Commit 1ec2bd4 names "affiliate-theme 2.0.0", along with `inc/affiliate-theme-resend.php` and `inc/affiliate-theme-emails.php`. Those came from an abandoned 2.0.x candidate: theme `inc/` holds only `funnel`, `legal` and `seo`.
 
 The tools reach outside this repo, so they have side effects elsewhere:
 - `build_theme_zip.py` reads `git archive HEAD` of `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme` and refuses a dirty theme dir — commit in `wp-dfy/` first.
 - `capture_setup_screens.py` drives the live `wp-dfy-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-dfy's `.htaccess`. Check `git -C /home/tevis/wp-dfy status` afterwards.
 - `build_setup_guide.py` pulls the theme's `style.css` `Version` and its `assets/fonts/` straight from the wp-dfy checkout.
-- `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and writes `emails/landing-3/guide.pdf` into the wp-dfy theme, leaving the theme dir dirty until you commit (`--no-copy` builds into `.tmp/lead-guide/` only).
+- `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and without `--no-copy` writes `emails/landing-3/guide.pdf` into the wp-dfy theme (`--no-copy` builds into `.tmp/lead-guide/` only; see Current state).
 - `build_blueprint.py` only reads outside the repo: Manrope from the 7figure theme's `assets/css/src/fonts/`. It never writes to the 7figure site.
 
-The two workflows share a size budget: `affiliate-theme.zip` must stay under 2 MB (2,097,152 bytes, PHP's default upload limit), and `guide.pdf` is most of it. `build_lead_guide.py` caps only the PDF at 2 MB, so a guide that passes its own check can still push the zip over. Check `stat -c %s deliverables/affiliate-theme.zip` after every zip rebuild. The headroom at theme 1.4.1 was about 370 KB.
+The two workflows share a size budget: `affiliate-theme.zip` must stay under 2 MB (2,097,152 bytes, PHP's default upload limit), and `guide.pdf` is most of it. `build_lead_guide.py` caps only the PDF at 2 MB, so a guide that passes its own check can still push the zip over. Check `stat -c %s deliverables/affiliate-theme.zip` after every zip rebuild. The headroom at theme 1.4.1 was about 370 KB. 1.5.0 dropped the guide from the theme, so the budget matters again only if the guide goes back into the zip.
 
 Pipeline data flow: `capture_setup_screens.py` → `.tmp/setup-guide/screens/NN-*.png`; `mark_getresponse_shots.py` (imports `MARK_JS` from the capture tool, so the red boxes match) → `.tmp/setup-guide/screens/gr-*.png`; `build_setup_guide.py` fills `{{CSS}}/{{FONTS}}/{{SCREENS}}/{{VERSION}}/{{DRAFT}}` in the template and fails on any missing image or unfilled token.
 
-The GetResponse crops and marks in `mark_getresponse_shots.py` and the redaction boxes in the workflow are hard-coded pixel coordinates for specific supplied screen-shots. A replaced screen-shot needs its numbers re-measured, even at the same size. Never commit an unredacted `screen-shot-api-key-*getresponse.png` (git-ignored); only the `-redacted` copy is used.
+The GetResponse crops and marks in `mark_getresponse_shots.py` and the redaction boxes in the workflow are hard-coded pixel coordinates for specific supplied screen-shots. A replaced screenshot needs its numbers re-measured, even at the same size, so the Resend shots will need a new marking tool or new `SHOTS` entries. Never commit an unredacted API-key shot. `.gitignore` now ignores `screenshot-api-key-*resend.png` in any folder; redact with `redact_image.py` and commit only the redacted copy.
 
-Files under `materials/` are named in lowercase kebab-case, and `mark_getresponse_shots.py` hard-codes each one in `SHOTS`. Paths are case-sensitive, so renaming a shot means editing `SHOTS` too.
+Files under `materials/` are named in lowercase kebab-case, and dc169e3 moved the convention from `screen-shot` to `screenshot`. Tools hard-code these filenames (`SHOTS` in `mark_getresponse_shots.py`), and paths are case-sensitive, so renaming a file means editing the tool too.
 
 ## Commands
 
@@ -114,7 +122,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # one-time;
 .venv/bin/python tools/redact_image.py IN.png OUT.png --box x,y,w,h[:TEXT] [--fill '#rrggbb']   # one-off; the workflow has the exact API-key boxes
 ```
 
-The dependencies are Playwright and Pillow (`build_blueprint.py` re-encodes its images), and no current tool reads `.env` (`.env.example` holds only placeholder keys).
+The dependencies are Playwright and Pillow (`build_blueprint.py` re-encodes its images), and no current tool reads `.env` (there is no `.env.example`; dc169e3 removed it).
 
 There are no tests or linters. Verification is the checklist in the workflow (zip listing and modes, viewing every screen-shot, the UI-label grep, `pdfinfo`/`pdffonts`/`pdftoppm` page review).
 
