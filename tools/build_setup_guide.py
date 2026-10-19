@@ -5,7 +5,7 @@ Inputs:
   - .tmp/setup-guide/screens/[0-9]*.png   from tools/capture_setup_screens.py
   - .tmp/setup-guide/screens/gr-*.png     from tools/mark_getresponse_shots.py, which
     crops and marks the GetResponse screen-shots supplied by hand
-  - the wp-dfy theme's fonts and style.css Version
+  - the wp-test theme's fonts and style.css Version
 
 Every <img> must exist. The GetResponse screen-shots may be missing only with
 --draft, which swaps in a dashed placeholder and stamps DRAFT on every page, so
@@ -23,7 +23,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 WAT = Path(__file__).resolve().parent.parent
-THEME = Path("/home/tevis/wp-dfy/wp-content/themes/affiliate-theme")
+THEME = Path("/home/tevis/wp-test/wp-content/themes/affiliate-theme")
 TEMPLATES = WAT / "tools" / "templates"
 SCREENS = WAT / ".tmp" / "setup-guide" / "screens"
 RENDERED = WAT / ".tmp" / "setup-guide" / "guide.html"

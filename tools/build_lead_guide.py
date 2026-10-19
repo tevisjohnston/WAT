@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Render the landing-3 guide.pdf from tools/templates/lead_guide.{html,css}.
 
-The Long Form landing page of the wp-dfy affiliate theme promises "the guide",
+The Long Form landing page of the wp-test affiliate theme promises "the guide",
 and its first email delivers it: the theme puts guide.pdf next to index.html in
 that email's ZIP. This tool prints the guide and copies it into the theme at
-emails/landing-3/guide.pdf, which is then committed in wp-dfy like any theme file.
+emails/landing-3/guide.pdf, which is then committed in wp-test like any theme file.
 
 Inputs:
   - tools/templates/lead_guide.html + lead_guide.css   the guide copy and layout
-  - the wp-dfy theme's fonts                           assets/fonts/
+  - the wp-test theme's fonts                           assets/fonts/
   - the theme's landing-3 pattern                      its "What Is In The Guide" list
 
 Every bullet of that list must appear in the guide word for word (its chapter
@@ -28,7 +28,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 WAT = Path(__file__).resolve().parent.parent
-THEME = Path("/home/tevis/wp-dfy/wp-content/themes/affiliate-theme")
+THEME = Path("/home/tevis/wp-test/wp-content/themes/affiliate-theme")
 TEMPLATES = WAT / "tools" / "templates"
 OUT_DIR = WAT / ".tmp" / "lead-guide"
 RENDERED = OUT_DIR / "guide.html"
@@ -105,7 +105,7 @@ def main() -> int:
     print(f"wrote {PDF}  {size / 1024:.0f} KB")
     if not args.no_copy:
         shutil.copyfile(PDF, THEME_PDF)
-        print(f"copied to {THEME_PDF}  (commit it in /home/tevis/wp-dfy)")
+        print(f"copied to {THEME_PDF}  (commit it in /home/tevis/wp-test)")
     return 0
 
 

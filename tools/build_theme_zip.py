@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the buyer-facing affiliate-theme.zip from the committed wp-dfy theme.
+"""Build the buyer-facing affiliate-theme.zip from the committed wp-test theme.
 
 The zip holds exactly what `git archive HEAD` has for the theme directory,
 under a single top-level `affiliate-theme/` folder (what WordPress's
@@ -17,7 +17,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-REPO = Path("/home/tevis/wp-dfy")
+REPO = Path("/home/tevis/wp-test")
 THEME_PATH = "wp-content/themes/affiliate-theme"
 PREFIX = "affiliate-theme/"
 EXCLUDE = {"CLAUDE.md"}
@@ -85,7 +85,7 @@ def main() -> int:
 
     size = out.stat().st_size
     print(f"wrote {out}")
-    print(f"  theme version {version.group(1) if version else '?'} (wp-dfy {commit})")
+    print(f"  theme version {version.group(1) if version else '?'} (wp-test {commit})")
     print(f"  {len(names)} files, {size / 1024 / 1024:.2f} MB")
     return 0
 

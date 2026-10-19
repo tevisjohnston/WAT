@@ -2,13 +2,13 @@
 
 ## Objective
 
-Produce `guide.pdf`, the guide that the wp-dfy affiliate theme's Long Form landing page promises ("The guide arrives in the next few minutes").
+Produce `guide.pdf`, the guide that the wp-test affiliate theme's Long Form landing page promises ("The guide arrives in the next few minutes").
 
 The guide is written for the buyer's subscribers, who are aspiring affiliates, not for the buyer. It names no brand, no author and no offer: every buyer sends the same file under their own name. Its five chapter titles are the five "What Is In The Guide" bullets of `Affiliate_Theme_Theme_landing_pattern_long()`, word for word. Chapter 3's seven email templates follow the seven-step shape of the old landing-3 email sequence (Deliver, Teach, Help, Show the plan, Clear the obstacle, Give a tool, Invite).
 
 ## Status: no delivery path until the Resend work lands
 
-Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`. The theme packed it next to `index.html` in the ZIP of landing-3's first email, and the buyer uploaded that ZIP to GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. The Long Form pattern still promises the guide. Where the guide lives, and how subscribers receive it, will be decided when Resend lands. The old emails are in wp-dfy history (`git show 728e991:wp-content/themes/affiliate-theme/emails/...`).
+Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`. The theme packed it next to `index.html` in the ZIP of landing-3's first email, and the buyer uploaded that ZIP to GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. The Long Form pattern still promises the guide. Where the guide lives, and how subscribers receive it, will be decided when Resend lands. The old emails are in wp-test history (`git show 728e991:wp-content/themes/affiliate-theme/emails/...`).
 
 Until then:
 
@@ -29,7 +29,7 @@ A theme `Version` bump alone does not need a rebuild: the guide prints no versio
 | Input | Where | Notes |
 |---|---|---|
 | Copy and layout | `tools/templates/lead_guide.html`, `lead_guide.css` | Edit the copy here. Same palette and fonts as `setup_guide.css`. |
-| Theme fonts | `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme/assets/fonts/` | Read in place through `{{FONTS}}`. |
+| Theme fonts | `/home/tevis/wp-test/wp-content/themes/affiliate-theme/assets/fonts/` | Read in place through `{{FONTS}}`. |
 | The landing promise | `inc/affiliate-theme-funnel.php`, `Affiliate_Theme_Theme_landing_pattern_long()` | The tool reads its `<li>` items under "What Is In The Guide". |
 
 ## Tools, in order
@@ -44,7 +44,7 @@ One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin
    - copies the PDF into the theme's `emails/landing-3/`, which **crashes against theme 1.5.0** (see Status)
 
    `--no-copy` builds into `.tmp/lead-guide/` only. This is the only mode that works today.
-2. **Suspended (1.4.1 delivery).** Commit the PDF in wp-dfy, using the theme's commit message style and a `Version` bump. Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`.
+2. **Suspended (1.4.1 delivery).** Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump. Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`.
 
 ## Verification (all must pass before committing)
 

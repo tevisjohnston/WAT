@@ -2,7 +2,7 @@
 
 ## Objective
 
-Produce the buyer-facing `SETUP-GUIDE.pdf` and the `affiliate-theme.zip` it tells buyers to upload, then publish both to Affiliate Market Connect's secure downloads. The guide covers the buyer path at the top of `/home/tevis/wp-dfy/wp-content/themes/affiliate-theme/CLAUDE.md`, and only that path:
+Produce the buyer-facing `SETUP-GUIDE.pdf` and the `affiliate-theme.zip` it tells buyers to upload, then publish both to Affiliate Market Connect's secure downloads. The guide covers the buyer path at the top of `/home/tevis/wp-test/wp-content/themes/affiliate-theme/CLAUDE.md`, and only that path:
 
 download → upload → install → activate → Settings › Permalinks (Post name) → Settings › Affiliate Theme Settings (key, list token, affiliate URL) → edit and publish a landing page → Settings › Reading → edit and publish the legal pages → Settings › Privacy.
 
@@ -31,8 +31,8 @@ When Resend lands, rewrite Step 5 of `tools/templates/setup_guide.html` for the 
 
 | Input | Where | Notes |
 |---|---|---|
-| Theme source | `/home/tevis/wp-dfy` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
-| Dev site | `wp-dfy-wordpress-1`, https://wp-dfy.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
+| Theme source | `/home/tevis/wp-test` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
+| Dev site | `wp-test-wordpress-1`, https://wp-test.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
 | Provider screenshots | **Pending:** `materials/setup-guides/affiliate-theme/screenshots/resend/` (empty). 1.4.1 used nine GetResponse shots (deleted in `dc169e3`). API key path: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-redacted` Copy API Key box. List token path: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All the others were 1366×563 | Supplied by hand. The guide uses only a redacted copy of any API key shot. `.gitignore` ignores `screenshot-api-key-*resend.png` in any folder. Never commit an unredacted key shot. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
@@ -45,7 +45,7 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
    - It logs in with cookies minted by `wp eval` for user 1, and destroys the session token on exit. No password is needed.
    - It replaces the dev site's real list token, list name, affiliate URL, site name and page statuses in the DOM before each shot. Nothing is saved.
    - Shot 04 (Settings › Permalinks) replaces the dev site's address with `https://yoursite.com` in the structure examples and the Optional help text.
-   - Loading Settings › Permalinks runs core's `flush_rewrite_rules()`, which rewrites wp-dfy's repo-root `.htaccess`. With the dev site on `/%postname%/` the file comes out unchanged. Check `git -C /home/tevis/wp-dfy status` after a capture anyway.
+   - Loading Settings › Permalinks runs core's `flush_rewrite_rules()`, which rewrites wp-test's repo-root `.htaccess`. With the dev site on `/%postname%/` the file comes out unchanged. Check `git -C /home/tevis/wp-test status` after a capture anyway.
    - Shots 01–03 switch the dev site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "dev site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
 3. **Redact the API key shot.** For 1.4.1 this was done once, and the `-redacted` copy was committed. The command below is that GetResponse run, kept as the pattern. Its folder no longer exists, and a Resend key shot needs its own boxes. A hand-drawn scribble is not enough: the first supplied shot still showed the key's first 8 characters and GetResponse's masked `lb9…yl6` row. Paint over the whole key field and the masked row of the new unredacted shot, then view the result before building:
 
@@ -66,7 +66,7 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
 3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong. Add a row whenever the guide quotes a new string, and remove a row when the guide stops quoting it. `A static page` is not in this list: core wraps "static page" in a link, so check it against the Reading screen-shot instead. GetResponse's labels (`Tools`, `Connect`, `Integrations and API`, `API`, `Generate API key`, `Generate`, `Copy`, `Contacts`, `Lists`, `Settings`, `List token:`, `List name`, `List ID`) can't be grepped, so check them against the supplied shots. GetResponse now says "Integrations and API", and since theme 1.2.6 the theme's settings screen and its rejected-key message do too. **Against theme 1.5.0, nine rows print `MISSING`:** the three GetResponse field and status labels, `Check list`, the three GetResponse error messages, and the sign-up handler's `Something went wrong. Please try again.` and `Please try again in a moment.`. That is expected: 1.5.0 removed them, and the guide is wrong until Step 5 is rewritten for Resend.
 
    ```bash
-   T=/home/tevis/wp-dfy/wp-content/themes/affiliate-theme; W=/home/tevis/wp-dfy
+   T=/home/tevis/wp-test/wp-content/themes/affiliate-theme; W=/home/tevis/wp-test
    while IFS='|' read -r label where; do where=$(eval echo "$where")
      grep -rqF -- "$label" $where || echo "MISSING $label"; done <<'EOF'
    Affiliate Theme Settings|$T/inc

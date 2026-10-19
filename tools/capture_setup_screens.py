@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-dfy dev site.
+"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-test dev site.
 
 Logs in as user 1 with auth cookies minted by WP-CLI inside the container, so no
 password is needed; the session token is destroyed again on exit. Every value
@@ -23,8 +23,8 @@ from pathlib import Path
 
 from playwright.sync_api import Page, sync_playwright
 
-CONTAINER = "wp-dfy-wordpress-1"
-HOST = "wp-dfy.affiliatemarketconnect.com"
+CONTAINER = "wp-test-wordpress-1"
+HOST = "wp-test.affiliatemarketconnect.com"
 BASE = f"https://{HOST}"
 WAT = Path(__file__).resolve().parent.parent
 OUT = WAT / ".tmp" / "setup-guide" / "screens"
