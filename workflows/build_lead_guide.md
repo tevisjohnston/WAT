@@ -2,24 +2,21 @@
 
 ## Objective
 
-Produce `guide.pdf`, the guide that the wp-test affiliate theme's Long Form landing page promises ("The guide arrives in the next few minutes").
+Produce `guide.pdf`, the guide that the wp-test affiliate theme's Long Form landing page promises ("The guide arrives in the next few minutes"). From theme 2.0.0 the theme serves it as `assets/lead-magnets/landing-3-guide.pdf`, and Long Form email 1 links it through the `{{{GUIDE_URL}}}` template variable.
 
-The guide is written for the buyer's subscribers, who are aspiring affiliates, not for the buyer. It names no brand, no author and no offer: every buyer sends the same file under their own name. Its five chapter titles are the five "What Is In The Guide" bullets of `Affiliate_Theme_Theme_landing_pattern_long()`, word for word. Chapter 3's seven email templates follow the seven-step shape of the old landing-3 email sequence (Deliver, Teach, Help, Show the plan, Clear the obstacle, Give a tool, Invite).
+The guide is written for the buyer's subscribers, who are aspiring affiliates, not for the buyer. It names no brand, no author and no offer: every buyer sends the same file under their own name. Its five chapter titles are the five "What Is In The Guide" bullets of `Affiliate_Theme_Theme_landing_pattern_long()`, word for word. Chapter 3's seven email templates follow the seven-step shape of the old landing-3 email sequence (Deliver, Teach, Help, Show the plan, Clear the obstacle, Give a tool, Invite). Theme 2.0.0's Long Form email 4 maps its six emails onto that shape.
 
-## Status: no delivery path until the Resend work lands
+## Status: the guide ships in theme 2.0.0
 
-Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`. The theme packed it next to `index.html` in the ZIP of landing-3's first email, and the buyer uploaded that ZIP to GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. The Long Form pattern still promises the guide. Where the guide lives, and how subscribers receive it, will be decided when Resend lands. The old emails are in wp-test history (`git show 728e991:wp-content/themes/affiliate-theme/emails/...`).
+Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`, packed into the ZIP of landing-3's first email for GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. Theme 2.0.0, built on wp-test branch `resend-2.0.0` until it merges, brings the guide back at `affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`. The theme's Resend templates link it from Long Form email 1: the `{{{GUIDE_URL}}}` variable's fallback is the PDF's URL on the buyer's own site.
 
-Until then:
-
-- **Run the tool only with `--no-copy`.** A plain run builds the PDF and then crashes on the copy, because `emails/landing-3/` no longer exists and the tool does not create it. Don't recreate the folder by hand either: that would put back a path 1.5.0 removed.
-- Steps 2 and 3–4 of the verification below describe the 1.4.1 delivery and are suspended.
-- When the delivery path is decided, point `THEME_PDF` in `tools/build_lead_guide.py` at it (or drop the copy step), and rewrite this Objective, step 2, and verification steps 3–4 to match.
+- The tool copies the PDF there and creates the folder. Run it while wp-test has `resend-2.0.0` checked out: `main` is still 1.5.0, which has no `assets/lead-magnets/`.
+- Don't rebuild `affiliate-theme.zip` because the guide changed. `build_setup_guide.md` says when a rebuild is allowed.
 
 ## When to rebuild
 
 - The guide copy or layout changes (`tools/templates/lead_guide.html`, `lead_guide.css`).
-- The Long Form pattern's "What Is In The Guide" list changes. The build fails until the chapter titles match it again. Once Resend brings back an email sequence that cites the chapters by number (the 1.4.1 landing-3 emails 1–7 did), check those too.
+- The Long Form pattern's "What Is In The Guide" list changes. The build fails until the chapter titles match it again. Long Form's emails cite the chapters too (theme `emails/landing-3/`: email 1 lists all five, and emails 2–6 take one chapter each), so change them to match.
 - The theme's Archivo or Newsreader font files change.
 
 A theme `Version` bump alone does not need a rebuild: the guide prints no version.
@@ -40,21 +37,21 @@ One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin
    - fills `{{CSS}}` and `{{FONTS}}`
    - checks that every landing bullet appears in the guide
    - prints `.tmp/lead-guide/guide.pdf` and checks that both theme fonts loaded
-   - fails over 2 MB (the cap that kept `affiliate-theme.zip` under PHP's upload limit while the guide shipped inside it)
-   - copies the PDF into the theme's `emails/landing-3/`, which **crashes against theme 1.5.0** (see Status)
+   - fails over 2 MB (`affiliate-theme.zip` holds the guide again from 2.0.0, and must stay under PHP's 2 MB upload limit)
+   - copies the PDF to the theme's `assets/lead-magnets/landing-3-guide.pdf`, creating the folder
 
-   `--no-copy` builds into `.tmp/lead-guide/` only. This is the only mode that works today.
-2. **Suspended (1.4.1 delivery).** Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump. Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`.
+   `--no-copy` builds into `.tmp/lead-guide/` only.
+2. Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump (on the unreleased `resend-2.0.0` branch, `Version` stays 2.0.0). Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`, once that workflow allows a rebuild.
 
 ## Verification (all must pass before committing)
 
 1. **PDF:** `pdfinfo` shows Letter and 15 pages. Expect a different page count after copy changes. `pdffonts` lists Archivo and Newsreader as embedded.
 2. **Pages:** `pdftoppm -r 55 -png` every page, tile them with `montage`, and review them. Look for widowed headings, a short list split across a page break (give it `class="keep"`), clipped wireframe badges, and overflow. Each chapter starts on a new page, so a short last page at the end of a chapter is expected.
-3. **Suspended (1.4.1 delivery).** The emails that ship it: build landing 3's download on the dev site. Confirm that `01-your-guide.zip` holds `index.html` and a `guide.pdf` byte-identical to the theme's. 1.5.0 removed the download, so replace this check with whatever Resend delivery replaces it.
-4. **Suspended (1.4.1 delivery).** GetResponse: after the upload, the guide button in landing-3 email 1's preview opens the PDF. This was never checked before GetResponse was removed.
+3. **The link:** the dev site serves the PDF. `curl -sI https://wp-test.affiliatemarketconnect.com/wp-content/themes/affiliate-theme/assets/lead-magnets/landing-3-guide.pdf` shows `200` and `content-type: application/pdf`.
+4. **Live:** the guide button in a real Long Form email 1 opens the PDF. This waits for the theme's live Resend test (Phase 7 of its build plan).
 
 ## Known quirks
 
 - **Chrome clips anything that crosses into the page margin.** The chapter 2 wireframe starts at the left margin, so its number badges sit inside its wide left padding. Badges positioned outside it were cut in half.
 - **Chrome embeds the variable fonts as Type 3**, as with the setup guide, which is why the PDF is about 800 KB for text alone. Poppler's "Bad bounding box in Type 3 glyph" warnings are harmless.
-- **It was never confirmed whether GetResponse hosted a PDF from an uploaded ZIP.** Theme 1.4.1 hedged by telling buyers to upload the guide to their Media Library and relink it. Self-hosting from the buyer's Media Library is the starting point to consider for Resend.
+- **The PDF is public.** Anyone can fetch it from the theme folder without signing up, which is fine for a free guide. A security plugin that blocks direct access to theme folders breaks the link, and a renamed theme folder changes its URL.

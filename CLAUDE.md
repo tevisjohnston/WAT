@@ -80,26 +80,26 @@ workflows/      # Markdown SOPs defining what to do and how
 Three workflows. Read the relevant one before touching any tool; their rebuild triggers, verification steps and "Known quirks" are not repeated here.
 
 - `workflows/build_setup_guide.md` builds the two buyer deliverables for the `wp-test` affiliate theme — `deliverables/affiliate-theme.zip` and `deliverables/SETUP-GUIDE.pdf` — and publishes them to `affiliatemarketconnect.com`'s secure downloads.
-- `workflows/build_lead_guide.md` prints `guide.pdf`, the guide the theme's Long Form landing page promises.
+- `workflows/build_lead_guide.md` prints `guide.pdf`, the guide the theme's Long Form landing page promises, and copies it into the theme as `assets/lead-magnets/landing-3-guide.pdf`.
 - `workflows/build_blueprint.md` builds `deliverables/The-Affiliate-Marketing-Blueprint.pdf`, the lead magnet that 7figure's `WelcomeEmail` links from `wp-content/uploads/lead-magnets/`. Copying it to the 7figure site, and committing it there, is a manual step after the build.
 
-### Current state: GetResponse is gone, Resend is not in yet
+### Current state: GetResponse is gone, Resend is being built
 
-The wp-test theme is at **1.5.0** (check `style.css`). 1.5.0 removed GetResponse ahead of the move to Resend. Its sign-up is unconnected, and it deleted `emails/`, which held the landing-3 email package and `guide.pdf`. Until the Resend work lands:
+The wp-test theme's `main` is at **1.5.0** (check `style.css`). 1.5.0 removed GetResponse ahead of the move to Resend. Its sign-up is unconnected, and it deleted `emails/`, which held the landing-3 email package and `guide.pdf`. Theme 2.0.0 brings in Resend phase by phase on wp-test branch `resend-2.0.0`, and the tools read whatever wp-test has checked out. Until 2.0.0 is released:
 
 - **Do not rebuild `affiliate-theme.zip` or `SETUP-GUIDE.pdf`.** Both stay at 1.4.1. A 1.5.0 zip would ship a funnel that collects nothing, and the setup guide's template and label grep still describe GetResponse. `mark_getresponse_shots.py` now crashes (`FileNotFoundError`) because its `SRC` folder was deleted.
-- **Run `build_lead_guide.py` only with `--no-copy`.** A plain run builds the PDF, then crashes copying into the missing `emails/landing-3/` (the tool doesn't create it). The guide's delivery path will be decided with the Resend integration.
-- Each of the two workflows has a **Status** section listing what is on hold and what to change when Resend lands. Their GetResponse steps are kept as the record of how 1.4.1 was built.
-- Commit 1ec2bd4 names "affiliate-theme 2.0.0", along with `inc/affiliate-theme-resend.php` and `inc/affiliate-theme-emails.php`. Those came from an abandoned 2.0.x candidate: theme `inc/` holds only `funnel`, `legal` and `seo`.
+- **`build_lead_guide.py` copies the guide into the theme as `assets/lead-magnets/landing-3-guide.pdf`**, creating the folder. Theme 2.0.0's Long Form email 1 links it there. Run the tool while wp-test has `resend-2.0.0` checked out.
+- Each of the two workflows has a **Status** section: `build_setup_guide.md`'s lists what is on hold until Resend lands, and `build_lead_guide.md`'s says where the guide ships. The GetResponse steps are kept as the record of how 1.4.1 was built.
+- Commit 1ec2bd4 names "affiliate-theme 2.0.0", along with `inc/affiliate-theme-resend.php` and `inc/affiliate-theme-emails.php`. Those came from the abandoned first 2.0.0 candidate (wp-dfy `backup/resend-2.0.0`). Branch `resend-2.0.0` rebuilds both, so its `inc/` holds `funnel`, `legal`, `seo`, `resend` and `emails`. `main`'s holds only the first three.
 
 The tools reach outside this repo, so they have side effects elsewhere:
 - `build_theme_zip.py` reads `git archive HEAD` of `/home/tevis/wp-test/wp-content/themes/affiliate-theme` and refuses a dirty theme dir — commit in `wp-test/` first.
 - `capture_setup_screens.py` drives the live `wp-test-wordpress-1` dev site through `docker exec ... wp` and Playwright: it mints login cookies for user 1, briefly switches the active theme to `twentytwentyfive`, and loading Permalinks rewrites wp-test's `.htaccess`. Check `git -C /home/tevis/wp-test status` afterwards. If it reports "dev site not restored", run `wp theme activate affiliate-theme` in that container.
 - `build_setup_guide.py` pulls the theme's `style.css` `Version` and its `assets/fonts/` straight from the wp-test checkout.
-- `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and without `--no-copy` writes `emails/landing-3/guide.pdf` into the wp-test theme (`--no-copy` builds into `.tmp/lead-guide/` only; see Current state).
+- `build_lead_guide.py` reads the theme's fonts and its Long Form pattern (it fails unless the guide quotes that page's "What Is In The Guide" bullets word for word), and without `--no-copy` writes `assets/lead-magnets/landing-3-guide.pdf` into the wp-test theme, creating the folder (`--no-copy` builds into `.tmp/lead-guide/` only; see Current state).
 - `build_blueprint.py` only reads outside the repo: Manrope from the 7figure theme's `assets/css/src/fonts/`. It never writes to the 7figure site.
 
-The two workflows share a size budget: `affiliate-theme.zip` must stay under 2 MB (2,097,152 bytes, PHP's default upload limit), and `guide.pdf` is most of it. `build_lead_guide.py` caps only the PDF at 2 MB, so a guide that passes its own check can still push the zip over. Check `stat -c %s deliverables/affiliate-theme.zip` after every zip rebuild. The headroom at theme 1.4.1 was about 370 KB. 1.5.0 dropped the guide from the theme, so the budget matters again only if the guide goes back into the zip.
+The two workflows share a size budget: `affiliate-theme.zip` must stay under 2 MB (2,097,152 bytes, PHP's default upload limit), and `guide.pdf` is most of it. `build_lead_guide.py` caps only the PDF at 2 MB, so a guide that passes its own check can still push the zip over. Check `stat -c %s deliverables/affiliate-theme.zip` after every zip rebuild. The headroom at theme 1.4.1 was about 370 KB. 1.5.0 dropped the guide from the theme, and 2.0.0 puts it back in `assets/lead-magnets/`, so the budget matters again: built the way `build_theme_zip.py` builds it, 2.0.0's theme with its emails and the guide came to 1,714,080 bytes on 2026-10-19 (about 374 KB of headroom), before the rest of the Resend code went in.
 
 Pipeline data flow: `capture_setup_screens.py` → `.tmp/setup-guide/screens/NN-*.png`; `mark_getresponse_shots.py` (imports `MARK_JS` from the capture tool, so the red boxes match) → `.tmp/setup-guide/screens/gr-*.png`; `build_setup_guide.py` fills `{{CSS}}/{{FONTS}}/{{SCREENS}}/{{VERSION}}/{{DRAFT}}` in the template and fails on any missing image or unfilled token.
 

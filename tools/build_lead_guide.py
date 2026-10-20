@@ -2,9 +2,9 @@
 """Render the landing-3 guide.pdf from tools/templates/lead_guide.{html,css}.
 
 The Long Form landing page of the wp-test affiliate theme promises "the guide",
-and its first email delivers it: the theme puts guide.pdf next to index.html in
-that email's ZIP. This tool prints the guide and copies it into the theme at
-emails/landing-3/guide.pdf, which is then committed in wp-test like any theme file.
+and its first email links it. This tool prints the guide and copies it into the
+theme at assets/lead-magnets/landing-3-guide.pdf (theme 2.0.0), creating the
+folder, which is then committed in wp-test like any theme file.
 
 Inputs:
   - tools/templates/lead_guide.html + lead_guide.css   the guide copy and layout
@@ -33,8 +33,9 @@ TEMPLATES = WAT / "tools" / "templates"
 OUT_DIR = WAT / ".tmp" / "lead-guide"
 RENDERED = OUT_DIR / "guide.html"
 PDF = OUT_DIR / "guide.pdf"
-THEME_PDF = THEME / "emails" / "landing-3" / "guide.pdf"
-# The whole ZIP may be 10 MB in GetResponse; keep the guide far below that.
+THEME_PDF = THEME / "assets" / "lead-magnets" / "landing-3-guide.pdf"
+# The guide ships inside affiliate-theme.zip, which must stay under PHP's 2 MB
+# upload limit; this caps the guide alone.
 MAX_BYTES = 2 * 1024 * 1024
 
 
@@ -104,6 +105,7 @@ def main() -> int:
 
     print(f"wrote {PDF}  {size / 1024:.0f} KB")
     if not args.no_copy:
+        THEME_PDF.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(PDF, THEME_PDF)
         print(f"copied to {THEME_PDF}  (commit it in /home/tevis/wp-test)")
     return 0
