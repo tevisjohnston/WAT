@@ -14,3 +14,6 @@ __pycache__/
 
 # Temporary files (scraped data, intermediate exports)
 .tmp
+
+# Git worktrees
+.worktrees/
