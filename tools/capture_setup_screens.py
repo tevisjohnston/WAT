@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-test dev site.
+"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-guide test site.
+
+wp-guide is a buyer-style install with the theme uploaded from a zip; --site wp-test
+drives the dev site instead.
 
 Logs in as user 1 with auth cookies minted by WP-CLI inside the container, so no
 password is needed; the session token is destroyed again on exit. Every value
@@ -7,12 +10,12 @@ that would identify the dev install (list token, list name, affiliate URL, site
 name, page statuses, the dev domain in example addresses) is replaced in the DOM
 before the shot and never saved.
 
-The Activate shot switches the dev site to twentytwentyfive and back. The theme's
+The Activate shot switches the site to twentytwentyfive and back. The theme's
 seeder is guarded by the affiliate-theme_pages_created flag, which this tool
 checks first, so switching back creates no pages.
 
 Usage:
-    .venv/bin/python tools/capture_setup_screens.py [--only 05-settings ...]
+    .venv/bin/python tools/capture_setup_screens.py [--site wp-guide|wp-test] [--only 05-settings ...]
 """
 
 import argparse
@@ -23,8 +26,12 @@ from pathlib import Path
 
 from playwright.sync_api import Page, sync_playwright
 
-CONTAINER = "wp-test-wordpress-1"
-HOST = "wp-test.affiliatemarketconnect.com"
+# Container and host per site; main() sets CONTAINER, HOST and BASE from --site.
+SITES = {
+    "wp-guide": ("wp-guide-wordpress-1", "wp-guide.affiliatemarketconnect.com"),
+    "wp-test": ("wp-test-wordpress-1", "wp-test.affiliatemarketconnect.com"),
+}
+CONTAINER, HOST = SITES["wp-guide"]
 BASE = f"https://{HOST}"
 WAT = Path(__file__).resolve().parent.parent
 OUT = WAT / ".tmp" / "setup-guide" / "screens"
@@ -407,14 +414,18 @@ def run(page: Page, names: list[str], ids: dict) -> None:
 
 
 def main() -> int:
+    global CONTAINER, HOST, BASE
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--site", choices=list(SITES), default="wp-guide", help="the site to capture (default wp-guide)")
     parser.add_argument("--only", nargs="*", choices=list(SHOTS), help="capture just these shots")
     args = parser.parse_args()
+    CONTAINER, HOST = SITES[args.site]
+    BASE = f"https://{HOST}"
     names = args.only or list(SHOTS)
     OUT.mkdir(parents=True, exist_ok=True)
 
     if wp("option", "get", "stylesheet") != "affiliate-theme":
-        print("ERROR: affiliate-theme must be the active theme on the dev site", file=sys.stderr)
+        print("ERROR: affiliate-theme must be the active theme on the site", file=sys.stderr)
         return 1
     ids = {k: int(wp_eval(f'echo get_page_by_path( "{slug}" )->ID;')) for k, slug in PAGE_SLUGS.items()}
 
@@ -445,8 +456,8 @@ def main() -> int:
                     wp("theme", "activate", "affiliate-theme")
                     after = page_snapshot()
                     if wp("option", "get", "stylesheet") != "affiliate-theme" or before != after:
-                        raise RuntimeError("dev site not restored: check the active theme and pages")
-                    print("dev site restored: affiliate-theme active, pages unchanged")
+                        raise RuntimeError("site not restored: check the active theme and pages")
+                    print("site restored: affiliate-theme active, pages unchanged")
             browser.close()
     finally:
         destroy_session(session["token"])

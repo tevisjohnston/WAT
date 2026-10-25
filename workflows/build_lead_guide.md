@@ -10,7 +10,7 @@ The guide is written for the buyer's subscribers, who are aspiring affiliates, n
 
 Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`, packed into the ZIP of landing-3's first email for GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. Theme 2.0.0, built on wp-test branch `resend-2.0.0` until it merges, brings the guide back at `affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`. The theme's Resend templates link it from Long Form email 1: the `{{{GUIDE_URL}}}` variable's fallback is the PDF's URL on the buyer's own site.
 
-- The tool copies the PDF there and creates the folder. Run it while wp-test has `resend-2.0.0` checked out: `main` is still 1.5.0, which has no `assets/lead-magnets/`.
+- The tool copies the PDF there and creates the folder. Run it while wp-test has `main` checked out (2.0.0 since 2026-10-25; 1.5.0 had no `assets/lead-magnets/`).
 - Don't rebuild `affiliate-theme.zip` because the guide changed. `build_setup_guide.md` says when a rebuild is allowed.
 
 ## When to rebuild
@@ -41,7 +41,7 @@ One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin
    - copies the PDF to the theme's `assets/lead-magnets/landing-3-guide.pdf`, creating the folder
 
    `--no-copy` builds into `.tmp/lead-guide/` only.
-2. Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump (on the unreleased `resend-2.0.0` branch, `Version` stays 2.0.0). Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`, once that workflow allows a rebuild.
+2. Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump (until 2.0.0 is released, `Version` stays 2.0.0). Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`, once that workflow allows a rebuild.
 
 ## Verification (all must pass before committing)
 

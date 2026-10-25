@@ -12,7 +12,7 @@ It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-websit
 
 ## Status: on hold until the Resend work lands
 
-The published `SETUP-GUIDE.pdf` and `affiliate-theme.zip` are theme **1.4.1**, the last GetResponse release. **Do not run this workflow against theme 1.5.0.**
+The published `SETUP-GUIDE.pdf` and `affiliate-theme.zip` are theme **1.4.1**, the last GetResponse release. **Do not run this workflow against theme 1.5.0.** wp-test's `main` has been 2.0.0 since 2026-10-25, which still waits for its live run on Free and the guide rewrite. Until then only the test zip is built (`tools/build_theme_zip.py --out .tmp/wp-guide/affiliate-theme.zip`), and `deliverables/` stays at 1.4.1.
 
 - 1.5.0 (wp-dfy `d62daf2`) removed GetResponse ahead of the move to Resend. The opt-in form shows visitors nothing, so a 1.5.0 zip would ship a funnel that collects nothing.
 - 1.5.0 also drops the key, list token and Check list fields from the settings screen. In the theme's buyer path, the buyer now only pastes the affiliate URL there. The template's Step 5 still walks through the GetResponse fields.
@@ -32,7 +32,7 @@ When Resend lands, rewrite Step 5 of `tools/templates/setup_guide.html` for the 
 | Input | Where | Notes |
 |---|---|---|
 | Theme source | `/home/tevis/wp-test` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
-| Dev site | `wp-test-wordpress-1`, https://wp-test.affiliatemarketconnect.com | `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
+| Screenshot site | `wp-guide-wordpress-1`, https://wp-guide.affiliatemarketconnect.com (`--site wp-test` for the dev site) | A buyer-style install with no repo, the theme uploaded from the test zip. `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
 | Provider screenshots | **Pending:** `materials/setup-guides/affiliate-theme/screenshots/resend/` (empty). 1.4.1 used nine GetResponse shots (deleted in `dc169e3`). API key path: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-redacted` Copy API Key box. List token path: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All the others were 1366×563 | Supplied by hand. The guide uses only a redacted copy of any API key shot. `.gitignore` ignores `screenshot-api-key-*resend.png` in any folder. Never commit an unredacted key shot. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
@@ -41,12 +41,12 @@ When Resend lands, rewrite Step 5 of `tools/templates/setup_guide.html` for the 
 One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`. Playwright drives the host's `/usr/bin/google-chrome` (`channel="chrome"`), so there's no `playwright install` step.
 
 1. `.venv/bin/python tools/build_theme_zip.py` builds `deliverables/affiliate-theme.zip` from `git archive HEAD` of the theme, under an `affiliate-theme/` prefix, without `CLAUDE.md`.
-2. `.venv/bin/python tools/capture_setup_screens.py [--only NAME ...]` writes `.tmp/setup-guide/screens/*.png` (2× scale).
+2. `.venv/bin/python tools/capture_setup_screens.py [--site wp-guide|wp-test] [--only NAME ...]` writes `.tmp/setup-guide/screens/*.png` (2× scale).
    - It logs in with cookies minted by `wp eval` for user 1, and destroys the session token on exit. No password is needed.
    - It replaces the dev site's real list token, list name, affiliate URL, site name and page statuses in the DOM before each shot. Nothing is saved.
    - Shot 04 (Settings › Permalinks) replaces the dev site's address with `https://yoursite.com` in the structure examples and the Optional help text.
-   - Loading Settings › Permalinks runs core's `flush_rewrite_rules()`, which rewrites wp-test's repo-root `.htaccess`. With the dev site on `/%postname%/` the file comes out unchanged. Check `git -C /home/tevis/wp-test status` after a capture anyway.
-   - Shots 01–03 switch the dev site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "dev site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
+   - With `--site wp-test` only: loading Settings › Permalinks runs core's `flush_rewrite_rules()`, which rewrites wp-test's repo-root `.htaccess`. With the dev site on `/%postname%/` the file comes out unchanged. Check `git -C /home/tevis/wp-test status` after a capture anyway. wp-guide's install lives in a Docker volume, outside any repo.
+   - Shots 01–03 switch the dev site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
 3. **Redact the API key shot.** For 1.4.1 this was done once, and the `-redacted` copy was committed. The command below is that GetResponse run, kept as the pattern. Its folder no longer exists, and a Resend key shot needs its own boxes. A hand-drawn scribble is not enough: the first supplied shot still showed the key's first 8 characters and GetResponse's masked `lb9…yl6` row. Paint over the whole key field and the masked row of the new unredacted shot, then view the result before building:
 
    ```bash
