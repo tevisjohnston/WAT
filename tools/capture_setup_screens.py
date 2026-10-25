@@ -308,7 +308,7 @@ def shot_sequences(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
     h2 = "#affiliate-theme-sequences"
     page.locator(h2).scroll_into_view_if_needed()
-    shoot(page, "05c-sequences", region(page, [h2, "#affiliate-theme-setup"], pad=24, left=160, right=1366))
+    shoot(page, "05c-sequences", region(page, [h2, "#affiliate-theme-setup"], pad=12, left=160, right=1366))
 
 
 def _status_all_draft(page: Page) -> None:
