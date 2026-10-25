@@ -6,9 +6,10 @@ drives the dev site instead.
 
 Logs in as user 1 with auth cookies minted by WP-CLI inside the container, so no
 password is needed; the session token is destroyed again on exit. Every value
-that would identify the dev install (list token, list name, affiliate URL, site
-name, page statuses, the dev domain in example addresses) is replaced in the DOM
-before the shot and never saved.
+that would identify the test install (the site name, the sending domain and its
+DNS record names, the From line, the Reply-to, mailing and admin addresses, the
+affiliate URL, page statuses) is replaced in the DOM before the shot and never
+saved.
 
 The Activate shot switches the site to twentytwentyfive and back. The theme's
 seeder is guarded by the affiliate-theme_pages_created flag, which this tool
@@ -38,9 +39,13 @@ OUT = WAT / ".tmp" / "setup-guide" / "screens"
 
 SITE_NAME = "My Site"
 SITE_URL = "https://yoursite.com"
-SAMPLE_TOKEN = "7qhMJ"
-SAMPLE_LIST = "My List"
+SAMPLE_DOMAIN = "yoursite.com"
+SAMPLE_EMAIL = "you@yoursite.com"
+SAMPLE_ADDRESS = "123 Main Street, Springfield, IL 62701, USA"
 SAMPLE_URL = "https://example.com/your-affiliate-link"
+
+# [real, sample] text swaps; main() fills it from the site's own values.
+SWAPS: list[list[str]] = []
 
 # Dev page IDs, looked up by slug at start-up.
 PAGE_SLUGS = {"landing": "landing-2", "privacy": "privacy"}
@@ -156,16 +161,43 @@ def region(page: Page, selectors: list[str], pad: int = 24, left: int | None = N
     return {"x": x0, "y": y0, "width": min(width, x1) - x0, "height": y1 - y0}
 
 
+def site_swaps() -> list[list[str]]:
+    """The site's identifying values, each paired with its sample, longest first."""
+    real = json.loads(wp_eval(r'''$s = Affiliate_Theme_Theme_get_settings();
+echo json_encode( array(
+  "from_name" => $s["from_name"], "reply_to" => $s["reply_to"], "mailing" => $s["mailing_address"],
+  "url" => $s["redirect_url"], "blogname" => get_option( "blogname" ), "admin" => get_option( "admin_email" ),
+) );'''))
+    label = HOST.split(".")[0]
+    pairs = [
+        [real["from_name"], SITE_NAME], [real["blogname"], SITE_NAME],
+        [real["reply_to"], SAMPLE_EMAIL], [real["admin"], SAMPLE_EMAIL],
+        [real["mailing"], SAMPLE_ADDRESS], [real["url"], SAMPLE_URL],
+    ]
+    pairs = [p for p in pairs if len(p[0]) > 2]
+    pairs.sort(key=lambda p: -len(p[0]))
+    # Resend names records relative to the zone (resend._domainkey.wp-guide);
+    # a buyer's apex domain gives the bare names. Both go first: the Site Title
+    # may be the label itself.
+    return [[HOST, SAMPLE_DOMAIN], ["." + label, ""]] + pairs
+
+
 def disguise(page: Page) -> None:
-    """Hide what identifies the dev install."""
+    """Hide what identifies the test install."""
     page.evaluate(
-        """(name) => {
+        """([name, swaps]) => {
           const a = document.querySelector('#wp-admin-bar-site-name > a');
           if (a) { a.lastChild.textContent = name; }
           document.querySelectorAll('.notice, .update-nag, #wp-admin-bar-comments')
             .forEach(n => n.remove());
+          const swap = s => swaps.reduce((t, [from, to]) => t.split(from).join(to), s);
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          while (walker.nextNode()) { const n = walker.currentNode; n.data = swap(n.data); }
+          document.querySelectorAll('input:not([type=password]):not([type=hidden]), textarea').forEach(el => {
+            el.value = swap(el.value); el.placeholder = swap(el.placeholder);
+          });
         }""",
-        SITE_NAME,
+        [SITE_NAME, SWAPS],
     )
 
 
@@ -254,22 +286,29 @@ def shot_permalinks(page: Page, ids: dict) -> None:
 
 def shot_settings(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
-    page.evaluate(
-        """([token, list, url]) => {
-          document.querySelector('#affiliate-theme-gr-token').value = token;
-          const opt = document.querySelector('#affiliate-theme-gr-list option');
-          opt.value = token; opt.textContent = list + ' (' + token + ')';
-          document.querySelector('#affiliate-theme-redirect-url').value = url;
-        }""",
-        [SAMPLE_TOKEN, SAMPLE_LIST, SAMPLE_URL],
-    )
-    mark(page, "#affiliate-theme-gr-api-key", "1")
-    mark(page, "#affiliate-theme-gr-token", "2")
-    mark(page, "#affiliate-theme-check-list", "3")
-    mark(page, "#affiliate-theme-gr-list", "4")
-    mark(page, "#affiliate-theme-redirect-url", "5")
-    mark(page, "#submit", "6")
+    for n, field in enumerate(["resend-api-key", "sending-domain", "from-name", "from-local",
+                               "reply-to", "mailing-address", "redirect-url"], 1):
+        mark(page, f"#affiliate-theme-{field}", str(n))
+    mark(page, "#submit", "8")
     shoot(page, "05-settings", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
+
+
+def shot_domain(page: Page, ids: dict) -> None:
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
+    h2 = "#affiliate-theme-domain"
+    table = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::table[1]"
+    check = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::form[1]//button"
+    page.locator(h2).scroll_into_view_if_needed()
+    mark(page, table, "1", pad=4)
+    mark(page, check, "2")
+    shoot(page, "05b-domain", region(page, [h2, check], pad=24, left=160, right=1366))
+
+
+def shot_sequences(page: Page, ids: dict) -> None:
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
+    h2 = "#affiliate-theme-sequences"
+    page.locator(h2).scroll_into_view_if_needed()
+    shoot(page, "05c-sequences", region(page, [h2, "#affiliate-theme-setup"], pad=24, left=160, right=1366))
 
 
 def _status_all_draft(page: Page) -> None:
@@ -397,6 +436,8 @@ SHOTS = {
     "03-activate-theme": ("inactive", shot_activate),
     "04-permalinks": ("active", shot_permalinks),
     "05-settings": ("active", shot_settings),
+    "05b-domain": ("active", shot_domain),
+    "05c-sequences": ("active", shot_sequences),
     "06-landing-list": ("active", shot_landing_list),
     "07-editor-publish": ("active", shot_editor),
     "08-reading": ("active", shot_reading),
@@ -414,7 +455,7 @@ def run(page: Page, names: list[str], ids: dict) -> None:
 
 
 def main() -> int:
-    global CONTAINER, HOST, BASE
+    global CONTAINER, HOST, BASE, SWAPS
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--site", choices=list(SITES), default="wp-guide", help="the site to capture (default wp-guide)")
     parser.add_argument("--only", nargs="*", choices=list(SHOTS), help="capture just these shots")
@@ -428,6 +469,7 @@ def main() -> int:
         print("ERROR: affiliate-theme must be the active theme on the site", file=sys.stderr)
         return 1
     ids = {k: int(wp_eval(f'echo get_page_by_path( "{slug}" )->ID;')) for k, slug in PAGE_SLUGS.items()}
+    SWAPS = site_swaps()
 
     inactive = [n for n in names if SHOTS[n][0] == "inactive"]
     active = [n for n in names if SHOTS[n][0] == "active"]
