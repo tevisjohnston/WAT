@@ -8,7 +8,7 @@ The guide is written for the buyer's subscribers, who are aspiring affiliates, n
 
 ## Status: the guide ships in theme 2.0.0
 
-Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`, packed into the ZIP of landing-3's first email for GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. Theme 2.0.0, built on wp-test branch `resend-2.0.0` until it merges, brings the guide back at `affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`. The theme's Resend templates link it from Long Form email 1: the `{{{GUIDE_URL}}}` variable's fallback is the PDF's URL on the buyer's own site.
+Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`, packed into the ZIP of landing-3's first email for GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`, on GitHub only) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. Theme 2.0.0, built on wp-test branch `resend-2.0.0` and on `main` since that branch merged on 2026-10-25, brings the guide back at `affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`. The theme's Resend templates link it from Long Form email 1: the `{{{GUIDE_URL}}}` variable's fallback is the PDF's URL on the buyer's own site.
 
 - The tool copies the PDF there and creates the folder. Run it while wp-test has `main` checked out (2.0.0 since 2026-10-25; 1.5.0 had no `assets/lead-magnets/`).
 - Don't rebuild `affiliate-theme.zip` because the guide changed. `build_setup_guide.md` says when a rebuild is allowed.
