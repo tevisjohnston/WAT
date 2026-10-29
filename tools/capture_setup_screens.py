@@ -167,6 +167,7 @@ def site_swaps() -> list[list[str]]:
 echo json_encode( array(
   "from_name" => $s["from_name"], "reply_to" => $s["reply_to"], "mailing" => $s["mailing_address"],
   "url" => $s["redirect_url"], "blogname" => get_option( "blogname" ), "admin" => get_option( "admin_email" ),
+  "domain" => $s["sending_domain"],
 ) );'''))
     label = HOST.split(".")[0]
     pairs = [
@@ -176,10 +177,15 @@ echo json_encode( array(
     ]
     pairs = [p for p in pairs if len(p[0]) > 2]
     pairs.sort(key=lambda p: -len(p[0]))
-    # Resend names records relative to the zone (resend._domainkey.wp-guide);
-    # a buyer's apex domain gives the bare names. Both go first: the Site Title
-    # may be the label itself.
-    return [[HOST, SAMPLE_DOMAIN], ["." + label, ""]] + pairs
+    # Resend names records relative to the zone (resend._domainkey.wp-guide,
+    # links.wp-guide); a buyer's apex domain gives the bare names. Both go
+    # first: the Site Title may be the label itself. The sending domain may
+    # differ from the site's host (wp-track on wp-test), so it is cut too.
+    first = [[HOST, SAMPLE_DOMAIN], ["." + label, ""]]
+    domain = real["domain"]
+    if domain and domain != HOST:
+        first = [[domain, SAMPLE_DOMAIN], ["." + domain.split(".")[0], ""]] + first
+    return first + pairs
 
 
 def disguise(page: Page) -> None:
