@@ -4,111 +4,155 @@
 
 Produce the buyer-facing `SETUP-GUIDE.pdf` and the `affiliate-theme.zip` it tells buyers to upload, then publish both to Affiliate Market Connect's secure downloads. The guide covers the buyer path at the top of `/home/tevis/wp-test/wp-content/themes/affiliate-theme/CLAUDE.md`, and only that path:
 
-download → upload → install → activate → Settings › Permalinks (Post name) → Settings › Affiliate Theme Settings (key, list token, affiliate URL) → edit and publish a landing page → Settings › Reading → edit and publish the legal pages → Settings › Privacy.
+download → upload → install → activate → Settings › Permalinks (Post name) → Settings › Affiliate Theme Settings (the Resend API key, the sending domain, the sender details, the mailing address, the affiliate URL) → save (the theme adds the domain and sets up the emails) → add the DNS records → **Check** → edit and publish a landing page → Settings › Reading → edit and publish the legal pages → Settings › Privacy.
 
-The Permalinks step (guide Step 4) was added on 2026-09-28 so buyers' pages get readable addresses before anything is published.
+The Permalinks step (guide Step 4) was added on 2026-09-28 so buyers' pages get readable addresses before anything is published. Theme 2.0.0 put Resend in place of GetResponse: the guide's Steps 5–7 (the Resend account and key, the settings, the DNS records) and its "Your email sequences" page are new.
 
-It does not cover VPS, DNS or Docker deployment. The stale `dfy-wordpress-website.zip` (theme v1.1.0) is a separate deliverable.
-
-## Status: on hold until the Resend work lands
-
-The published `SETUP-GUIDE.pdf` and `affiliate-theme.zip` are theme **1.4.1**, the last GetResponse release. **Do not run this workflow against theme 1.5.0.** wp-test's `main` has been 2.0.0 since 2026-10-25, which still waits for its live run on Free and the guide rewrite. Until then only the test zip is built (`tools/build_theme_zip.py --out .tmp/wp-guide/affiliate-theme.zip`), and `deliverables/` stays at 1.4.1.
-
-- 1.5.0 (wp-dfy `d62daf2`, on GitHub only) removed GetResponse ahead of the move to Resend. The opt-in form shows visitors nothing, so a 1.5.0 zip would ship a funnel that collects nothing.
-- 1.5.0 also drops the key, list token and Check list fields from the settings screen. In the theme's buyer path, the buyer now only pastes the affiliate URL there. The template's Step 5 still walks through the GetResponse fields.
-- WAT `dc169e3` deleted the nine GetResponse screen-shots, so `mark_getresponse_shots.py` stops with `FileNotFoundError`. They are in git history (`git show 1ec2bd4:materials/setup-guides/affiliate-theme/screen-shots/getresponse/<file>`) if the 1.4.1 guide ever has to be rebuilt.
-
-When Resend lands, rewrite Step 5 of `tools/templates/setup_guide.html` for the new settings screen. Put the hand-supplied Resend screenshots in `materials/setup-guides/affiliate-theme/screenshots/resend/`, then replace or adapt `mark_getresponse_shots.py` and re-measure every crop, mark and redaction box. Swap the provider rows of the label grep below, and update this workflow's GetResponse-specific steps and quirks. Until then, those steps describe how 1.4.1 was built.
+It does not cover VPS or Docker deployment. DNS is covered only as far as adding Resend's records. The stale `dfy-wordpress-website.zip` (theme v1.1.0) is a separate deliverable.
 
 ## When to rebuild
 
+**`deliverables/` holds theme 2.0.0 since 2026-11-06, built but not published**: members still download 1.4.1 until the owner says to publish. Rebuild into `deliverables/` on the triggers below. A zip for testing on wp-guide still goes to `.tmp/wp-guide/affiliate-theme.zip` (`build_theme_zip.py --out`), and a guide with missing shots is built with `--draft --out .tmp/setup-guide/SETUP-GUIDE-draft.pdf`.
+
 - The theme's `Version` in `style.css` changes. The cover prints it, and the zip must match it.
-- Any settings-screen label, help text or error string that the guide quotes changes (`inc/affiliate-theme-funnel.php`, `inc/affiliate-theme-legal.php`, `blocks/optin-form/`, plus whatever file the Resend integration adds).
+- Any settings-screen label, help text, status or error string that the guide quotes changes (`inc/affiliate-theme-funnel.php`, `inc/affiliate-theme-resend.php`, `inc/affiliate-theme-legal.php`, `assets/js/admin-settings.js`, `blocks/optin-form/`).
 - The buyer path in the theme's CLAUDE.md changes.
 - A WordPress core update renames a screen or button that the guide quotes (for example, 7.1 says **Add Theme**, not "Add New Theme").
+- A Resend or Cloudflare dashboard screen or button that the guide quotes or shows changes. Retake the shot, then re-measure its `SHOTS` entry.
 
 ## Inputs
 
 | Input | Where | Notes |
 |---|---|---|
 | Theme source | `/home/tevis/wp-test` at `HEAD` | Must be committed. The zip builder refuses a dirty theme dir. |
-| Screenshot site | `wp-guide-wordpress-1`, https://wp-guide.affiliatemarketconnect.com (`--site wp-test` for the dev site) | A buyer-style install with no repo, the theme uploaded from the test zip. `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1. |
-| Provider screenshots | **Pending:** `materials/setup-guides/affiliate-theme/screenshots/resend/` (empty). 1.4.1 used nine GetResponse shots (deleted in `dc169e3`). API key path: Dashboard, Tools menu, Integrations and API, API tab, Generate API key, the `-redacted` Copy API Key box. List token path: Contacts › Lists, the list's three-dot menu (1366×606), list settings. All the others were 1366×563 | Supplied by hand. The guide uses only a redacted copy of any API key shot. `.gitignore` ignores `screenshot-api-key-*resend.png` in any folder. Never commit an unredacted key shot. |
+| Screenshot site | `wp-guide-wordpress-1`, https://wp-guide.affiliatemarketconnect.com (`--site wp-test` for the dev site) | A buyer-style install on the Free Resend account, with no repo. The theme is uploaded from the test zip. `affiliate-theme` active, seeded pages present, `affiliate-theme_pages_created` = 1, the domain verified and all three sequences Live. |
+| Provider screenshots | `materials/setup-guides/affiliate-theme/screenshots/resend/` and `cloudflare/` | Taken by the owner in Firefox on the Free account (wp-guide) and in Cloudflare, except three: `resend/screenshot-21-*` comes from the Pro account, and `screenshot-31-*` and `-32-*` from a Free account with no domain. Numbered in the file name, at mixed window widths (1319–1366). `mark_resend_shots.py` holds each one's size. The guide reads only the `-redacted` copies of the API key list shots (3 and 6). `.gitignore` ignores `screenshot-api-key-*resend.png` in any folder. Never commit an unredacted key shot. 1.4.1's nine GetResponse shots are in git history only (`git show 1ec2bd4:materials/setup-guides/affiliate-theme/screen-shots/getresponse/<file>`). |
+| Owner's settings copy | `materials/setup-guides/affiliate-theme/affiliate-theme-settings-copy.md` | Source text only. It was written against an older settings screen ("Verify DNS records", "Update these emails", "one a day"), so check every string against 2.0.0 before using it. |
 | Copy and layout | `tools/templates/setup_guide.html`, `setup_guide.css` | Edit the copy here. |
 
 ## Tools, in order
 
 One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`. Playwright drives the host's `/usr/bin/google-chrome` (`channel="chrome"`), so there's no `playwright install` step.
 
-1. `.venv/bin/python tools/build_theme_zip.py` builds `deliverables/affiliate-theme.zip` from `git archive HEAD` of the theme, under an `affiliate-theme/` prefix, without `CLAUDE.md`.
+1. `.venv/bin/python tools/build_theme_zip.py [--out PATH]` builds `deliverables/affiliate-theme.zip` (or `PATH`; the wp-guide test zip is `--out .tmp/wp-guide/affiliate-theme.zip`) from `git archive HEAD` of the theme, under an `affiliate-theme/` prefix, without `CLAUDE.md`.
 2. `.venv/bin/python tools/capture_setup_screens.py [--site wp-guide|wp-test] [--only NAME ...]` writes `.tmp/setup-guide/screens/*.png` (2× scale).
    - It logs in with cookies minted by `wp eval` for user 1, and destroys the session token on exit. No password is needed.
-   - It replaces what identifies the site in the DOM before each shot: the site name, the sending domain (as `yoursite.com`, with the record names Resend gives relative to the zone cut to `resend._domainkey`, `send` and `rsend`), the From name, the Reply-to, mailing and admin addresses, the affiliate URL and page statuses. Nothing is saved.
-   - Shots `05b-domain` (the pending domain, records table and **Check**) and `05c-sequences` (all three Live, with the usage line) exist only at those moments: take `05b` after the settings save and before any DNS record, `05c` once the domain verifies.
-   - Shot 04 (Settings › Permalinks) replaces the dev site's address with `https://yoursite.com` in the structure examples and the Optional help text.
+   - It replaces what identifies the site in the DOM before each shot: the site name, the sending domain (as `yoursite.com`, with the record names Resend gives relative to the zone cut to `resend._domainkey`, `send`, `rsend` and `links`; the cut keys off the stored sending domain too when it differs from the site's host), the key mask's last four characters, the From line, the Reply-to, mailing and admin addresses, the affiliate URL and page statuses. It hides the admin bar's Gravatar, which can be a real photo. Nothing is saved.
+   - Shots `05b-domain` (the pending domain, records table and **Check**) and `05c-sequences` (all three Live) exist only at those moments: take `05b` after the settings save and before any DNS record, and `05c` once the domain verifies. The current `05b` was taken in Phase 7 with `--site wp-test` on a throwaway domain (`wp-track.`, five records), because wp-guide's domain is verified and shows no records table or **Check**.
+   - `07-editor-publish` marks the form (1), the **Sequence** select (2) and **Publish** (3). `06` and `09` put the badge left of the link so "— draft" stays readable.
+   - Shot 04 (Settings › Permalinks) replaces the site's address with `https://yoursite.com` in the structure examples and the Optional help text.
    - With `--site wp-test` only: loading Settings › Permalinks runs core's `flush_rewrite_rules()`, which rewrites wp-test's repo-root `.htaccess`. With the dev site on `/%postname%/` the file comes out unchanged. Check `git -C /home/tevis/wp-test status` after a capture anyway. wp-guide's install lives in a Docker volume, outside any repo.
-   - Shots 01–03 switch the dev site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
-3. **Redact the API key shot.** For 1.4.1 this was done once, and the `-redacted` copy was committed. The command below is that GetResponse run, kept as the pattern. Its folder no longer exists, and a Resend key shot needs its own boxes. A hand-drawn scribble is not enough: the first supplied shot still showed the key's first 8 characters and GetResponse's masked `lb9…yl6` row. Paint over the whole key field and the masked row of the new unredacted shot, then view the result before building:
+   - Shots 01–03 switch the site to `twentytwentyfive` and back. The tool checks the seed flag first, then checks that the stylesheet and the page list are unchanged. If it ever reports "site not restored", run `wp theme activate affiliate-theme` and compare `wp post list --post_type=page`.
+3. **Redact the API key list shots.** Resend's API Keys list shows each key's first characters in its Token column, so shots 3 and 6 were redacted once with `tools/redact_image.py` into `-redacted.png` copies, which are the only ones committed and read. A new key shot needs its own boxes, measured on that file. Paint over the whole Token cell of every row, and any key shown in full, then view the result before building:
 
    ```bash
-   G=materials/setup-guides/affiliate-theme/screen-shots/getresponse; IN=$G/screen-shot-api-key-email-marketing-software-getresponse.png
-   .venv/bin/python tools/redact_image.py "$IN" .tmp/setup-guide/gr/step1.png --fill '#ffffff' --box '436,299,414,38:••••••••••••••••••••••••••••••••'
-   .venv/bin/python tools/redact_image.py .tmp/setup-guide/gr/step1.png "${IN%.png}-redacted.png" --box 60,369,112,22
+   R=materials/setup-guides/affiliate-theme/screenshots/resend; IN=$R/<shot>.png
+   .venv/bin/python tools/redact_image.py "$IN" "${IN%.png}-redacted.png" --box x,y,w,h [--box ...] [--fill '#rrggbb']
    ```
 
-   The box coordinates fit the 1366×563 shot supplied on 2026-09-27. A new screenshot needs new boxes. The second box's fill is sampled from the pixel to its left, so it matches the dimmed background.
-4. `.venv/bin/python tools/mark_getresponse_shots.py` crops the GetResponse shots and draws the same red boxes and badges as the WordPress shots, into `.tmp/setup-guide/screens/gr-*.png`. The crops and marks are measured in source pixels on the 2026-09-28 shots. The tool stops on any shot that isn't the size it was measured on (1366×563; the three-dot menu shot is 1366×606, set in `SIZES`), and a replaced shot of the same size still needs its numbers checked. The list-token mark has no badge on purpose: a badge there covers the start of "List token:". **Its `SRC` folder was deleted in `dc169e3`, so the tool fails until it is pointed at the Resend shots (see Status).**
-5. `.venv/bin/python tools/build_setup_guide.py [--draft]` writes `deliverables/SETUP-GUIDE.pdf`. It fails on any missing image. `--draft` only lets the GetResponse screen-shots be missing, and stamps DRAFT on every page.
+   A hand-drawn scribble is not enough: 1.4.1's first GetResponse shot still showed the key's first 8 characters after one. Without `--fill`, a box's fill is sampled from the pixel to its left, so it matches the background. Shot 5 (the new key, shown once) shows the key as dots and needs no redaction.
+4. `.venv/bin/python tools/mark_resend_shots.py` crops the Resend and Cloudflare shots and draws the same red boxes and badges as the WordPress shots (it imports `MARK_JS` from the capture tool), into `.tmp/setup-guide/screens/rs-1`…`rs-15` and `cf-1`…`cf-4`. `rs-1`…`rs-4` are Step 5's key, `rs-5`…`rs-9` and `cf-1`…`cf-4` are Step 7's domain, records and Cloudflare, `rs-10`…`rs-13` are Step 7's "If your domain was already in Resend" box, and `rs-14` (the **Enable receiving** switch) and `rs-15` (the receiving MX row) are Step 7's "Optional: read replies in Resend". The switch sits right of the Status column, so `rs-14` shows only the heading row and `rs-15` the MX row without its Status. Every crop and mark is in source pixels, measured on the shots supplied 2026-10-25 to 2026-10-30, and each `SHOTS` entry holds its source's size: the tool stops on any shot of another size, and a replaced shot of the same size still needs its numbers checked. Every crop leaves out the account switcher (the Resend team name, the Cloudflare login) and the records tables' Status column. The marks on the **Verified** and **Partially Verified** pills and on **I've added the record** have no badge on purpose.
+5. `.venv/bin/python tools/build_setup_guide.py [--draft] [--out PATH]` writes `deliverables/SETUP-GUIDE.pdf`. It fails on any missing image. `--draft` lets only the hand-supplied shots (`data-rs` in the template) be missing, and stamps DRAFT on every page.
 
 ## Verification (all must pass before publishing)
 
 1. **Zip:** `unzip -l deliverables/affiliate-theme.zip` shows `affiliate-theme/style.css` one level down and no `CLAUDE.md`. The file list equals `git ls-tree -r --name-only HEAD:wp-content/themes/affiliate-theme` minus CLAUDE.md, and `php -l` passes on every PHP file extracted to `.tmp/`. `zipinfo deliverables/affiliate-theme.zip` shows `drwxr-xr-x` on every folder and `-rw-r--r--` on every file. Mode `?---------` or `?rw-------` means the builder copied git archive's empty MS-DOS attributes again; buyers who unzip that on a Mac get folders they can't open.
-2. **Screens:** open every PNG, including the `gr-*` crops and a 150-dpi render of the PDF page holding the GetResponse click path (page 8). Check that no character of the API key shows. In the WordPress shots, check for no real list token, list name, affiliate URL or site name. (The GetResponse list-token shot shows the real token on purpose: a token is not a credential without the key.) Also check that no modal or admin notice covers a marked control.
-3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong. Add a row whenever the guide quotes a new string, and remove a row when the guide stops quoting it. `A static page` is not in this list: core wraps "static page" in a link, so check it against the Reading screen-shot instead. GetResponse's labels (`Tools`, `Connect`, `Integrations and API`, `API`, `Generate API key`, `Generate`, `Copy`, `Contacts`, `Lists`, `Settings`, `List token:`, `List name`, `List ID`) can't be grepped, so check them against the supplied shots. GetResponse now says "Integrations and API", and since theme 1.2.6 the theme's settings screen and its rejected-key message do too. **Against theme 1.5.0, nine rows print `MISSING`:** the three GetResponse field and status labels, `Check list`, the three GetResponse error messages, and the sign-up handler's `Something went wrong. Please try again.` and `Please try again in a moment.`. That is expected: 1.5.0 removed them, and the guide is wrong until Step 5 is rewritten for Resend.
+2. **Screens:** open every PNG, including the `rs-*` and `cf-*` crops, and a 150-dpi render of the PDF pages holding Steps 5 and 7. Check that no character of an API key shows, and no Resend team or account name, Cloudflare login or `wp-guide` name. In the WordPress shots, check for no real sending domain, From line, mailing address, Reply-to, affiliate URL or site name. Also check that no modal or admin notice covers a marked control.
+3. **Labels:** every UI string the guide quotes is grepped against the theme source or WordPress core. Any `MISSING` means the guide is wrong, and against wp-test `HEAD` the grep prints nothing. Add a row whenever the guide quotes a new string, and remove a row when the guide stops quoting it. The guide's disguised `yoursite.com` is the theme's `%s`, and a string the theme assembles is grepped by its fixed part. The theme writes the status names in lower case and the screen capitalizes them, so they are a second, case-insensitive list.
 
    ```bash
    T=/home/tevis/wp-test/wp-content/themes/affiliate-theme; W=/home/tevis/wp-test
-   while IFS='|' read -r label where; do where=$(eval echo "$where")
-     grep -rqF -- "$label" $where || echo "MISSING $label"; done <<'EOF'
+   check() { while IFS='|' read -r label where; do where=$(eval echo "$where")
+     grep -rq$1F -- "$label" $where || echo "MISSING $label"; done; }
+   check '' <<'EOF'
    Affiliate Theme Settings|$T/inc
-   GetResponse API key|$T/inc
-   GetResponse list token|$T/inc
-   Check list|$T/inc
+   Full access|$T/inc
+   Sending access|$T/inc
+   Sender|$T/inc
+   Funnel|$T/inc
    Affiliate redirect URL|$T/inc
-   GetResponse accepted this list.|$T/inc
+   Success message|$T/inc
+   Resend accepted this key.|$T/inc
+   Resend did not accept this key.|$T/inc
+   That is not a Resend API key. A Resend API key starts with re_.|$T/inc
+   This key can only send email. The theme needs a key with Full access.|$T/inc
+   WordPress could not reach Resend. Reload this page in a minute.|$T/inc
+   The affiliate redirect URL is not a usable address. Start it with https://.|$T/inc
+   Your sending domain|$T/inc
+   The theme added <strong>%s</strong> to your Resend account. Add the DNS records below.|$T/inc
+   %s is verified.|$T/inc
+   Open %s in Resend|$T/inc
+   Full host name|$T/inc
+   tracking is off for this domain.|$T/inc
+   already in use in another Resend account|$T/inc
+   Your email sequences|$T/inc
+   Setting up your emails in Resend|$T/assets/js
+   'Step ' + (|$T/assets/js
+   Waiting for: |$T/inc
+   a verified sending domain|$T/inc
+   your mailing address|$T/inc
+   a usable affiliate redirect URL|$T/inc
+   in Resend that %s not published. Publish or discard %s there, then save these settings.|$T/inc
+   It was turned off in Resend.|$T/inc
+   The theme has newer copy for these emails. Reset to use it.|$T/inc
+   Finish setting up emails|$T/inc
+   Turn off|$T/inc
+   Turn on|$T/inc
+   Open in Resend|$T/inc
+   Reset these emails to the theme's copy|$T/inc
+   Replace my edits in Resend|$T/inc
    Your landing pages|$T/inc
    Your legal pages|$T/inc
-   If you add analytics, advertising or cookies|$T/inc
-   Opt-in form is not ready.|$T/blocks
-   That does not look like a GetResponse API key.|$T/inc
-   GetResponse rejected the API key.|$T/inc
-   GetResponse did not accept that list token.|$T/inc
-   The affiliate redirect URL is not a usable address.|$T/inc
-   Something went wrong. Please try again.|$T/inc
-   Please try again in a moment.|$T/inc
+   Opt-in form is not ready:|$T/blocks
+   add your Resend API key|$T/inc
+   the %s emails are turned off|$T/inc
+   the %s emails wait for %s|$T/inc
+   the %s emails are not set up in Resend yet|$T/inc
+   are not turned on yet|$T/inc
+   Sign-ups here start the|$T/blocks
+   Sequence|$T/blocks
+   This page's emails|$T/blocks
    Button text|$T/blocks
    Email field label|$T/blocks
    Ask for a first name|$T/blocks
    Name field label|$T/blocks
+   Please try again in a moment.|$T/inc
+   Please try again in a few minutes.|$T/inc
+   Service unavailable. Please try again shortly.|$T/inc
+   Something went wrong. Please try again.|$T/inc
+   Legal — Privacy: Analytics and Advertising|$T/patterns
+   — All rights reserved.|$T/parts
    Theme installed successfully.|$W/wp-admin/includes
    The theme is missing the %s stylesheet.|$W/wp-admin/includes
    The link you followed has expired.|$W/wp-includes
    This theme is already installed.|$W/wp-admin/includes
    Replace installed with uploaded|$W/wp-admin/includes
+   Add Theme|$W/wp-admin
    Upload Theme|$W/wp-admin
    Install Now|$W/wp-admin
    Permalink structure|$W/wp-admin/options-permalink.php
    Post name|$W/wp-admin/options-permalink.php
    Custom Structure|$W/wp-admin/options-permalink.php
+   Save Changes|$W/wp-admin
    Your homepage displays|$W/wp-admin/options-reading.php
    Change your Privacy Policy page|$W/wp-admin
    Use This Page|$W/wp-admin
    Are you ready to publish?|$W/wp-includes/js/dist
+   Set featured image|$W/wp-includes
+   Add an excerpt|$W/wp-includes/js/dist
+   EOF
+   check i <<'EOF'
+   Live|$T/inc/affiliate-theme-resend.php
+   Waiting|$T/inc/affiliate-theme-resend.php
+   Needs update|$T/inc/affiliate-theme-resend.php
+   Not set up|$T/inc/affiliate-theme-resend.php
+   Setting up|$T/inc/affiliate-theme-resend.php
+   Off|$T/inc/affiliate-theme-resend.php
    EOF
    ```
 
-   The seven placeholders must be spelled exactly as they are in `inc/affiliate-theme-legal.php`.
-4. **PDF:** `pdfinfo` (Letter), `pdffonts` (Archivo and Newsreader embedded), then `pdftoppm -r 90` and review every page for widowed headings, stranded figures and overflow.
+   The seven placeholders must be spelled exactly as they are in `inc/affiliate-theme-legal.php`. Some quoted strings can't be grepped, so check them against the screenshots instead: `A static page` (core wraps "static page" in a link; the Reading shot); Resend's `API keys`, `Create API key`, `Permission`, `Full access`, `Sending access`, `Add`, `Done`, `Domains`, `All domains`, `Records`, `Domain Verification`, `Enable Sending`, `Enable Tracking`, `Enable receiving`, `Inboxes`, `Emails`, `Receiving`, `Configuration`, `Enable tracking metrics`, `Configure`, `Subdomain`, `Enable open tracking`, `Enable click tracking`, `Auto configure`, `I've added the record`, `Verified`, `Partially Verified`, `Onboarding`, `Metrics`, `Templates` and `Automations`; Cloudflare's `DNS`, `Records`, `Add record`, `Type`, `Name`, `Target`, `Mail server`, `Priority`, `Proxy status`, `DNS only` and `Save`. The browser's `Choose File` and macOS's `Compress "affiliate-theme"` are checked against the browser and Finder.
+4. **PDF:** `pdfinfo` (Letter), `pdffonts` (Archivo and Newsreader embedded), then `pdftoppm -r 90` and review every page for widowed headings, stranded figures, a red badge sliced across a page break, and overflow.
 
 ## Publish
 
@@ -124,13 +168,15 @@ Members download them through `/wp-json/amc/v1/download?file=SETUP-GUIDE.pdf` an
 
 - **The block editor never goes network-idle** because of heartbeat polling. Wait on `wp.data` state, not on `networkidle`.
 - **WP-CLI `post list --name=`** does not find draft pages. Use `get_page_by_path()` in `wp eval`.
-- **The Reading screen's Homepage dropdown lists only published pages.** That is why the guide publishes the landing page (Step 6) before Settings › Reading (Step 7).
+- **The Reading screen's Homepage dropdown lists only published pages.** That is why the guide publishes the landing page (Step 8) before Settings › Reading (Step 9).
 - **A native `<select>` popup can't be screen-shotted.** The privacy shot redraws the list as a list box (`size = options.length`). In a buyer's dropdown, the "checkmark" is the currently selected entry, which is WordPress's own draft (ID 3 on the dev site).
 - **Settings › Privacy's link text depends on the page's status.** It reads "Edit or **view**" for a published page and "Edit or **preview**" for a draft (`options-privacy.php`). The guide uses this as its "did you pick the right one" check.
 - **A Site Editor save shadows the theme's template files.** If a template or part looks wrong in a shot, check `wp post list --post_type=wp_template_part` for an override.
 - **Chrome embeds the variable fonts as Type 3.** Poppler prints "Bad bounding box in Type 3 glyph" warnings. They're harmless, and the text renders and extracts correctly.
 - **The theme's `screenshot.png` (1200×900) arrived in wp-dfy commit `63c1940` (on GitHub only).** Its card on the Themes screen (shot 03) shows the landing page. An older zip without it shows a blank checkerboard.
-- **Page 7 (Step 5) has no slack.** Its last item, "Click Save Changes.", ends at the bottom margin. Anything that makes the page taller, even a line 0.75pt taller because it gained a `.ui` span, pushes that item onto page 8 and slices its red badge in two. After any Step 5 copy edit, check that `pdftotext -f 7 -l 7` still ends with "Click Save Changes."
+- **Step 6's numbered list breaks across pages 9 and 10** (measured 2026-10-31 on the draft): page 9 ends after item 5 (Reply-to address), page 10 holds items 6–8, then the "What happens when you save" box, and keeps about 270pt of slack. A copy edit above it can move the break into the middle of an item and slice its red badge in two. After any edit in Steps 5 or 6, check that `pdftotext -f 9 -l 9` ends on a whole item and `pdftotext -f 10 -l 10` still holds "Click Save Changes." (1.4.1's Step 5 page had no slack at all.)
 - **A host Python upgrade breaks `.venv`.** Its `python3` symlinks to `/usr/bin/python3`, so when that moved from 3.12 to 3.14 (found 2026-10-02) the packages in `lib/python3.12/` vanished and the capture tool failed with `No module named 'playwright'`. Rebuild it: `rm -rf .venv` then rerun the one-time setup.
-- **The zip must stay under 2 MB (2,097,152 bytes).** That is PHP's default `upload_max_filesize`, which WordPress uses as its upload limit, so a bigger zip won't install on a host left at the defaults. The troubleshooting entry for "The link you followed has expired." also says "under 2 MB". Check `stat -c %s deliverables/affiliate-theme.zip` on every rebuild. Theme 1.4.1 grew the zip from 1.15 MB to 1,721,299 bytes, almost all of it `emails/landing-3/guide.pdf`, which leaves about 370 KB of headroom. 1.5.0 deleted `emails/`, guide included. If the Resend work puts the guide back in the theme, the headroom becomes a constraint again.
+- **The zip must stay under 2 MB (2,097,152 bytes).** That is PHP's default `upload_max_filesize`, which WordPress uses as its upload limit, so a bigger zip won't install on a host left at the defaults. The troubleshooting entry for "The link you followed has expired." also says "under 2 MB". Check `stat -c %s` on every rebuild. Theme 1.4.1's zip was 1,721,299 bytes. The 2.0.0 test zip (`.tmp/wp-guide/affiliate-theme.zip`, built at `ebf5ef6`) is 1,753,639 bytes, about 343 KB of headroom, and most of it is the Long Form guide, `assets/lead-magnets/landing-3-guide.pdf` (`workflows/build_lead_guide.md`).
+- **The theme writes its sequence statuses in lower case** (`'needs update'`, `'not set up'`) and the screen capitalizes them, which is why the label grep has a case-insensitive list.
+- **Resend offers Auto configure for Cloudflare at its own discretion.** It was missing for weeks, then came back for the tracking CNAME (2026-10-30), so the guide calls it optional and always gives the by-hand way.
 - **Selecting a Permalinks radio fills the Custom Structure box** (`wp-admin/js/common.js`), so Post name shows `/%postname%/` there. The guide quotes that.

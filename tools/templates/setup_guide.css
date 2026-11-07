@@ -147,6 +147,10 @@ ol.marks.start-3 { counter-reset: m 2; }
 ol.marks.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt 16pt; align-items: start; }
 ol.marks.cards > li { margin: 0; break-inside: avoid; }
 ol.marks.cards figure.shot { margin: 6pt 0 0 -26pt; }
+/* Captions only: the shots carry a box's own numbers. */
+ol.marks.cards.plain > li { padding-left: 0; }
+ol.marks.cards.plain > li::before { content: none; }
+ol.marks.cards.plain figure.shot { margin-left: 0; }
 
 ol.steps > li { margin-bottom: 6pt; }
 ol.steps > li::marker { font: 700 10pt var(--sans); color: var(--primary); }

@@ -12,7 +12,7 @@
 <section class="cover">
   <div class="kicker">Affiliate Market Connect &middot; Done-for-you website</div>
   <h1>Affiliate Theme<br>Setup Guide</h1>
-  <p class="lede">Install the theme, connect your GetResponse list and your affiliate link, then publish your landing page and legal pages. Nine steps, all inside your WordPress dashboard.</p>
+  <p class="lede">Install and activate the theme, create your own business email address for free hello@yourdomain.com, connect your Resend account, and add your affiliate link. Activating the theme creates your landing pages, privacy policy, terms of service, affiliate disclosure, earnings disclaimer, your email automation sequences, writes all the copy, and configures everything. Publish any landing page, all legal pages, and turn on your landing page’s email automation sequence, and you’re ready to send to traffic.</p>
 
   <div class="funnel">
     <div class="funnel-label">What your site does when you finish</div>
@@ -21,53 +21,54 @@
       <div class="arrow">&rarr;</div>
       <div class="chip"><b>2</b>They type their email into the form</div>
       <div class="arrow">&rarr;</div>
-      <div class="chip"><b>3</b>They are added to your GetResponse list</div>
+      <div class="chip"><b>3</b>The form's button sends their browser to your affiliate link</div>
       <div class="arrow">&rarr;</div>
-      <div class="chip"><b>4</b>Their browser goes to your affiliate link</div>
+      <div class="chip"><b>4</b>Your email automation sequence is sent out automatically</div>
     </div>
   </div>
 
-  <div class="meta"><span>For Affiliate Theme version {{VERSION}}</span><span>affiliatemarketconnect.com</span></div>
+  <div class="meta"><span>For Affiliate Theme version 2.0.0</span><span>affiliatemarketconnect.com</span></div>
 </section>
 
 <!-- ============================== BEFORE YOU START ============================== -->
 <section class="section" style="break-before: auto;">
   <span class="eyebrow">Before you start</span>
-  <h2>Have these four things ready</h2>
+  <h2>Have these five things ready</h2>
   <ul class="checklist">
     <li><strong>A WordPress site you can log into as an administrator.</strong> The theme needs WordPress 6.6 or newer and PHP 8.1 or newer. Any good host meets both.</li>
-    <li><strong>A GetResponse account with a list.</strong> The emails you send to new subscribers run as a GetResponse automation workflow. Automation workflows need a paid plan, and new accounts get them free for the first 14 days.</li>
+    <li><strong>A domain whose DNS records you can edit.</strong> Your emails are sent from it, so you add a few records to it in Step 7. Cloudflare makes this easy, and it's free. If your host doesn't let you edit DNS records, your site can't send the emails.</li>
+    <li><strong>Your postal mailing address.</strong> U.S. law requires one at the bottom of every marketing email, so the emails don't start until it's filled in.</li>
     <li><strong>Your affiliate link</strong>: the full link from WarriorPlus, starting with <code>https://</code>.</li>
     <li><strong>The theme file, <code>affiliate-theme.zip</code></strong>, from the <span class="path">Domain + Web Hosting</span> step of your members area.</li>
   </ul>
+  <p>You also need a free Resend account. Step 5 shows you how to make one.</p>
 
-  <h3>The nine steps at a glance</h3>
+  <h3>The eleven steps at a glance</h3>
   <table>
-    <thead><tr><th></th><th>Step</th><th>Where in WordPress</th></tr></thead>
+    <thead><tr><th></th><th>Step</th><th>Where</th></tr></thead>
     <tbody>
       <tr><td class="n">1</td><td>Download the theme</td><td>Your members area</td></tr>
       <tr><td class="n">2</td><td>Upload and install it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes <span class="sep">&rsaquo;</span> Add Theme</span></td></tr>
       <tr><td class="n">3</td><td>Activate it</td><td><span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span></td></tr>
       <tr><td class="n">4</td><td>Set your permalinks</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Permalinks</span></td></tr>
-      <tr><td class="n">5</td><td>Connect GetResponse and your affiliate link</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span></td></tr>
-      <tr><td class="n">6</td><td>Edit and publish your landing page</td><td>The block editor</td></tr>
-      <tr><td class="n">7</td><td>Make the landing page your home page</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Reading</span></td></tr>
-      <tr><td class="n">8</td><td>Fill in and publish your legal pages</td><td>The block editor</td></tr>
-      <tr><td class="n">9</td><td>Point WordPress at your Privacy Policy</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Privacy</span></td></tr>
+      <tr><td class="n">5</td><td>Create your Resend account and API key</td><td>resend.com</td></tr>
+      <tr><td class="n">6</td><td>Fill in the theme's settings and save</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span></td></tr>
+      <tr><td class="n">7</td><td>Add your DNS records and click Check</td><td>Where your domain's DNS is managed</td></tr>
+      <tr><td class="n">8</td><td>Edit and publish your landing page</td><td>The block editor</td></tr>
+      <tr><td class="n">9</td><td>Make the landing page your home page</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Reading</span></td></tr>
+      <tr><td class="n">10</td><td>Fill in and publish your legal pages</td><td>The block editor</td></tr>
+      <tr><td class="n">11</td><td>Point WordPress at your Privacy Policy</td><td><span class="path">Settings <span class="sep">&rsaquo;</span> Privacy</span></td></tr>
     </tbody>
   </table>
 
-  <div class="box tip">
-    <h4>Nothing goes public until you publish it</h4>
-    <p>The theme creates every page as a draft. You can take your time with each step. Visitors see a page only after you click <span class="ui">Publish</span>.</p>
-  </div>
 </section>
 
 <!-- ============================== STEP 1 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 1</span>
   <h2>Download the theme</h2>
-  <p class="intro">In your members area, open the <span class="path">Domain + Web Hosting</span> step and download <code>affiliate-theme.zip</code>.</p>
+  <p class="where">Go to <span class="path">affiliatemarketconnect.com/members/domain-web-hosting</span>.</p>
+  <p class="intro">Download your DFY website <code>affiliate-theme.zip</code>.</p>
   <p><strong>Keep it zipped.</strong> WordPress installs the <code>.zip</code> file exactly as you downloaded it. Don't open it, rename it, or change what's inside.</p>
   <div class="box warn">
     <h4>On a Mac, Safari may unzip it for you</h4>
@@ -81,7 +82,7 @@
   <div>
     <span class="eyebrow">Step 2</span>
     <h2>Upload and install the theme</h2>
-    <p class="where">Log in to your dashboard at <b>yoursite.com/wp-admin</b>.</p>
+    <p class="where">Go to <b>wp-admin &rsaquo; Your dashboard</b> <b>yoursite.com/wp-admin</b>.</p>
     <ol class="marks">
       <li>In the left menu, click <span class="ui">Appearance</span>. The <span class="ui">Themes</span> screen opens.</li>
       <li>Click <span class="ui">Add Theme</span> at the top.</li>
@@ -100,7 +101,8 @@
 <section class="section">
   <span class="eyebrow">Step 3</span>
   <h2>Activate the theme</h2>
-  <p class="intro">On the <span class="ui">Theme installed successfully.</span> screen, click <span class="ui">Activate</span>. If you've already left that screen, go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span>, point at the <span class="ui">Affiliate Theme</span> card and click <span class="ui">Activate</span>.</p>
+  <p class="where">Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Themes</span>.</p>
+  <p class="intro">Click <span class="ui">Activate</span> or point at the <span class="ui">Affiliate Theme</span> card and click <span class="ui">Activate</span>.</p>
   <figure class="shot narrow"><img src="{{SCREENS}}/03-activate-theme.png" alt="The Affiliate Theme card with its Activate button marked"></figure>
 
   <div class="box">
@@ -110,7 +112,11 @@
       <li><strong>Three landing pages</strong>, the same offer in three layouts: <em>Landing Page &mdash; Centered</em>, <em>Landing Page &mdash; Split</em> and <em>Landing Page &mdash; Long Form</em>. You'll use one.</li>
       <li><strong>Four legal pages</strong>: <em>Privacy Policy</em>, <em>Terms of Service</em>, <em>Earnings Disclaimer</em> and <em>Affiliate Disclosure</em>.</li>
     </ul>
-    <p>It also adds a new screen under <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, which is where Step 5 happens.</p>
+    <p>It also adds a new screen, <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, with three sections, <span class="ui">Resend</span>, <span class="ui">Sender</span> and <span class="ui">Funnel</span>. You fill it in during Step 6.</p>
+  </div>
+  <div class="box tip">
+    <h4>Nothing goes public until you publish it</h4>
+    <p>The theme creates every page as a draft. You can take your time with each step. Visitors see a page only after you click <span class="ui">Publish</span>.</p>
   </div>
 </section>
 
@@ -130,93 +136,235 @@
 <!-- ============================== STEP 5 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 5</span>
-  <h2>Connect GetResponse and your affiliate link</h2>
-  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b>.</p>
-  <p class="intro">This one screen wires up your whole funnel. Fill it in from top to bottom. The numbers match the screenshot.</p>
-  <figure class="shot w80"><img src="{{SCREENS}}/05-settings.png" alt="Affiliate Theme Settings with its five fields and Save Changes numbered"></figure>
+  <h2>Create your Resend account and API key</h2>
+  <p class="where">Go to <b>resend.com &rsaquo; API keys</b>.</p>
+  <p class="intro">Resend is the email service that sends your welcome emails. The theme sets everything up in your own Resend account, so you never have to build an email in Resend yourself. It only needs a key that lets it do that.</p>
+  <p>Go to <b>resend.com</b> and sign up for a free account. Then make the key:</p>
 
-  <ol class="marks">
-    <li><strong>GetResponse API key.</strong> In GetResponse, go to <span class="path">Tools <span class="sep">&rsaquo;</span> Integrations and API <span class="sep">&rsaquo;</span> API</span>, generate a key and copy it (pictured below). Paste it here. After you save, the field shows only dots and the key is never displayed again. It stays on your server and is never sent to visitors' browsers or shown on your pages. To change it, type a new key over the dots. <em>A key that goes unused for 90 days stops working</em>, so make a new one if the funnel sits idle that long.</li>
-    <li><strong>GetResponse list token.</strong> This is a short code that identifies your list, such as <code>7qhMJ</code>. It is not the list's name. In GetResponse, open your list's settings. The token is under the box labelled <span class="ui">List name</span> (pictured below).</li>
-    <li><strong>Check list.</strong> Click it to test the key and token together. The note below the list changes to <span class="ui">GetResponse accepted this list.</span></li>
-    <li><strong>GetResponse list.</strong> This shows your list's name with its token after a successful check. It only displays the list. The token field is what gets saved, so if you change the token, click <span class="ui">Check list</span> again before you save.</li>
-    <li><strong>Affiliate redirect URL.</strong> Paste your full affiliate link, starting with <code>https://</code>. Each new subscriber's browser is sent here. The link never appears in your page's code, so nobody can copy it without subscribing first.</li>
-    <li>Click <span class="ui">Save Changes</span>.</li>
-  </ol>
-
-  <h3>Get your API key in GetResponse</h3>
   <ol class="marks cards">
-    <li>Click <span class="ui">Tools</span> in the top bar.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-1-tools.png" alt="GetResponse top bar with Tools marked"></figure></li>
-    <li>Under <span class="ui">Connect</span>, click <span class="ui">Integrations and API</span>.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-2-integrations.png" alt="The Tools menu with Integrations and API marked"></figure></li>
-    <li>Click the <span class="ui">API</span> tab.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-3-api-tab.png" alt="The Integrations and API tabs with API marked"></figure></li>
-    <li>Click <span class="ui">Generate API key</span>.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-4-generate.png" alt="The API tab with Generate API key marked"></figure></li>
-    <li>Type a name you'll recognize, such as your site's name. Click <span class="ui">Generate</span>.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-5-name-key.png" alt="The Generate API key box with the name field and Generate marked"></figure></li>
-    <li>Click <span class="ui">Copy</span> and paste the key into <span class="ui">GetResponse API key</span>. GetResponse shows each key only once.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-6-copy-key.png" alt="The Copy API Key box with Copy marked; the key is hidden"></figure></li>
+    <li>In the left menu, click <span class="ui">API keys</span>.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-1-api-keys.png" alt="Resend's menu with API keys marked"></figure></li>
+    <li>Click <span class="ui">Create API key</span>. The <em>Onboarding</em> key Resend made for you can only send email, so the theme can't use it.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-2-create-key.png" alt="The API keys page with Create API key marked; the key's characters are hidden"></figure></li>
   </ol>
+  <ol class="marks" style="counter-reset: m 2;">
+    <li>Under <span class="ui">Name</span>, type a name you'll recognize, such as your site's address.</li>
+    <li>Under <span class="ui">Permission</span>, choose <span class="ui">Full access</span>. This matters: the theme adds your domain and your emails to Resend, and a key with <span class="ui">Sending access</span> can't do that. Leave <span class="ui">Domain</span> at <span class="ui">All domains</span>.</li>
+    <li>Click <span class="ui">Add</span>.</li>
+  </ol>
+  <figure class="shot half"><img data-rs src="{{SCREENS}}/rs-3-add-key.png" alt="The Add API Key box with Name, Permission set to Full access, and Add marked"></figure>
+  <ol class="marks" style="counter-reset: m 5;">
+    <li>Click the copy button at the end of the key. <strong>Resend shows the key only once</strong>, so paste it straight into the theme's settings (Step 6), or somewhere safe until then.</li>
+    <li>Click <span class="ui">Done</span>.</li>
+  </ol>
+  <figure class="shot half"><img data-rs src="{{SCREENS}}/rs-4-copy-key.png" alt="The View API Key box with its copy button and Done marked; the key shows as dots"></figure>
 
-  <h3>Find your list token</h3>
-  <ol class="marks cards">
-    <li>Click <span class="ui">Contacts</span> in the top bar. Your lists are on the <span class="ui">Lists</span> tab.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-7-lists.png" alt="GetResponse Lists tab with Contacts marked"></figure></li>
-    <li>Click the three dots at the end of your list's row, then <span class="ui">Settings</span>.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-8-list-menu.png" alt="The list's three-dot menu open with Settings marked"></figure></li>
-    <li>Under the <span class="ui">List name</span> box, copy the short code after <span class="ui">List token:</span> and paste it into <span class="ui">GetResponse list token</span>. Copy only the token, not the <span class="ui">List ID</span> next to it.
-      <figure class="shot"><img data-gr src="{{SCREENS}}/gr-9-list-token.png" alt="GetResponse list settings with the list token marked under List name"></figure></li>
-  </ol>
+  <div class="box warn">
+    <h4>Keep your key private</h4>
+    <p>A Full access key controls your whole Resend account. Never paste it into a page, an email or a chat. The theme keeps it on your server and never shows it again: after you save, its field shows only dots.</p>
+  </div>
+
+  <div class="box">
+    <h4>Resend's free plan</h4>
+    <p>At the time of writing, Resend's free plan sends 100 emails a day and 3,000 a month, and holds 1,000 contacts. Check the current numbers on Resend's pricing page (<b>resend.com/pricing</b>).</p>
+    <ul>
+      <li>Each new subscriber gets 6 emails over 28 days from the Centered and Long Form pages, or 5 emails over 4 days from the Split page.</li>
+      <li>Every subscriber stays a contact in Resend after their emails end, and counts toward the contact limit.</li>
+      <li>Starting on the free plan is fine. The theme doesn't show your usage, so check it in Resend, under <span class="ui">Metrics</span>, once you start sending traffic.</li>
+      <li>When you outgrow it: at the time of writing, <strong>Transactional Pro</strong> ($20 a month) sends 50,000 emails a month with no daily limit, but keeps 1,000 contacts. <strong>Marketing Pro</strong> ($40 a month) raises contacts to 5,000, and higher tiers go further.</li>
+    </ul>
+  </div>
 </section>
 
 <!-- ============================== STEP 6 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 6</span>
-  <h2>Edit and publish your landing page</h2>
-  <p class="intro">Scroll down the same <span class="path">Affiliate Theme Settings</span> screen to <span class="ui">Your landing pages</span>. Pick the layout you like and click its title to open it in the editor.</p>
-  <figure class="shot half"><img src="{{SCREENS}}/06-landing-list.png" alt="Your landing pages list, with Landing Page — Split marked"></figure>
-  <div class="box">
-    <h4>Publish only the landing page you use</h4>
-    <p>Every published page is added to your site's menu automatically, so leave the other two layouts as drafts.</p>
-  </div>
+  <h2>Fill in the theme's settings and save</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b>.</p>
+  <p class="intro">This one screen wires up your whole funnel. Fill it in from top to bottom. The numbers match the screenshot.</p>
+  <figure class="shot w80"><img src="{{SCREENS}}/05-settings.png" alt="Affiliate Theme Settings with its seven fields and Save Changes numbered"></figure>
 
-  <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form is the one exception. You don't edit it on the page itself:</p>
   <ol class="marks">
-    <li>Click the form. The <span class="ui">Form</span> panel on the right holds its <span class="ui">Button text</span>, the <span class="ui">Email field label</span>, the <span class="ui">Ask for a first name</span> switch and the <span class="ui">Name field label</span>. If the right-hand panel is closed, click the square <span class="ui">Settings</span> icon next to <span class="ui">Publish</span>.</li>
-    <li>When the page reads the way you want, click <span class="ui">Publish</span>. WordPress asks <em>Are you ready to publish?</em>, so click <span class="ui">Publish</span> once more.</li>
+    <li><strong>Resend API key.</strong> Paste the key from Step 5. After you save, the line under it reads <span class="ui">Resend accepted this key.</span></li>
+    <li><strong>Sending domain.</strong> The domain your emails come from, usually your site's own domain, typed like <code>yoursite.com</code> (no <code>https://</code>, no <code>www.</code>). Saving adds it to your Resend account. If it's already in your Resend account, the theme uses it as it is.</li>
+    <li><strong>From name.</strong> The name your subscribers see, 20 characters at most. Leave it empty to use your Site Title.</li>
+    <li><strong>From address.</strong> The part before the <code>@</code>. <code>hello</code> is filled in for you, so your emails come from <code>hello@yoursite.com</code>.</li>
+    <li><strong>Reply-to address.</strong> Where replies go: an inbox you read. Leave it empty to use your WordPress administration email address. To read replies in Resend instead, see <em>Optional: read replies in Resend</em> in Step 7.</li>
+    <li><strong>Mailing address.</strong> Your postal address. Every email shows it at the bottom, and no email goes out without it.</li>
+    <li><strong>Affiliate link.</strong> Paste your full affiliate link, starting with <code>https://</code>. The form and your emails send each new subscriber here.</li>
+    <li>Click <span class="ui">Save Changes</span>.</li>
   </ol>
-  <figure class="shot w88"><img src="{{SCREENS}}/07-editor-publish.png" alt="The block editor with the Form panel and the Publish button marked"></figure>
 
+  <div class="box tip">
+    <h4>What happens when you save</h4>
+    <p>The theme goes to work in your Resend account. Leave the page open and don’t touch anything until it’s done. Waiting time: about 1 minute.</p>
+    <ul>
+      <li>The theme adds your domain to your Resend account, and waits until your domain’s DNS records are verified.</li>
+      <li>The theme writes your emails for each landing page, and creates templates and automations in your Resend account.</li>
+    </ul>
+  </div>
 </section>
 
 <!-- ============================== STEP 7 ============================== -->
 <section class="section">
   <span class="eyebrow">Step 7</span>
+  <h2>Add your DNS records</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> scroll down to <span class="ui">Your sending domain</span>.</p>
+  <p class="intro">Add 5 DNS records to your domain’s DNS records to verify your domain. Resend will not send any emails from your account until your domain is verified.</p>
+  <p>Before you click <span class="ui">Check</span> make sure to add these 5 DNS records to your domain’s DNS records.</p>
+  <figure class="shot"><img src="{{SCREENS}}/05b-domain.png" alt="Your sending domain with the five DNS records and the Check button marked"></figure>
+  <ol class="marks">
+    <li>Add each record where your domain's DNS is managed (at Cloudflare, or at the company you bought the domain from). Copy each value from the table: click a box and it selects itself. Every record has to be added, including the last one, <code>links</code>, which lets the emails record when they're opened, as your Privacy Policy explains.</li>
+    <li>Click <span class="ui">Check</span>. Resend checks the records and verifies the domain by itself, usually within a few minutes, sometimes a few hours. Click <span class="ui">Check</span> again later if it still says the records are missing.</li>
+  </ol>
+
+  <h3>The same records in Resend</h3>
+  <p>In Resend, under <span class="ui">Domains</span>, click your domain, then its <span class="ui">Records</span> tab. Resend shows the same five records there: one under <span class="ui">Domain Verification</span>, three under <span class="ui">Enable Sending</span> and one under <span class="ui">Enable Tracking</span>.</p>
+  <p>Add each record to your domain's DNS records. Copy each value: <strong>Type</strong> <strong>Name</strong> <strong>Content</strong> <strong>Proxy status</strong> <strong>TTL</strong> <strong>Priority</strong> click a box and it selects itself.</p>
+  <ol class="marks cards">
+    <li>Your domain in <span class="ui">Domains</span>.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-5-domains.png" alt="Resend's Domains list with the domain marked"></figure></li>
+    <li>Its <span class="ui">Records</span> tab.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-6-domain.png" alt="The domain's page in Resend with the Records tab marked"></figure></li>
+  </ol>
+  <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-7-dkim.png" alt="Resend's Domain Verification record (DKIM)"></figure>
+  <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-8-spf-tracking.png" alt="Resend's three Enable Sending records and the Enable Tracking record"></figure>
+  <div class="box tip">
+    <h4>Open <strong>Affiliate Theme Settings</strong> - click <span class="ui">Check</span> to have Resend verify your domain and the theme configure your email automations.</h4>
+  </div>
+
+  <h3>When the domain is verified</h3>
+  <p>Resend shows <span class="ui">Verified</span>. Open <span class="path">Affiliate Theme Settings</span> and refresh the page. click <span class="ui">Check</span> if there are still any pending or unverified DNS records and the theme will check to see if your domain has been verified by Resend.</p>
+  <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-9-verified.png" alt="The domain's page in Resend with its status, Verified, marked"></figure>
+  <figure class="shot"><img src="{{SCREENS}}/05c-sequences.png" alt="Your email sequences with Centered, Split and Long Form all Live"></figure>
+
+  <div class="box">
+    <h4>If your domain was already in Resend</h4>
+    <p>If you'd added your domain to Resend before you installed the theme, the theme uses it as it is.</p>
+    <ol class="marks">
+      <li>In Resend, open your domain and click its <span class="ui">Configuration</span> tab.</li>
+      <li>Under <span class="ui">Enable tracking metrics</span>, click <span class="ui">Configure</span>.</li>
+      <li>Tick <span class="ui">Enable click tracking</span>.</li>
+      <li>Tick <span class="ui">Enable open tracking</span>, and go on to the next screen.</li>
+      <li>Type <code>links</code> as the <span class="ui">Subdomain</span>.</li>
+      <li>Add the CNAME record it shows, with <span class="ui">Auto configure</span> or manually by copying and pasting.</li>
+    </ol>
+  </div>
+  <ol class="marks cards plain">
+    <li>Configuration and Configure.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-10-configure.png" alt="The domain's Configuration tab with Configure marked"></figure></li>
+    <li>The tracking subdomain and its options.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-11-tracking.png" alt="New tracking subdomain with links, Enable click tracking ticked and Enable open tracking ticked"></figure></li>
+    <li>The record to add.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-12-auto-configure.png" alt="The tracking CNAME record with Auto configure and I've added the record marked"></figure></li>
+    <li>Until the new record is verified, the domain reads <span class="ui">Partially Verified</span> and can't send.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-13-partially.png" alt="The domain's page in Resend with the status Partially Verified marked"></figure></li>
+  </ol>
+
+  <h3>Optional: read replies in Resend</h3>
+  <p>When a subscriber replies to one of your emails, the reply goes to your <span class="ui">Reply-to address</span>. To read replies inside Resend instead of another inbox, do this once your domain is verified.</p>
+  <div class="box warn">
+    <h4>Skip this if you already get email at your domain</h4>
+    <p>This adds a mail record to your domain itself, so mail sent to any address at <code>yoursite.com</code> goes to Resend. If you already read email at an address like <code>you@yoursite.com</code> (through Google Workspace, Outlook or your host), leave this alone and keep your <span class="ui">Reply-to address</span> pointed at that inbox. To check, look in Cloudflare's DNS records for an <code>MX</code> record whose name is your domain itself. Resend's own <code>MX</code> record on <code>send</code> doesn't count.</p>
+  </div>
+  <ol class="marks">
+    <li>In Resend, open your domain's <span class="ui">Records</span> tab and switch <span class="ui">Enable receiving</span> on.</li>
+    <li>Add the <code>MX</code> record it shows in Cloudflare, as you added the others: <span class="ui">Type</span> <code>MX</code>, its <span class="ui">Name</span>, its value as the <span class="ui">Mail server</span>, and <span class="ui">Priority</span> <code>10</code>. Resend shows <span class="ui">Verified</span> next to it within a few minutes. Your emails keep sending while it's pending.</li>
+    <li>In Resend, open <span class="ui">Inboxes</span> and create an inbox for your From address, such as <code>hello@yoursite.com</code>.</li>
+    <li>In <span class="path">Affiliate Theme Settings</span>, set <span class="ui">Reply-to address</span> to that same address and click <span class="ui">Save Changes</span>. The theme updates all your emails.</li>
+  </ol>
+  <ol class="marks cards plain">
+    <li>Enable receiving.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-14-receiving.png" alt="The Enable receiving switch on the domain's Records tab, marked"></figure></li>
+    <li>The record to add.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/rs-15-receiving-mx.png" alt="The receiving MX record with its name and mail server"></figure></li>
+    <li>Adding it on Cloudflare.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/cf-5-mx.png" alt="Cloudflare's Add record box for the MX record with Type, Name, Mail server, Priority and Save marked"></figure></li>
+  </ol>
+  <p>Replies then arrive under <span class="ui">Inboxes</span>. A reply that came in before you created the inbox is under <span class="path">Emails <span class="sep">&rsaquo;</span> Receiving</span>.</p>
+
+  <h3>Adding the records on Cloudflare</h3>
+  <ol class="marks cards">
+    <li>On your Cloudflare home page, click your domain.
+      <figure class="shot"><img data-rs src="{{SCREENS}}/cf-1-domain.png" alt="The Cloudflare account home with the domain marked"></figure></li>
+  </ol>
+  <ol class="marks" style="counter-reset: m 1;">
+    <li>In the left menu, open <span class="ui">DNS</span> and click <span class="ui">Records</span>.</li>
+    <li>Click <span class="ui">Add record</span>.</li>
+  </ol>
+  <figure class="shot"><img data-rs src="{{SCREENS}}/cf-2-records.png" alt="Cloudflare's DNS records page with Records and Add record marked"></figure>
+  <ol class="marks" style="counter-reset: m 3;">
+    <li>Choose the record's <span class="ui">Type</span> and paste its <span class="ui">Name</span>.</li>
+    <li>Click <span class="ui">Save</span>. Then click <span class="ui">Add record</span> for the next one, until all five are in.</li>
+  </ol>
+  <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-3-txt.png" alt="Cloudflare's Add record box for a TXT record with Name, Content and Save marked"></figure>
+  <ol class="marks" style="counter-reset: m 6;">
+    <li>On the two CNAME records, turn the <span class="ui">Proxy status</span> switch off, so it reads <span class="ui">DNS only</span> with a grey cloud. A proxied (orange) record can't be verified.</li>
+  </ol>
+  <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-4-cname.png" alt="Cloudflare's Add record box for a CNAME record with Proxy status set to DNS only marked"></figure>
+
+</section>
+
+<!-- ============================== STEP 8 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 8</span>
+  <h2>Edit and publish your landing page</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> scroll down to <span class="ui">Your landing pages</span>. Click a link to open it in the editor and preview its layout.</p>
+  <figure class="shot half"><img src="{{SCREENS}}/06-landing-list.png" alt="Your landing pages list, with Landing Page — Split marked"></figure>
+  <div class="box">
+    <h4>Publish only the landing page you use</h4>
+    <p>Every published page is added to your site's menu automatically, so leave the other two layouts as drafts. A published page can always be unpublished back to a draft.</p>
+  </div>
+
+  <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form can also be edited through the sidebar:</p>
+  <ol class="marks">
+    <li>Click the form.</li>
+    <li>The <span class="ui">sidebar</span> on the right holds its:</li>
+  </ol>
+  <ol class="marks" style="counter-reset: m 2;">
+    <li><span class="ui">Button text</span></li>
+    <li><span class="ui">Email field label</span></li>
+    <li><span class="ui">Name field label</span></li>
+    <li><span class="ui">This page's emails</span>: each landing page has its own email sequence, written to keep that page's promise.</li>
+    <li>Click <span class="ui">Publish</span>.</li>
+  </ol>
+  <figure class="shot w88"><img src="{{SCREENS}}/07-editor-publish.png" alt="The block editor with the Form panel, the Sequence list and the Publish button marked"></figure>
+
+  <h3>How your page looks in Google and when it's shared</h3>
+  <p>The theme writes a description, a social preview and search data for each page. Three things decide what they say:</p>
+  <ul>
+    <li><span class="path">Settings <span class="sep">&rsaquo;</span> General</span>. The <strong>Site Title</strong> and <strong>Tagline</strong> are what Google, Facebook, X, and LinkedIn show as your site's preview when shared. The <strong>Site Icon</strong> is the picture that the browser tab shows for your site and a shared link shows when its page has no featured image.</li>
+    <li><strong>Featured image</strong>: the picture shown when someone shares your landing page. 1200px &times; 630px.</li>
+    <li><strong>Excerpt</strong>: the description Google shows under your title. Leave it empty to use the first paragraph after the first headline of your page.</li>
+  </ul>
+</section>
+
+<!-- ============================== STEP 9 ============================== -->
+<section class="section">
+  <span class="eyebrow">Step 9</span>
   <h2>Make the landing page your home page</h2>
   <p class="where">Go to <b>Settings &rsaquo; Reading</b>.</p>
   <ol class="marks">
     <li>Under <span class="ui">Your homepage displays</span>, choose <span class="ui">A static page (select below)</span>.</li>
-    <li>In the <span class="ui">Homepage</span> list, choose the landing page you published in Step 6.</li>
+    <li>In the <span class="ui">Homepage</span> list, choose the landing page you published in Step 8.</li>
     <li>Click <span class="ui">Save Changes</span>.</li>
   </ol>
   <figure class="shot"><img src="{{SCREENS}}/08-reading.png" alt="Reading Settings with A static page, the Homepage list and Save Changes marked"></figure>
   <p>Now visit your site's address. Your landing page is the first thing people see.</p>
   <div class="box tip">
     <h4>Is your landing page missing from the list?</h4>
-    <p>This list shows only published pages. Go back to Step 6 and click <span class="ui">Publish</span>.</p>
+    <p>This list shows only published pages. Go back to Step 8 and click <span class="ui">Publish</span>.</p>
   </div>
 </section>
 
-<!-- ============================== STEP 8 ============================== -->
+<!-- ============================== STEP 10 ============================== -->
 <section class="section">
-  <span class="eyebrow">Step 8</span>
+  <span class="eyebrow">Step 10</span>
   <h2>Fill in and publish your legal pages</h2>
-  <p class="intro">Go back to <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span> and scroll to <span class="ui">Your legal pages</span>. Click each page's title to open it in the editor.</p>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> scroll down to <span class="ui">Your legal pages</span>. Click each page's link to open it in the editor.</p>
   <figure class="shot half"><img src="{{SCREENS}}/09-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
 
-  <p>Each page is written in plain English and uses square-bracket placeholders wherever your own details belong. Replace <strong>every</strong> one, on all four pages. Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
+  <p>Each page is written in plain English and uses square-bracket placeholders wherever your own details belong. Replace <strong>every</strong> one, on all four pages, <strong>before</strong> you publish: a published page joins your site's footer straight away. Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
   <figure class="shot"><img src="{{SCREENS}}/10-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>Placeholders are highlighted here to show them. In your editor they look like ordinary text.</figcaption></figure>
 
   <table>
@@ -225,37 +373,75 @@
       <tr><td class="ph"><code>[Your Business Name]</code></td><td>Your name or your business's legal name</td></tr>
       <tr><td class="ph"><code>[yoursite.com]</code></td><td>Your domain, for example <em>mysite.com</em></td></tr>
       <tr><td class="ph"><code>[you@example.com]</code></td><td>An email address where visitors can reach you</td></tr>
-      <tr><td class="ph"><code>[Your Mailing Address]</code></td><td>Your postal address</td></tr>
+      <tr><td class="ph"><code>[Your Mailing Address]</code></td><td>Your postal address, the same one as in your emails</td></tr>
       <tr><td class="ph"><code>[Your State/Country]</code></td><td>The state or country whose law applies to your business</td></tr>
       <tr><td class="ph"><code>[Month Day, Year]</code></td><td>The date the page takes effect, usually the day you publish it</td></tr>
     </tbody>
   </table>
 
   <p>Then click <span class="ui">Publish</span> on each page. A published legal page adds its own link to your site's footer, and that footer also appears at the bottom of your landing page. Draft pages are never linked.</p>
+  <p><strong>Keep each page true to your business.</strong> These pages are a starting template, not legal advice.</p>
 
   <div class="box warn">
-    <h4>If you ever add analytics, advertising or cookies</h4>
-    <p>Your Privacy Policy says you don't sell or share visitors' information. That stays true only while your site runs no analytics, no advertising pixels and no tracking cookies. If you add Google Analytics, a Facebook pixel or any similar tool, follow the <span class="ui">If you add analytics, advertising or cookies</span> steps on the <span class="path">Affiliate Theme Settings</span> screen. They swap in a ready-made section, <em>Legal &mdash; Privacy: Analytics and Advertising</em>, with one more placeholder, <code>[Provider Name]</code>, for each tool you use.</p>
+    <h4>If you add analytics, advertising or cookies</h4>
+    <p>Your Privacy Policy says you don't sell or share visitors' information. That stays true only while your site runs no analytics, no advertising pixels and no tracking cookies. If you start using Google Analytics, any advertising platform or cookies, replace that section of your Privacy Policy:</p>
+    <ol class="steps">
+      <li>Go to your dashboard <b>yoursite.com/wp-admin</b></li>
+      <li><b>Appearance &rsaquo; Editor</b></li>
+      <li><b>Pages</b></li>
+      <li>Open your <em>Privacy Policy</em> page in the editor.</li>
+      <li>Remove the <em>We Do Not Sell Or Share Your Information</em> heading and the paragraph after it.</li>
+      <li>Click the <span class="ui">+</span> button in the top-left corner.</li>
+      <li>Switch from the <span class="ui">Blocks</span> tab to the <span class="ui">Patterns</span> tab.</li>
+      <li>Choose <span class="ui">Affiliate Theme</span>.</li>
+      <li>Choose <em>Legal &mdash; Privacy: Analytics and Advertising</em> and it will insert itself where the removed section was, after <em>Who We Share It With</em>. Replace its <code>[Provider Name]</code> with each tool you use. Then click <span class="ui">Save</span>.</li>
+    </ol>
   </div>
-  <p><strong>Keep each page true to your business.</strong> These pages are a starting template, not legal advice.</p>
 </section>
 
-<!-- ============================== STEP 9 ============================== -->
+<!-- ============================== STEP 11 ============================== -->
 <section class="section">
-  <span class="eyebrow">Step 9</span>
+  <span class="eyebrow">Step 11</span>
   <h2>Point WordPress at your Privacy Policy</h2>
   <p class="where">Go to <b>Settings &rsaquo; Privacy</b>.</p>
-  <p class="intro">WordPress creates its own draft privacy page when it's installed, so your page list now has two pages called <em>Privacy Policy</em>. Tell WordPress to use the theme's page, the one you just filled in and published.</p>
+  <p class="intro">WordPress creates its own draft privacy page when it's installed, so your page list now has two pages called <em>Privacy Policy</em>. Tell WordPress to use the one you just filled in and published.</p>
   <ol class="marks">
     <li>Open the <span class="ui">Change your Privacy Policy page</span> list. <em>Privacy Policy</em> appears twice. The one with the checkmark is WordPress's own unpublished draft, so choose the <strong>other</strong> <em>Privacy Policy</em>.</li>
     <li>Click <span class="ui">Use This Page</span>.</li>
   </ol>
   <figure class="shot"><img src="{{SCREENS}}/11-privacy.png" alt="The Privacy Policy page list with the theme's page and Use This Page marked"><figcaption>The list is drawn open here so you can see both entries. On your screen it's a dropdown.</figcaption></figure>
-  <div class="box tip">
-    <h4>Check you picked the right one</h4>
-    <p>After you click <span class="ui">Use This Page</span>, the top of the <span class="path">Privacy</span> screen reads <em>Edit or view your Privacy Policy page content.</em> Click <span class="ui">view</span>. Your page opens with the line <em>Effective date:</em> and the date you entered. If the line says <span class="ui">preview</span> instead of <span class="ui">view</span>, you picked WordPress's unpublished draft. Choose the other entry and click <span class="ui">Use This Page</span> again.</p>
-  </div>
 
+</section>
+
+<!-- ============================== YOUR EMAIL SEQUENCES ============================== -->
+<section class="section">
+  <span class="eyebrow">Your emails</span>
+  <h2>Your email sequences</h2>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> scroll down to <span class="ui">Your email sequences</span>.</p>
+  <p class="intro">Each landing page starts its own sequence of emails.</p>
+
+  <table>
+    <thead><tr><th>Status</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td><span class="ui">Live</span></td><td>New sign-ups on that page get its emails.</td></tr>
+      <tr><td><span class="ui">Waiting</span></td><td>The email sequence is ready but still needs something before it can be live. The form on that page stays hidden until then.</td></tr>
+      <tr><td><span class="ui">Needs update</span></td><td>Something in Resend is out of date, often because you changed a setting. Click <span class="ui">Finish setting up emails</span>. If it says an email <em>has an edit in Resend that is not published</em>, publish or discard that edit in Resend first, then save the settings again.</td></tr>
+      <tr><td><span class="ui">Off</span></td><td>You turned it off. New sign-ups on that page get no emails. If it adds <em>It was turned off in Resend.</em>, someone switched the automation off in Resend.</td></tr>
+      <tr><td><span class="ui">Not set up</span></td><td>The emails aren't in Resend yet, or Resend refused them. The line under it gives Resend's reason. Click <span class="ui">Finish setting up emails</span> to try again.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The buttons on each row</h3>
+  <ul>
+    <li><span class="ui">Turn off</span> stops an email sequence. New sign-ups on that page get no emails, and people partway through stop getting emails. <span class="ui">Turn on</span> starts it again for new sign-ups, but doesn't restart anyone who was stopped.</li>
+    <li><span class="ui">Reset these emails to the theme's copy</span> replaces anything you changed in them in Resend and puts back the original copy.</li>
+    <li><span class="ui">Open in Resend</span> opens the email sequence's automation at <b>resend.com</b>.</li>
+  </ul>
+
+  <div class="box">
+    <h4>Changing your settings later</h4>
+    <p>Change your affiliate link, mailing address, From name or Reply-to address, then click <span class="ui">Save Changes</span>, and the theme updates all your emails in Resend. People partway through an email sequence get the new details from their next email.</p>
+  </div>
 </section>
 
 <!-- ============================== TEST ============================== -->
@@ -264,12 +450,14 @@
     <span class="eyebrow">Finish</span>
     <h2>Test your funnel</h2>
     <ol class="steps">
+      <li>Check that <span class="ui">Your email sequences</span> shows your page's email sequence as <span class="ui">Live</span>.</li>
       <li>Open a private or incognito browser window and go to your site's address.</li>
       <li>Type an email address you own into the form and submit it.</li>
-      <li>Your browser should land on your affiliate link. That's the whole funnel working.</li>
-      <li>In GetResponse, open <span class="ui">Contacts</span>. The new contact can take a few minutes to appear, because GetResponse processes new sign-ups in a queue.</li>
+      <li>Your browser should land on your affiliate link.</li>
+      <li>Within a few minutes, the first email arrives in your inbox. Check your spam and promotions folders too.</li>
+      <li>In Resend, open <span class="ui">Automations</span> and the email sequence for your page. Your sign-up shows there as a run.</li>
     </ol>
-    <p>If you submit the same address again, you're still sent to your affiliate link, because returning subscribers aren't turned away. Submitting the same address twice within a minute shows <span class="ui">Please try again in a moment.</span> Wait a minute before testing it again.</p>
+    <p>If you sign up again with the same address on the same page, you're still sent to your affiliate link, but no new emails start: each address gets a page's email sequence once. The same address on a different landing page starts that page's email sequence.</p>
   </div>
 </section>
 
@@ -288,31 +476,75 @@
   </div>
   <div class="qa">
     <h4>WordPress says <span class="msg">This theme is already installed.</span></h4>
-    <p>You're uploading a newer copy over an older one. Click <span class="ui">Replace installed with uploaded</span>. Your pages are safe: a theme update never overwrites a landing page or legal page you've edited.</p>
+    <p>You're uploading a newer copy over an older one. Click <span class="ui">Replace installed with uploaded</span>. Your pages are safe: a theme update never overwrites a landing page or legal page you've edited, nor emails you've edited in Resend.</p>
   </div>
   <div class="qa">
-    <h4>My landing page says <span class="msg">Opt-in form is not ready.</span></h4>
-    <p>Step 5 isn't finished. Add your API key and list token, then save. Only administrators see this note. Until then, visitors see no form at all.</p>
+    <h4>Under the API key: <span class="msg">This key can only send email. The theme needs a key with Full access.</span></h4>
+    <p>You pasted a key with <span class="ui">Sending access</span>, such as Resend's <em>Onboarding</em> key. Make a new key with <span class="ui">Full access</span> (Step 5), paste it over the dots and save.</p>
   </div>
   <div class="qa">
-    <h4>Saving shows <span class="msg">That does not look like a GetResponse API key.</span></h4>
-    <p>The text you pasted isn't a key. A key is at least 16 letters and numbers with no spaces. GetResponse shows each key only once, so if you no longer have it, generate a new one in <span class="path">Tools <span class="sep">&rsaquo;</span> Integrations and API <span class="sep">&rsaquo;</span> API</span>. Your previous key, if you had one, is kept.</p>
+    <h4>Under the API key: <span class="msg">Resend did not accept this key.</span></h4>
+    <p>The key is wrong or was deleted in Resend. Make a new key with <span class="ui">Full access</span>, paste it over the dots and save.</p>
   </div>
   <div class="qa">
-    <h4>Check list says <span class="msg">GetResponse rejected the API key.</span></h4>
-    <p>The key is wrong or has expired (keys stop after 90 days unused). Make a new key in GetResponse, paste it in, then save.</p>
+    <h4>Under the API key: <span class="msg">WordPress could not reach Resend. Reload this page in a minute.</span></h4>
+    <p>Your server couldn't reach Resend just then, or Resend was busy. It says nothing about your key. Reload the page in a minute. If it keeps happening, ask your host whether they block outgoing connections.</p>
   </div>
   <div class="qa">
-    <h4>Check list says <span class="msg">GetResponse did not accept that list token.</span></h4>
-    <p>You probably pasted the list's name or the List ID. The token is the short code, such as <code>7qhMJ</code>, under the <span class="ui">List name</span> box, next to the <span class="ui">List ID</span> in the list's settings.</p>
+    <h4>Saving shows <span class="msg">That is not a Resend API key. A Resend API key starts with re_.</span></h4>
+    <p>The text you pasted isn't a key. Copy it again from Resend; if you no longer have it, make a new one. The key you had before, if any, is kept.</p>
   </div>
   <div class="qa">
-    <h4>Saving shows <span class="msg">The affiliate redirect URL is not a usable address.</span></h4>
+    <h4>Saving shows <span class="msg">The affiliate redirect URL is not a usable address. Start it with https://.</span></h4>
     <p>Paste the complete link, including the <code>https://</code> at the start.</p>
   </div>
   <div class="qa">
+    <h4>Resend says the domain is <span class="msg">already in use in another Resend account</span></h4>
+    <p>A domain can belong to only one Resend account. Use that account's API key here, or a different domain.</p>
+  </div>
+  <div class="qa">
+    <h4>My DNS records still aren't verified</h4>
+    <p>DNS changes can take a few hours to propagate. Check each record's name and value against <span class="ui">Your sending domain</span>, look for a name with your domain added twice (see Step 7), and make sure the CNAME records are <span class="ui">DNS only</span> on Cloudflare. Then click <span class="ui">Check</span> once more. You can also check <span class="path">www.whatsmydns.net</span>.</p>
+  </div>
+  <div class="qa">
+    <h4>Resend says <span class="msg">Partially Verified</span></h4>
+    <p>One record, often the <code>links</code> one, isn't verified yet, and Resend can't send until it is. Add the missing record or fix it.</p>
+  </div>
+  <div class="qa">
+    <h4>My landing page says <span class="msg">Opt-in form is not ready:</span></h4>
+    <p>Only administrators see this note. Visitors see no form at all until it's fixed.</p>
+  </div>
+  <div class="qa">
+    <h4>My forms vanished and every email sequence says <span class="ui">Not set up</span></h4>
+    <p>Open <span class="path">Affiliate Theme Settings</span> and click <span class="ui">Finish setting up emails</span>: the theme finds them again without making new ones.</p>
+  </div>
+  <div class="qa">
+    <h4>An email sequence says <span class="ui">Needs update</span>, or <span class="msg">It was turned off in Resend.</span></h4>
+    <p>The theme will turn off an email sequence you or someone else switched off in Resend; click <span class="ui">Turn on</span>.</p>
+  </div>
+  <div class="qa">
+    <h4><span class="msg">Open tracking is off for this domain.</span></h4>
+    <p>Your emails still send. See <em>If your domain was already in Resend</em> in Step 7.</p>
+  </div>
+    <div class="qa">
+    <h4><span class="msg">Click tracking is off for this domain.</span></h4>
+    <p>Your emails still send. See <em>If your domain was already in Resend</em> in Step 7.</p>
+  </div>
+  <div class="qa">
+    <h4>Visitors see <span class="msg">Please try again in a moment.</span> or <span class="msg">Please try again in a few minutes.</span></h4>
+    <p>The first means Resend was busy for a second. The second means more than five sign-ups came from one internet address within ten minutes, which stops someone filling your list with fake addresses.</p>
+  </div>
+  <div class="qa">
+    <h4>Visitors see <span class="msg">Service unavailable. Please try again shortly.</span></h4>
+    <p>Your server got no answer from Resend. It's usually brief. If it lasts, check that the line under your API key reads <span class="ui">Resend accepted this key.</span></p>
+  </div>
+  <div class="qa">
     <h4>Visitors see <span class="msg">Something went wrong. Please try again.</span></h4>
-    <p>GetResponse turned the sign-up down. Go to <span class="path">Settings <span class="sep">&rsaquo;</span> Affiliate Theme Settings</span>, click <span class="ui">Check list</span> and fix whatever it reports. The most common cause is an expired API key.</p>
+    <p>Resend refused the sign-up, or the page's email sequence is turned off.</p>
+  </div>
+  <div class="qa">
+    <h4>Emails stopped arriving</h4>
+    <p>You may have reached your Resend plan's daily or monthly limit. Check your usage in Resend, under <span class="ui">Metrics</span>.</p>
   </div>
   <div class="qa">
     <h4>A legal page isn't in my footer</h4>
@@ -320,7 +552,7 @@
   </div>
   <div class="qa">
     <h4>How do I change the copyright line in the footer?</h4>
-    <p>Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Editor</span>, open the footer, click the <em>&copy; 2026 &mdash; All rights reserved.</em> line and type your own. Then save.</p>
+    <p>Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Editor <span class="sep">&rsaquo;</span> Patterns <span class="sep">&rsaquo;</span> Footer</span>, open the footer, click the <em>&copy; 2026 &mdash; All rights reserved.</em> line and type your own. Then save.</p>
   </div>
 
   <p class="closing">The legal pages that come with this theme are a starting template, not legal advice. Review them for your own business, or have a professional review them.</p>

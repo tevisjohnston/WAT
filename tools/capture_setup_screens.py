@@ -127,9 +127,8 @@ def page_snapshot() -> str:
 def doc_rect(page: Page, selector: str, frame_selector: str | None = None) -> dict:
     """Bounding box of an element in document coordinates of the top page."""
     if frame_selector:
-        frame_box = page.locator(frame_selector).bounding_box()
+        # Playwright already returns an iframe element's box in the top page's viewport.
         box = page.frame_locator(frame_selector).locator(selector).first.bounding_box()
-        box = {**box, "x": box["x"] + frame_box["x"], "y": box["y"] + frame_box["y"]}
     else:
         box = page.locator(selector).first.bounding_box()
     if box is None:
@@ -194,6 +193,8 @@ def disguise(page: Page) -> None:
         """([name, swaps]) => {
           const a = document.querySelector('#wp-admin-bar-site-name > a');
           if (a) { a.lastChild.textContent = name; }
+          // The admin's Gravatar can be a real photo.
+          document.querySelectorAll('#wpadminbar img.avatar').forEach(i => { i.style.visibility = 'hidden'; });
           document.querySelectorAll('.notice, .update-nag, #wp-admin-bar-comments')
             .forEach(n => n.remove());
           const swap = s => swaps.reduce((t, [from, to]) => t.split(from).join(to), s);
@@ -331,7 +332,7 @@ def shot_landing_list(page: Page, ids: dict) -> None:
     _status_all_draft(page)
     h2 = "xpath=//h2[normalize-space()='Your landing pages']"
     ul = "xpath=//h2[normalize-space()='Your landing pages']/following-sibling::ul[1]"
-    mark(page, f"{ul}/li[2]/a", "1", pad=4, side="right")
+    mark(page, f"{ul}/li[2]/a", "1", pad=4)
     shoot(page, "06-landing-list", region(page, [h2, ul], pad=14, left=160, right=900))
 
 
@@ -353,9 +354,15 @@ def shot_editor(page: Page, ids: dict) -> None:
     if "is-opened" not in (panel.get_attribute("class") or ""):
         panel.locator("button", has_text="Form").click()
         page.wait_for_timeout(400)
-    mark(page, ".components-panel__body.is-opened:has(button:text-is('Form'))", "1", pad=2)
-    mark(page, ".editor-post-publish-button__button", "2", pad=4)
-    shoot(page, "07-editor-publish", {"x": 0, "y": 0, "width": 1366, "height": 620})
+    form = ".components-panel__body.is-opened:has(button:text-is('Form'))"
+    # Badges follow Step 8's list: the form, the panel, its fields in sidebar order, Publish.
+    mark(page, ".wp-block-affiliate-theme-optin-form", "1", pad=2, frame='iframe[name="editor-canvas"]')
+    mark(page, form, "2", pad=2)
+    for n, label in (("3", "Button text"), ("4", "Email field label"), ("5", "Name field label")):
+        mark(page, f"{form} .components-base-control:has(label:text-is('{label}')) input", n, pad=3)
+    mark(page, f"{form} select", "6", pad=3)
+    mark(page, ".editor-post-publish-button__button", "7", pad=4)
+    shoot(page, "07-editor-publish", {"x": 0, "y": 0, "width": 1366, "height": 780})
 
 
 def shot_reading(page: Page, ids: dict) -> None:
@@ -381,13 +388,23 @@ def shot_legal_list(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
     _status_all_draft(page)
     ul = "xpath=//h2[normalize-space()='Your legal pages']/following-sibling::ul[1]"
-    mark(page, f"{ul}/li[1]/a", "1", pad=4, side="right")
-    shoot(page, "09-legal-list", region(page, [ul], pad=16, left=160, right=620))
+    mark(page, f"{ul}/li[1]/a", "1", pad=4)
+    # Top just above the badge, which stands 18px over the link.
+    top = int(doc_rect(page, f"{ul}/li[1]/a")["y"]) - 20
+    shoot(page, "09-legal-list", region(page, [ul], pad=16, left=160, right=620, top=top))
 
 
 def shot_legal_editor(page: Page, ids: dict) -> None:
     open_editor(page, ids["privacy"])
     page.evaluate("() => wp.data.dispatch('core/edit-post').closeGeneralSidebar()")
+    # Show the theme's current Privacy Policy, as a buyer's fresh install seeds it.
+    # The site's page holds whatever was seeded (or edited) on it, which can be an
+    # older copy. Only the editor's blocks change: nothing is saved.
+    current = wp_eval('echo Affiliate_Theme_Theme_legal_pattern( "privacy" );')
+    page.evaluate(
+        "(html) => wp.data.dispatch('core/block-editor').resetBlocks(wp.blocks.parse(html))",
+        current,
+    )
     page.wait_for_timeout(600)
     canvas = page.frame_locator('iframe[name="editor-canvas"]')
     canvas.locator("body").evaluate(
