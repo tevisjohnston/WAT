@@ -81,15 +81,129 @@ SHOTS = {
                                        (310, 417, 98, 38, "", 3)]),
 }
 
+# The shots were taken on the owner's test domain, wp-guide.affiliatemarketconnect.com (a
+# subdomain, so Resend names its records send.wp-guide and so on). PAINT makes them show the
+# apex yoursite.com that the WordPress shots and the guide use, before the marks are drawn:
+# - erase: paint a box with the background (the commonest colour just above it), which drops
+#   a record name's ".wp-guide" ending, leaving "send" as a buyer on their main domain sees it.
+# - text: replace a word. Its box is the old word's ink (found with tesseract, in source pixels);
+#   the new text is sized so the old word would fill that box, in Inter (Resend's and
+#   Cloudflare's type) or a monospace font, in the darkest colour found in the box. "tail" moves
+#   the rest of the line, up to that x, left against the shorter word; "under" keeps that many
+#   pixel rows of an underline below the word, cut to the new width.
+# - move: shift a box (a check mark after a shortened name) to a new x.
+# Every source here was viewed after painting; the crops show no wp-guide or affiliatemarketconnect.
+HEAD = {"old": "wp-guide.affiliatemarketconnect.com", "new": "yoursite.com", "weight": 600}
+PAINT = {
+    "resend/screenshot-4-api-key-add-resend.png": [
+        {"text": (442, 207, 178, 11), "old": "affiliatemarketconnect.com", "new": "yoursite.com"}],
+    "resend/screenshot-8-domains-resend.png": [
+        {"text": (362, 200, 246, 14), "old": "wp-guide.affiliatemarketconnect.com", "new": "yoursite.com",
+         "under": 5}],
+    "resend/screenshot-9-domain-status-not-started-resend.png": [{"text": (378, 74, 467, 26), **HEAD}],
+    "resend/screenshot-19-domain-verified-ready-to-send-emails-resend.png": [{"text": (378, 74, 467, 26), **HEAD}],
+    "resend/screenshot-26-domain-restart-verification-resend.png": [{"text": (378, 74, 467, 26), **HEAD}],
+    "resend/screenshot-20-domain-dns-records-verified-resend.png": [
+        {"erase": (541, 198, 81, 18)}, {"move": (622, 196, 16, 21), "to": 551}],
+    "resend/screenshot-27-domain-dns-records-four-resend.png": [
+        {"erase": (427, 136, 73, 17)}, {"erase": (427, 177, 73, 17)},
+        {"erase": (435, 218, 73, 17)}, {"erase": (435, 484, 73, 17)}],
+    "resend/screenshot-22-enable-open-tracking-resend.png": [
+        {"text": (539, 175, 214, 14), "old": "wp-guide.affiliatemarketconnect", "new": "yoursite.com"}],
+    "resend/screenshot-25-auto-configure-resend.png": [{"erase": (513, 328, 74, 17)}],
+    "resend/screenshot-30-rs-enable-receiving-verified.png": [
+        {"text": (391, 232, 66, 14), "old": "wp-guide", "new": "@", "mono": True}],
+    "cloudflare/screenshot-11-account-home-cloudflare.png": [
+        {"text": (318, 372, 178, 11), "old": "affiliatemarketconnect.com", "new": "yoursite.com"}],
+    "cloudflare/screenshot-13-dns-records-cloudflare.png": [
+        {"text": (515, 97, 369, 22), "old": "affiliatemarketconnect.com", "new": "yoursite.com", "weight": 600}],
+    "cloudflare/screenshot-15-save-txt-record-cloudflare.png": [
+        {"text": (332, 150, 433, 16), "old": "resend._domainkey.wp-guide.affiliatemarketconnect.com",
+         "new": "resend._domainkey.yoursite.com", "weight": 600, "tail": 1040},
+        {"erase": (580, 294, 67, 17)}],
+    "cloudflare/screenshot-18-save-record-cname-cloudflare.png": [
+        {"text": (332, 169, 331, 16), "old": "rsend.wp-guide.affiliatemarketconnect.com",
+         "new": "rsend.yoursite.com", "weight": 600, "tail": 1040},
+        {"erase": (493, 242, 66, 17)}],
+    "cloudflare/screenshot-29-cf-receiving-records.png": [
+        {"text": (435, 244, 61, 13), "old": "wp-guide", "new": "@"}],
+}
+INTER = WAT / "materials" / "fonts" / "inter" / "inter-latin-wght-normal.woff2"
+
+PAINT_JS = """
+async ([src, ops, inter]) => {
+  const font = new FontFace('PaintInter', `url(data:font/woff2;base64,${inter})`, {weight: '100 900'});
+  await font.load(); document.fonts.add(font);
+  const img = new Image(); img.src = src; await img.decode();
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const g = c.getContext('2d', {willReadFrequently: true});
+  g.drawImage(img, 0, 0);
+  const bgAbove = (x, y, w) => {            // the commonest colour in the row above a box
+    const d = g.getImageData(x, Math.max(0, y - 2), w, 1).data, n = {};
+    let best = '', top = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      const k = `rgb(${d[i]},${d[i + 1]},${d[i + 2]})`; n[k] = (n[k] || 0) + 1;
+      if (n[k] > top) { top = n[k]; best = k; }
+    }
+    return best;
+  };
+  const darkest = (x, y, w, h) => {
+    const d = g.getImageData(x, y, w, h).data; let lum = 999, col = '#000';
+    for (let i = 0; i < d.length; i += 4) {
+      const l = 0.3 * d[i] + 0.59 * d[i + 1] + 0.11 * d[i + 2];
+      if (l < lum) { lum = l; col = `rgb(${d[i]},${d[i + 1]},${d[i + 2]})`; }
+    }
+    return col;
+  };
+  for (const op of ops) {
+    if (op.erase) {
+      const [x, y, w, h] = op.erase;
+      g.fillStyle = bgAbove(x, y, w); g.fillRect(x, y, w, h);
+    } else if (op.move) {
+      const [x, y, w, h] = op.move, part = g.getImageData(x, y, w, h);
+      g.fillStyle = bgAbove(x, y, w); g.fillRect(x, y, w, h);
+      g.putImageData(part, op.to, y);
+    } else if (op.text) {
+      const [x, y, w, h] = op.text;
+      const bg = bgAbove(x, y, w), ink = darkest(x, y, w, h);
+      const family = op.mono ? '"DejaVu Sans Mono", monospace' : 'PaintInter';
+      const weight = op.weight || 400;
+      g.font = `${weight} 100px ${family}`;
+      const m = g.measureText(op.old);
+      const size = 100 * h / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+      g.font = `${weight} ${size}px ${family}`;
+      const om = g.measureText(op.old), nm = g.measureText(op.new);
+      const sx = op.mono ? 1 : w / (om.actualBoundingBoxRight + om.actualBoundingBoxLeft);
+      const newW = Math.ceil((nm.actualBoundingBoxRight + nm.actualBoundingBoxLeft) * sx);
+      const under = op.under ? g.getImageData(x, y + h + 1, newW, op.under) : null;
+      const tail = op.tail ? g.getImageData(x + w + 3, y - 3, op.tail - (x + w + 3), h + 6) : null;
+      g.fillStyle = bg; g.fillRect(x - 2, y - 3, (op.tail || x + w + 2) - (x - 2), h + 6 + (op.under || 0));
+      if (under) g.putImageData(under, x, y + h + 1);
+      if (tail) g.putImageData(tail, x + newW + 3, y - 3);
+      g.save(); g.translate(x, y + om.actualBoundingBoxAscent); g.scale(sx, 1);
+      g.fillStyle = ink; g.textBaseline = 'alphabetic';
+      g.fillText(op.new, nm.actualBoundingBoxLeft, 0); g.restore();
+    }
+  }
+  return c.toDataURL('image/png');
+}
+"""
+
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
+    inter = base64.b64encode(INTER.read_bytes()).decode()
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="chrome", args=["--no-sandbox"])
         page = browser.new_page(viewport={"width": 1366, "height": 600}, device_scale_factor=2)
         for name, (src, want, (x, y, w, h), marks) in SHOTS.items():
             page.set_viewport_size({"width": want[0], "height": want[1]})
             data = base64.b64encode((SRC / src).read_bytes()).decode()
+            if src in PAINT:
+                page.set_content("<body></body>")
+                painted = page.evaluate(PAINT_JS, [f"data:image/png;base64,{data}", PAINT[src], inter])
+                data = painted.split(",", 1)[1]
             page.set_content(f'<body style="margin:0"><img src="data:image/png;base64,{data}" style="display:block"></body>')
             page.wait_for_function("() => document.images[0].complete && document.images[0].naturalWidth > 0")
             size = tuple(page.evaluate("() => [document.images[0].naturalWidth, document.images[0].naturalHeight]"))
