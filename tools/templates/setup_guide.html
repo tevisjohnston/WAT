@@ -209,18 +209,18 @@
 <section class="section">
   <span class="eyebrow">Step 7</span>
   <h2>Add your DNS records</h2>
-  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> scroll down to <span class="ui">Your sending domain</span>.</p>
-  <p class="intro">Add 5 DNS records to your domain’s DNS records to verify your domain. Resend will not send any emails from your account until your domain is verified.</p>
-  <p>Before you click <span class="ui">Check</span> make sure to add these 5 DNS records to your domain’s DNS records.</p>
+  <p class="where">Go to <b>Settings &rsaquo; Affiliate Theme Settings</b> and scroll down to <span class="ui">Your sending domain</span>.</p>
+  <p class="intro">Resend needs to verify your domain before it sends a single email from it. You prove the domain is yours by adding the five DNS records that <span class="ui">Your sending domain</span> lists.</p>
+  <p>Add all five before you click <span class="ui">Check</span>.</p>
   <figure class="shot"><img src="{{SCREENS}}/05b-domain.png" alt="Your sending domain with the five DNS records and the Check button marked"></figure>
   <ol class="marks">
-    <li>Add each record where your domain's DNS is managed (at Cloudflare, or at the company you bought the domain from). Copy each value from the table: click a box and it selects itself. Every record has to be added, including the last one, <code>links</code>, which lets the emails record when they're opened, as your Privacy Policy explains.</li>
+    <li>Add each record where your domain's DNS is managed (at Cloudflare, or at the company you bought the domain from). Copy each value from the table: click a box and it selects itself. Every record has to be added, including the last one, <code>links</code>, which lets Resend record when your emails are opened and their links clicked, as your Privacy Policy explains. Resend may offer to add the records for you on its own page for your domain (<span class="ui">Open yoursite.com in Resend</span>). If it doesn't, add them by hand, as shown below.</li>
     <li>Click <span class="ui">Check</span>. Resend checks the records and verifies the domain by itself, usually within a few minutes, sometimes a few hours. Click <span class="ui">Check</span> again later if it still says the records are missing.</li>
   </ol>
 
   <h3>The same records in Resend</h3>
   <p>In Resend, under <span class="ui">Domains</span>, click your domain, then its <span class="ui">Records</span> tab. Resend shows the same five records there: one under <span class="ui">Domain Verification</span>, three under <span class="ui">Enable Sending</span> and one under <span class="ui">Enable Tracking</span>.</p>
-  <p>Add each record to your domain's DNS records. Copy each value: <strong>Type</strong> <strong>Name</strong> <strong>Content</strong> <strong>Proxy status</strong> <strong>TTL</strong> <strong>Priority</strong> click a box and it selects itself.</p>
+  <p>Each row gives a record's <span class="ui">Type</span>, <span class="ui">Name</span>, <span class="ui">Content</span>, <span class="ui">TTL</span> and, for the MX record, <span class="ui">Priority</span>. Copy each value into the same field where your DNS is managed. Where Resend's <span class="ui">Proxy status</span> column reads <span class="ui">DNS Only</span>, set that record's proxy the same way on Cloudflare (see <em>Adding the records on Cloudflare</em> below).</p>
   <ol class="marks cards">
     <li>Your domain in <span class="ui">Domains</span>.
       <figure class="shot"><img data-rs src="{{SCREENS}}/rs-5-domains.png" alt="Resend's Domains list with the domain marked"></figure></li>
@@ -230,24 +230,26 @@
   <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-7-dkim.png" alt="Resend's Domain Verification record (DKIM)"></figure>
   <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-8-spf-tracking.png" alt="Resend's three Enable Sending records and the Enable Tracking record"></figure>
   <div class="box tip">
-    <h4>Open <strong>Affiliate Theme Settings</strong> - click <span class="ui">Check</span> to have Resend verify your domain and the theme configure your email automations.</h4>
+    <h4>Then click Check</h4>
+    <p>Back in <span class="path">Affiliate Theme Settings</span>, click <span class="ui">Check</span>. Resend checks your records and verifies the domain, usually within a few minutes. Until it does, your email sequences wait.</p>
   </div>
 
   <h3>When the domain is verified</h3>
-  <p>Resend shows <span class="ui">Verified</span>. Open <span class="path">Affiliate Theme Settings</span> and refresh the page. click <span class="ui">Check</span> if there are still any pending or unverified DNS records and the theme will check to see if your domain has been verified by Resend.</p>
+  <p>Resend shows <span class="ui">Verified</span> on your domain's page. Open <span class="path">Affiliate Theme Settings</span>, or reload it if it's already open. The theme sees that the domain is verified and turns your email sequences on, and <span class="ui">Your email sequences</span> shows each one as <span class="ui">Live</span>.</p>
+  <p>If <span class="ui">Your sending domain</span> still says <span class="msg">yoursite.com is waiting for its DNS records.</span>, click <span class="ui">Check</span> once more, then give it time. Resend verifies the domain by itself, so you don't need to keep clicking.</p>
   <figure class="shot w80"><img data-rs src="{{SCREENS}}/rs-9-verified.png" alt="The domain's page in Resend with its status, Verified, marked"></figure>
   <figure class="shot"><img src="{{SCREENS}}/05c-sequences.png" alt="Your email sequences with Centered, Split and Long Form all Live"></figure>
 
   <div class="box">
     <h4>If your domain was already in Resend</h4>
-    <p>If you'd added your domain to Resend before you installed the theme, the theme uses it as it is.</p>
+    <p>If you'd added your domain to Resend before you installed the theme, the theme uses it as it is. If that domain has no tracking subdomain yet, add one as below, <strong>before</strong> your email sequences go live: until its new record is verified, Resend can't send from the domain, and the theme turns your sequences off.</p>
     <ol class="marks">
       <li>In Resend, open your domain and click its <span class="ui">Configuration</span> tab.</li>
       <li>Under <span class="ui">Enable tracking metrics</span>, click <span class="ui">Configure</span>.</li>
       <li>Tick <span class="ui">Enable click tracking</span>.</li>
-      <li>Tick <span class="ui">Enable open tracking</span>, and go on to the next screen.</li>
-      <li>Type <code>links</code> as the <span class="ui">Subdomain</span>.</li>
-      <li>Add the CNAME record it shows, with <span class="ui">Auto configure</span> or manually by copying and pasting.</li>
+      <li>Tick <span class="ui">Enable open tracking</span>.</li>
+      <li>Type <code>links</code> as the <span class="ui">Subdomain</span>, and go on to the next screen.</li>
+      <li>Add the CNAME record it shows. Click <span class="ui">Auto configure</span> if Resend offers it, or add the record by hand where your DNS is managed. Then click <span class="ui">I've added the record</span>.</li>
     </ol>
   </div>
   <ol class="marks cards plain">
