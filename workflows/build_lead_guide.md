@@ -11,7 +11,7 @@ The guide is written for the buyer's subscribers, who are aspiring affiliates, n
 Up to theme 1.4.1, the PDF lived at `affiliate-theme/emails/landing-3/guide.pdf`, packed into the ZIP of landing-3's first email for GetResponse. Theme 1.5.0 (wp-dfy `d62daf2`, on GitHub only) deleted `emails/`, guide and email sequences included, ahead of the move to Resend. Theme 2.0.0, built on wp-test branch `resend-2.0.0` and on `main` since that branch merged on 2026-10-25, brings the guide back at `affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`. The theme's Resend templates link it from Long Form email 1: the `{{{GUIDE_URL}}}` variable's fallback is the PDF's URL on the buyer's own site.
 
 - The tool copies the PDF there and creates the folder. Run it while wp-test has `main` checked out (2.0.0 since 2026-10-25; 1.5.0 had no `assets/lead-magnets/`).
-- Don't rebuild `affiliate-theme.zip` because the guide changed. `build_setup_guide.md` says when a rebuild is allowed.
+- Don't rebuild `affiliate-theme.zip` because the guide changed. `build_affiliate_theme_guide.md` says when a rebuild is allowed.
 
 ## When to rebuild
 
@@ -25,13 +25,13 @@ A theme `Version` bump alone does not need a rebuild: the guide prints no versio
 
 | Input | Where | Notes |
 |---|---|---|
-| Copy and layout | `tools/templates/lead_guide.html`, `lead_guide.css` | Edit the copy here. Same palette and fonts as `setup_guide.css`. |
+| Copy and layout | `tools/templates/lead_guide.html`, `lead_guide.css` | Edit the copy here. Same palette and fonts as `affiliate_theme_guide.css`. |
 | Theme fonts | `/home/tevis/wp-test/wp-content/themes/affiliate-theme/assets/fonts/` | Read in place through `{{FONTS}}`. |
 | The landing promise | `inc/affiliate-theme-funnel.php`, `Affiliate_Theme_Theme_landing_pattern_long()` | The tool reads its `<li>` items under "What Is In The Guide". |
 
 ## Tools, in order
 
-One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`. Playwright drives `/usr/bin/google-chrome`.
+One-time setup as in `build_affiliate_theme_guide.md`: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`. Playwright drives `/usr/bin/google-chrome`.
 
 1. `.venv/bin/python tools/build_lead_guide.py [--no-copy]` does the following:
    - fills `{{CSS}}` and `{{FONTS}}`
@@ -41,7 +41,7 @@ One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin
    - copies the PDF to the theme's `assets/lead-magnets/landing-3-guide.pdf`, creating the folder
 
    `--no-copy` builds into `.tmp/lead-guide/` only.
-2. Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump (until 2.0.0 is released, `Version` stays 2.0.0). Then follow `build_setup_guide.md` from its step 1 to rebuild `affiliate-theme.zip`, once that workflow allows a rebuild.
+2. Commit the PDF in wp-test, using the theme's commit message style and a `Version` bump (until 2.0.0 is released, `Version` stays 2.0.0). Then follow `build_affiliate_theme_guide.md` from its step 1 to rebuild `affiliate-theme.zip`, once that workflow allows a rebuild.
 
 ## Verification (all must pass before committing)
 
@@ -53,5 +53,5 @@ One-time setup as in `build_setup_guide.md`: `python3 -m venv .venv && .venv/bin
 ## Known quirks
 
 - **Chrome clips anything that crosses into the page margin.** The chapter 2 wireframe starts at the left margin, so its number badges sit inside its wide left padding. Badges positioned outside it were cut in half.
-- **Chrome embeds the variable fonts as Type 3**, as with the setup guide, which is why the PDF is about 800 KB for text alone. Poppler's "Bad bounding box in Type 3 glyph" warnings are harmless.
+- **Chrome embeds the variable fonts as Type 3**, as with the Affiliate Theme Guide, which is why the PDF is about 800 KB for text alone. Poppler's "Bad bounding box in Type 3 glyph" warnings are harmless.
 - **The PDF is public.** Anyone can fetch it from the theme folder without signing up, which is fine for a free guide. A security plugin that blocks direct access to theme folders breaks the link, and a renamed theme folder changes its URL.

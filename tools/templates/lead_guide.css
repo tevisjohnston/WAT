@@ -1,6 +1,6 @@
 /* The Lead-First Affiliate Guide (guide.pdf) — print stylesheet. Colors and fonts are the
    Affiliate Theme's own (theme.json palette; Archivo + Newsreader variable woff2 from the theme),
-   as in setup_guide.css. The PDF goes to the buyer's subscribers, so it names no brand. */
+   as in affiliate_theme_guide.css. The PDF goes to the buyer's subscribers, so it names no brand. */
 
 @font-face { font-family: "Archivo"; font-weight: 100 900; font-stretch: 62% 125%;
   src: url("{{FONTS}}/Archivo/Archivo-VariableFont_wdth_wght.woff2") format("woff2"); }

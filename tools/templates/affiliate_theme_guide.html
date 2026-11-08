@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Affiliate Theme Setup Guide</title>
+<title>Affiliate Theme Guide</title>
 <style>{{CSS}}</style>
 </head>
 <body>
@@ -23,7 +23,7 @@
       <div class="arrow">&rarr;</div>
       <div class="chip"><b>3</b>The form sends their browser to your affiliate link</div>
       <div class="arrow">&rarr;</div>
-      <div class="chip"><b>4</b>Your emais deliver what your landing page promises</div>
+      <div class="chip"><b>4</b>Your emails deliver what your landing page promises</div>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
 </section>
 
 <!-- ============================== BEFORE YOU START ============================== -->
-<section class="section" style="break-before: auto;">
+<section class="section">
   <span class="eyebrow">Before you start</span>
   <h2>Have these things ready</h2>
   <ul class="checklist">
@@ -102,7 +102,7 @@
   <span class="eyebrow">Step 3</span>
   <h2>Activate the theme</h2>
   <p class="where">Go to <span class="path"><b>Appearance <span class="sep">&rsaquo;</span> Themes</b></span></p>
-  <p class="intro">Click <span class="ui">Activate</span> or point at the <span class="ui">Affiliate Theme</span> card and click <span class="ui">Activate</span>.</p>
+  <p class="intro">Point at the <span class="ui">Affiliate Theme</span> card and click <span class="ui">Activate</span>.</p>
   <figure class="shot narrow"><img src="{{SCREENS}}/03-activate-theme.png" alt="The Affiliate Theme card with its Activate button marked"></figure>
 
   <div class="box">
@@ -147,13 +147,13 @@
     <li>Click <span class="ui">Create API key</span>. The <em>Onboarding</em> key Resend made for you can only send email, so the theme can't use it.
       <figure class="shot"><img data-rs src="{{SCREENS}}/rs-2-create-key.png" alt="The API keys page with Create API key marked; the key's characters are hidden"></figure></li>
   </ol>
-  <ol class="marks" style="counter-reset: m 2;">
+  <ol class="marks start-3">
     <li>Under <span class="ui">Name</span>, type a name you'll recognize, such as your site's address.</li>
     <li>Under <span class="ui">Permission</span>, choose <span class="ui">Full access</span>. This matters: the theme adds your domain and your emails to Resend, and a key with <span class="ui">Sending access</span> can't do that. Leave <span class="ui">Domain</span> at <span class="ui">All domains</span>.</li>
     <li>Click <span class="ui">Add</span>.</li>
   </ol>
   <figure class="shot half"><img data-rs src="{{SCREENS}}/rs-3-add-key.png" alt="The Add API Key box with Name, Permission set to Full access, and Add marked"></figure>
-  <ol class="marks" style="counter-reset: m 5;">
+  <ol class="marks start-6">
     <li>Click the copy button at the end of the key. <strong>Resend shows the key only once</strong>, so paste it straight into the theme's settings (Step 6), or somewhere safe until then.</li>
     <li>Click <span class="ui">Done</span>.</li>
   </ol>
@@ -237,20 +237,22 @@
     <li>On your Cloudflare home page, click your domain.
       <figure class="shot"><img data-rs src="{{SCREENS}}/cf-1-domain.png" alt="The Cloudflare account home with the domain marked"></figure></li>
   </ol>
-  <ol class="marks" style="counter-reset: m 1;">
+  <ol class="marks start-2">
     <li>In the left menu, open <span class="ui">DNS</span> and click <span class="ui">Records</span>.</li>
     <li>Click <span class="ui">Add record</span>.</li>
   </ol>
   <figure class="shot"><img data-rs src="{{SCREENS}}/cf-2-records.png" alt="Cloudflare's DNS records page with Records and Add record marked"></figure>
-  <ol class="marks" style="counter-reset: m 3;">
-    <li>Choose the record's <span class="ui">Type</span>, paste its <span class="ui">Name</span>, <span class="ui">Content</span>, <span class="ui">TTL</span>, <span class="ui">Name</span>, and <span class="ui">Proxy status</span>.</li>
+  <ol class="marks start-4">
+    <li>Choose the record's <span class="ui">Type</span> and paste its <span class="ui">Name</span>.</li>
+    <li>Paste its <span class="ui">Content</span>. Leave <span class="ui">TTL</span> at <span class="ui">Auto</span>.</li>
+    <li>Click <span class="ui">Save</span>.</li>
   </ol>
   <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-3-txt.png" alt="Cloudflare's Add record box for a TXT record with Name, Content and Save marked"></figure>
-  <ol class="marks" style="counter-reset: m 6;">
-    <li>For the two records that have <b>Tpye: CNAME</b> toggle the <span class="ui">Proxy status</span> off, so it reads <span class="ui">DNS only</span> with a grey cloud. A proxied (orange) record won't be verified.</li>
-    <li>Click <span class="ui">Save</span>. Then click <span class="ui">Add record</span> for the next one, until all five are in.</li>
+  <ol class="marks start-7">
+    <li>For the two records with <b>Type: CNAME</b>, before you click <span class="ui">Save</span>, toggle <span class="ui">Proxy status</span> off so it reads <span class="ui">DNS only</span> with a grey cloud. A proxied (orange) record won't be verified.</li>
   </ol>
   <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-4-cname.png" alt="Cloudflare's Add record box for a CNAME record with Proxy status set to DNS only marked"></figure>
+  <p>Click <span class="ui">Add record</span> for the next one, until all five are in.</p>
   <div class="box tip">
     <h4>Then click Check</h4>
     <p>Back in <span class="path">Affiliate Theme Settings</span>, click <span class="ui">Check</span>. Resend checks your records and verifies the domain, usually within a few minutes. Until it does, your email sequences wait.</p>
@@ -281,7 +283,7 @@
       <figure class="shot"><img data-rs src="{{SCREENS}}/rs-11-tracking.png" alt="New tracking subdomain with links, Enable click tracking ticked and Enable open tracking ticked"></figure></li>
     <li>The record to add.
       <figure class="shot"><img data-rs src="{{SCREENS}}/rs-12-auto-configure.png" alt="The tracking CNAME record with Auto configure and I've added the record marked"></figure></li>
-    <li>Wait until the new record is verified..
+    <li>Wait until the new record is verified.
       <figure class="shot"><img data-rs src="{{SCREENS}}/rs-13-partially.png" alt="The domain's page in Resend with the status Partially Verified marked"></figure></li>
   </ol>
 
@@ -314,10 +316,7 @@
   <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form can also be edited through the sidebar:</p>
   <ol class="marks">
     <li>Click the form.</li>
-  </ol>
-    <p>The <span class="ui">sidebar</span> that opens on the right has these settings you can edit:</p>
-  </ol>
-  <ol class="marks">
+    <li>In the sidebar that opens on the right, the <span class="ui">Form</span> panel holds the settings you can edit:</li>
     <li><span class="ui">Button text</span></li>
     <li><span class="ui">Email field label</span></li>
     <li><span class="ui">Name field label</span></li>
@@ -450,7 +449,7 @@
       <li>Within a few minutes, the first email arrives in your inbox.</li>
       <li>In Resend, open <span class="ui">Audience</span> and the email address you submitted will show as a <span class="ui">Contact</span>.</li>
     </ol>
-    <p>If you sign up again with the same address on the same page, you're still sent to your affiliate link, but no new emails start: each email address can get each page's email sequence once: you can get each page's email sequence at the same time. The same address on a different landing page starts that page's email sequence.</p>
+    <p>If you sign up again with the same address on the same page, you're still sent to your affiliate link, but no new emails start: each email address gets each page's email sequence once. The same address on a different landing page starts that page's email sequence.</p>
   </div>
 </section>
 
@@ -497,7 +496,7 @@
   </div>
   <div class="qa">
     <h4>My DNS records still aren't verified</h4>
-    <p>DNS changes can take a few hours to propagate. Check each record's name and value against <span class="ui">Your sending domain</span>, look for a name with your domain added twice (see Step 7), and make sure the CNAME records are <span class="ui">DNS only</span> on Cloudflare. Then click <span class="ui">Check</span> once more. You can also check <span class="path">www.whatsmydns.net</span>.</p>
+    <p>DNS changes can take a few hours to propagate. Check each record's name and value against <span class="ui">Your sending domain</span>, look for a name with your domain added twice, and make sure the CNAME records are <span class="ui">DNS only</span> on Cloudflare. Then click <span class="ui">Check</span> once more. You can also check <span class="path">www.whatsmydns.net</span>.</p>
   </div>
   <div class="qa">
     <h4>Resend says <span class="msg">Partially Verified</span></h4>
@@ -517,11 +516,11 @@
   </div>
   <div class="qa">
     <h4><span class="msg">Open tracking is off for this domain.</span></h4>
-    <p>Your emails still send. See <em>If your domain was already in Resend</em> in Step 7.</p>
+    <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
   </div>
-    <div class="qa">
+  <div class="qa">
     <h4><span class="msg">Click tracking is off for this domain.</span></h4>
-    <p>Your emails still send. See <em>If your domain was already in Resend</em> in Step 7.</p>
+    <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
   </div>
   <div class="qa">
     <h4>Visitors see <span class="msg">Please try again in a moment.</span> or <span class="msg">Please try again in a few minutes.</span></h4>

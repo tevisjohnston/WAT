@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Capture the WordPress admin screen-shots for SETUP-GUIDE.pdf from the wp-guide test site.
+"""Capture the WordPress admin screen-shots for affiliate-theme-guide.pdf from the wp-guide test site.
 
 wp-guide is a buyer-style install with the theme uploaded from a zip; --site wp-test
 drives the dev site instead.
@@ -35,7 +35,7 @@ SITES = {
 CONTAINER, HOST = SITES["wp-guide"]
 BASE = f"https://{HOST}"
 WAT = Path(__file__).resolve().parent.parent
-OUT = WAT / ".tmp" / "setup-guide" / "screens"
+OUT = WAT / ".tmp" / "affiliate-theme-guide" / "screens"
 
 SITE_NAME = "My Site"
 SITE_URL = "https://yoursite.com"

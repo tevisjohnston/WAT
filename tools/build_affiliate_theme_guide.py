@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Render SETUP-GUIDE.pdf from tools/templates/setup_guide.{html,css}.
+"""Render affiliate-theme-guide.pdf from tools/templates/affiliate_theme_guide.{html,css}.
 
 Inputs:
-  - .tmp/setup-guide/screens/[0-9]*.png   from tools/capture_setup_screens.py
-  - .tmp/setup-guide/screens/{rs,cf}-*.png from tools/mark_resend_shots.py, which
+  - .tmp/affiliate-theme-guide/screens/[0-9]*.png   from tools/capture_setup_screens.py
+  - .tmp/affiliate-theme-guide/screens/{rs,cf}-*.png from tools/mark_resend_shots.py, which
     crops and marks the Resend and Cloudflare screen-shots supplied by hand
   - the wp-test theme's fonts and style.css Version
 
@@ -12,7 +12,7 @@ Every <img> must exist. The hand-supplied screen-shots may be missing only with
 a buyer-facing PDF never ships with a hole in it.
 
 Usage:
-    .venv/bin/python tools/build_setup_guide.py [--draft] [--out deliverables/SETUP-GUIDE.pdf]
+    .venv/bin/python tools/build_affiliate_theme_guide.py [--draft] [--out deliverables/affiliate-theme-guide.pdf]
 """
 
 import argparse
@@ -25,8 +25,8 @@ from playwright.sync_api import sync_playwright
 WAT = Path(__file__).resolve().parent.parent
 THEME = Path("/home/tevis/wp-test/wp-content/themes/affiliate-theme")
 TEMPLATES = WAT / "tools" / "templates"
-SCREENS = WAT / ".tmp" / "setup-guide" / "screens"
-RENDERED = WAT / ".tmp" / "setup-guide" / "guide.html"
+SCREENS = WAT / ".tmp" / "affiliate-theme-guide" / "screens"
+RENDERED = WAT / ".tmp" / "affiliate-theme-guide" / "guide.html"
 
 
 def theme_version() -> str:
@@ -37,8 +37,8 @@ def theme_version() -> str:
 
 
 def render_html(draft: bool) -> tuple[str, list[str]]:
-    css = (TEMPLATES / "setup_guide.css").read_text()
-    html = (TEMPLATES / "setup_guide.html").read_text()
+    css = (TEMPLATES / "affiliate_theme_guide.css").read_text()
+    html = (TEMPLATES / "affiliate_theme_guide.html").read_text()
     html = html.replace("{{CSS}}", css)
     html = html.replace("{{FONTS}}", (THEME / "assets" / "fonts").as_uri())
     html = html.replace("{{SCREENS}}", SCREENS.as_uri())
@@ -68,7 +68,7 @@ def render_html(draft: bool) -> tuple[str, list[str]]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--draft", action="store_true", help="allow missing Resend screen-shots")
-    parser.add_argument("--out", default=str(WAT / "deliverables" / "SETUP-GUIDE.pdf"))
+    parser.add_argument("--out", default=str(WAT / "deliverables" / "affiliate-theme-guide.pdf"))
     args = parser.parse_args()
     out = Path(args.out)
 

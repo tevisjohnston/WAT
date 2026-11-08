@@ -1,4 +1,4 @@
-# Affiliate Theme Settings Theme Copy -> `SETUP-GUIDE.pdf`
+# Affiliate Theme Settings Theme Copy -> `affiliate-theme-guide.pdf`
 
 ## Your sending domain
 

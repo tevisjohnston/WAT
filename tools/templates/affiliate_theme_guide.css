@@ -1,4 +1,4 @@
-/* SETUP-GUIDE.pdf — print stylesheet. Colors and fonts are the Affiliate Theme's own
+/* affiliate-theme-guide.pdf — print stylesheet. Colors and fonts are the Affiliate Theme's own
    (theme.json palette; Archivo + Newsreader variable woff2 from the theme). */
 
 @font-face { font-family: "Archivo"; font-weight: 100 900; font-stretch: 62% 125%;
@@ -26,7 +26,7 @@
   size: Letter;
   margin: 0.75in 0.8in 0.8in;
   @bottom-left {
-    content: "Affiliate Theme Setup Guide";
+    content: "Affiliate Theme Guide";
     font: 500 8pt var(--sans); color: var(--muted); letter-spacing: 0.02em;
   }
   @bottom-right {
@@ -43,7 +43,7 @@ body {
   font: 400 10.5pt/1.55 var(--serif);
 }
 
-h1, h2, h3, h4, .eyebrow, .chip, th, .badge, figcaption, .kicker, code, kbd { font-family: var(--sans); }
+h1, h2, h3, h4, .eyebrow, .chip, th, figcaption, .kicker, code { font-family: var(--sans); }
 h2, h3, h4 { break-after: avoid; line-height: 1.2; }
 h2 { font-size: 20pt; font-weight: 750; margin: 0 0 10pt; letter-spacing: -0.01em; }
 h3 { font-size: 12.5pt; font-weight: 700; margin: 18pt 0 6pt; }
@@ -94,6 +94,7 @@ code {
 
 /* ---------- Sections ---------- */
 .section { break-before: page; }
+.cover + .section { break-before: auto; }  /* the cover already ends its page */
 .eyebrow { display: inline-block; font-size: 8pt; font-weight: 750; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--primary); margin-bottom: 5pt; }
 .intro { font-size: 11.5pt; color: #2b3445; margin-bottom: 12pt; }
@@ -104,10 +105,9 @@ code {
 .box { border: 0.8pt solid var(--line); background: var(--surface); border-radius: 7pt;
   padding: 11pt 13pt 5pt; margin: 10pt 0 12pt; break-inside: avoid; }
 .box h4 { margin-top: 0; }
+.box h4:last-child { margin-bottom: 6pt; }
 .box.tip { border-left: 3pt solid var(--primary); }
 .box.warn { border-left: 3pt solid #d97706; background: #fffaf0; border-color: #f3e2c0; }
-.box.dark { background: var(--deep); color: #dfe5f1; border-color: var(--deep); }
-.box.dark h4 { color: #fff; }
 
 .checklist { list-style: none; padding: 0; }
 .checklist li { position: relative; padding-left: 20pt; margin-bottom: 6pt; }
@@ -141,7 +141,12 @@ ol.marks > li::before {
   content: counter(m); position: absolute; left: 0; top: -0.5pt; width: 17pt; height: 17pt; border-radius: 50%;
   background: var(--mark); color: #fff; font: 700 9pt/17pt var(--sans); text-align: center;
 }
+/* A list that carries on the numbering after a screen-shot: start-N begins at N. */
+ol.marks.start-2 { counter-reset: m 1; }
 ol.marks.start-3 { counter-reset: m 2; }
+ol.marks.start-4 { counter-reset: m 3; }
+ol.marks.start-6 { counter-reset: m 5; }
+ol.marks.start-7 { counter-reset: m 6; }
 
 /* A click path through another site: one cropped shot per step, two steps per row. */
 ol.marks.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt 16pt; align-items: start; }
@@ -158,7 +163,7 @@ ol.steps > li::marker { font: 700 10pt var(--sans); color: var(--primary); }
 /* ---------- Troubleshooting ---------- */
 .qa { break-inside: avoid; border-top: 0.6pt solid var(--line); padding: 9pt 0 3pt; }
 .qa h4 { margin: 0 0 4pt; font-size: 10pt; }
-.qa .msg { font-family: var(--sans); font-weight: 600; color: var(--deep); background: var(--surface);
+.msg { font-family: var(--sans); font-weight: 600; color: var(--deep); background: var(--surface);
   border-left: 2.5pt solid var(--mark); padding: 1pt 6pt; }
 
 .closing { margin-top: 18pt; font-size: 9.5pt; color: var(--muted); border-top: 1pt solid var(--contrast); padding-top: 9pt; }
