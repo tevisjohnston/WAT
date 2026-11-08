@@ -55,7 +55,7 @@ One-time setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements.
    - no thin dark line at the foot of the page before the roadmap opener
 
    Step 3 runs over two pages by design. The campaign breakdown must fit on one page with the Key insight box and the fine print; if a Results line wraps "sales" onto a second line, the page overflows.
-3. **Links:** scan the PDF for `/URI` entries (decompress the streams). Expect 11: WarriorPlus, Hostinger (with `REFERRALCODE=7V0TEVISJDTJ`), Bluehost, HostGator, Namecheap, GoDaddy, the ClickBank PLR hop link, AWeber, GetResponse, the 7figure SOP page, and Udimi `a/muu3o`.
+3. **Links:** scan the PDF for `/URI` entries (decompress the streams). Expect 11: WarriorPlus, Hostinger (with `REFERRALCODE=7V0TEVISJDTJ`), Bluehost, HostGator, Namecheap, GoDaddy, the ClickBank PLR hop link, AWeber, GetResponse, the 7figure Thank You page, and Udimi `a/muu3o`.
 
 ## Known quirks
 
