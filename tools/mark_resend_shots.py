@@ -52,13 +52,14 @@ SHOTS = {
                       (262, 22, 1094, 320), [(489, 177, 63, 23, "", 3)]),
     "cf-1-domain": ("cloudflare/screenshot-11-account-home-cloudflare.png", (1319, 582),
                     (276, 314, 344, 90), [(292, 366, 320, 24, "1", 3)]),
+    "cf-1-2-domain-dns-records": ("cloudflare/cf-1-2-domain-dns-records.png", (402, 173),
+                                  (0, 0, 402, 173), [(29, 131, 90, 24, "2", 3)]),
     "cf-2-records": ("cloudflare/screenshot-13-dns-records-cloudflare.png", (1366, 575),
-                     (0, 62, 1366, 450), [(42, 421, 203, 30, "2", 3), (485, 469, 119, 37, "3", 3)]),
-    "cf-3-txt": ("cloudflare/screenshot-15-save-txt-record-cloudflare.png", (1366, 575),
-                 (299, 64, 769, 511), [(442, 284, 594, 37, "4", 3), (330, 355, 594, 102, "5", 3),
-                                       (330, 533, 98, 37, "6", 3)]),
+                     (0, 62, 1366, 450), [(485, 469, 119, 37, "3", 3)]),
     "cf-4-cname": ("cloudflare/screenshot-18-save-record-cname-cloudflare.png", (1366, 575),
-                   (299, 64, 769, 434), [(782, 310, 136, 24, "7", 3)]),
+                   (299, 64, 769, 434), [(330, 231, 99, 38, "4", 3), (443, 231, 593, 38, "5", 3),
+                                         (330, 302, 438, 38, "6", 3), (782, 302, 234, 38, "7", 3),
+                                         (330, 421, 98, 38, "8", 3)]),
     # Step 7's box: a domain that was already in Resend.
     "rs-10-configure": ("resend/screenshot-21-configuration-enable-tracking-metrics-button-configure-resend.png",
                         (1325, 655), (262, 30, 1050, 360), [(362, 44, 117, 30, "1"), (299, 338, 92, 32, "2")]),
@@ -117,10 +118,6 @@ PAINT = {
         {"text": (318, 372, 178, 11), "old": "affiliatemarketconnect.com", "new": "yoursite.com"}],
     "cloudflare/screenshot-13-dns-records-cloudflare.png": [
         {"text": (515, 97, 369, 22), "old": "affiliatemarketconnect.com", "new": "yoursite.com", "weight": 600}],
-    "cloudflare/screenshot-15-save-txt-record-cloudflare.png": [
-        {"text": (332, 150, 433, 16), "old": "resend._domainkey.wp-guide.affiliatemarketconnect.com",
-         "new": "resend._domainkey.yoursite.com", "weight": 600, "tail": 1040},
-        {"erase": (580, 294, 67, 17)}],
     "cloudflare/screenshot-18-save-record-cname-cloudflare.png": [
         {"text": (332, 169, 331, 16), "old": "rsend.wp-guide.affiliatemarketconnect.com",
          "new": "rsend.yoursite.com", "weight": 600, "tail": 1040},

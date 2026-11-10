@@ -38,7 +38,7 @@
     <span class="eyebrow">Before you start</span>
     <h2>Have these things ready</h2>
     <ul class="checklist">
-      <li><strong>WordPress installation you can login into as an admin</strong></li>
+      <li><strong>WordPress installation you can log into as an admin</strong></li>
       <li><strong>Domain</strong></li>
       <li><strong>Affiliate link</strong></li>
       <li><strong>Resend account</strong></li>
@@ -72,7 +72,7 @@
     <span class="eyebrow">Step 1</span>
     <h2>Download the theme</h2>
     <p class="where">Go to <span class="path">affiliatemarketconnect.com/members/domain-web-hosting</span></p>
-    <p class="intro">Download your done-for-you website. | <code>affiliate-theme.zip</code></p>
+    <p class="intro">Download your done-for-you website, <code>affiliate-theme.zip</code>.</p>
     <p><strong>Keep it zipped.</strong> WordPress installs the <code>.zip</code> file exactly as you downloaded it.</p>
   </div>
 </section>
@@ -91,7 +91,7 @@
     <ol class="marks">
       <li>Click <span class="ui">Upload Theme</span>.</li>
       <li>Click <span class="ui">Choose File</span> and pick <code>affiliate-theme.zip</code>.</li>
-      <li>Click <span class="ui">Install Now</span>.</span></li>
+      <li>Click <span class="ui">Install Now</span>.</li>
     </ol>
     <figure class="shot"><img src="{{SCREENS}}/02-upload-theme.png" alt="The Upload Theme panel with Choose File and Install Now marked"></figure>
   </div>
@@ -144,7 +144,7 @@
     <span class="eyebrow">Step 5</span>
     <h2>Create your Resend account and API key</h2>
     <p class="where">Go to <span class="path">resend.com <span class="sep">&rsaquo;</span> API keys</span></p>
-    <p class="intro"><p>Go to <span class="path">resend.com</span> and sign up for a free account. Resend is the email service that sends your automated emails. The theme sets everything up in your own Resend account, so you never have to build an email in Resend yourself.</p>
+    <p class="intro">Go to <span class="path">resend.com</span> and sign up for a free account. Resend is the email service that sends your automated emails. The theme sets everything up in your own Resend account, so you never have to build an email in Resend yourself.</p>
 
     <ol class="marks cards">
       <li>In the left menu, click <span class="ui">API keys</span>.
@@ -181,7 +181,7 @@
     <figure class="shot w80"><img src="{{SCREENS}}/05-settings.png" alt="Affiliate Theme Settings with its seven fields and Save Changes numbered"></figure>
 
     <ol class="marks">
-      <li><strong>Resend API key</strong> - Paste your API key from <span class="path">resend.com</span>.</span></li>
+      <li><strong>Resend API key</strong> - Paste your API key from <span class="path">resend.com</span>.</li>
       <li><strong>Sending domain</strong> - The domain your emails come from, usually your site's own domain. <code>yoursite.com</code></li>
       <li><strong>From name</strong> - The name your subscribers see, 20 characters at most. <code>Your Name</code></li>
       <li><strong>From address</strong> - The part before the <code>@</code>. <code>hello@yoursite.com</code></li>
@@ -232,28 +232,28 @@
     <h3>Adding the records in Cloudflare</h3>
     <p class="where">Go to <span class="path"><b>cloudflare.com <span class="sep">&rsaquo;</span> Dashboard <span class="sep">&rsaquo;</span> Domains <span class="sep">&rsaquo;</span> yoursite.com <span class="sep">&rsaquo;</span> DNS &rsaquo; Records</b></span></p>
     <ol class="marks cards">
-      <li>In your Cloudflare dashboard, click your domain <span class="">yoursite.com</span>.</li>
+      <li>In your Cloudflare dashboard, click your domain <span class="ui">yoursite.com</span>.</li>
     </ol>
     <figure class="shot"><img data-rs src="{{SCREENS}}/cf-1-domain.png" alt="The Cloudflare account home with the domain marked"></figure>
 
     <ol class="marks start-2">
       <li>In your domain's page, click <span class="ui">DNS Records</span>.</li>
     </ol>
-    <figure class="shot"><img data-rs src="{{SCREENS}}/cf-1-2-domain-dns-records.png" alt=""></figure>
+    <figure class="shot half"><img data-rs src="{{SCREENS}}/cf-1-2-domain-dns-records.png" alt="The domain's DNS panel with DNS Records marked"></figure>
 
-    <ol class="">
+    <ol class="marks start-3">
       <li>Click <span class="ui">Add record</span>.</li>
     </ol>
-    <figure class="shot"><img data-rs src="{{SCREENS}}/cf-2-records.png" alt="Cloudflare's DNS records page with Records and Add record marked"></figure>
+    <figure class="shot"><img data-rs src="{{SCREENS}}/cf-2-records.png" alt="Cloudflare's DNS records page with Add record marked"></figure>
     <ol class="marks start-4">
       <li>Choose the record's <span class="ui">Type</span>.</li>
       <li>Paste its <span class="ui">Name</span>.</li>
-      <li>Paste its <span class="ui">Content</span>.</li>
+      <li>Paste its <span class="ui">Content</span> (<span class="ui">Target</span> for a CNAME record).</li>
       <li>Match its <span class="ui">TTL</span> and its <span class="ui">Proxy status</span>.</li>
       <li>Click <span class="ui">Save</span>.</li>
     </ol>
 
-    <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-4-cname.png" alt="Cloudflare's Add record box for a CNAME record with Proxy status set to DNS only marked"></figure>
+    <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-4-cname.png" alt="Cloudflare's Add record box for a CNAME record with Type, Name, Target, Proxy status and TTL, and Save marked"></figure>
     <p>Click <span class="ui">Add record</span> again for the next one, until all five are in.</p>
     <div class="box tip">
       <h4>Back in <span class="path">Affiliate Theme Settings</span>, click <span class="ui">Check</span>.</h4>
@@ -271,16 +271,17 @@
       <h4>Configuring your domain in Resend</h4>
       <p class="where">Go to <span class="path">resend.com <span class="sep">&rsaquo;</span> Domains <span class="sep">&rsaquo;</span> yoursite.com &rsaquo; Configuration</span></p>
       <ol class="marks">
+        <li>Click the <span class="ui">Configuration</span> tab.</li>
         <li>Under <span class="ui">Enable tracking metrics</span>, click <span class="ui">Configure</span>.</li>
       </ol>
       <p>On the next page:</p>
-      <ol class="marks">
+      <ol class="marks start-3">
         <li>Tick <span class="ui">Enable click tracking</span>.</li>
         <li>Tick <span class="ui">Enable open tracking</span>.</li>
         <li>Type <code>links</code> as the <span class="ui">Subdomain</span></li>
       </ol>
       <p>On the next page:</p>
-      <ol class="marks">
+      <ol class="marks start-6">
         <li>Add the CNAME record it shows. Click <span class="ui">Auto configure</span> if Resend offers it, or add the record manually where your DNS is managed.</li>
       </ol>
     </div>
@@ -310,7 +311,7 @@
       <h4>In Affiliate Theme Settings</h4>
       <p class="where">Go to <span class="path">wp-admin <span class="sep">&rsaquo;</span> Settings &rsaquo; Affiliate Theme Settings</span></p>
       <ol class="marks">
-        <li><span class="ui">Reply-to address</span> <code>hello@yoursite.com</code></li> 
+        <li>Type your From address in <span class="ui">Reply-to address</span>, for example <code>hello@yoursite.com</code>.</li>
         <li>Click <span class="ui">Save Changes</span>.</li>
       </ol>
     </div>
@@ -332,7 +333,7 @@
 
 
     <p>Every headline, paragraph, list and image can be edited: click it and type, or replace the image. The opt-in form can also be edited through the sidebar:</p>
-    <figure class="shot w88"><img src="{{SCREENS}}/07-editor-publish.png" alt="The block editor with the Form panel, the Sequence list and the Publish button marked"></figure>
+    <figure class="shot w80"><img src="{{SCREENS}}/07-editor-publish.png" alt="The block editor with the Form panel, the Sequence list and the Publish button marked"></figure>
     <ol class="marks">
       <li>Click the form.</li>
       <li>In the sidebar that opens on the right, the <span class="ui">Form</span> panel holds the settings you can edit:</li>
@@ -377,40 +378,42 @@
 
 <!-- ============================== STEP 10 ============================== -->
 <section class="section">
-  <span class="eyebrow">Step 10</span>
-  <h2>Fill in and publish your legal pages</h2>
-  <p class="where">Go to <span class="path">wp-admin <span class="sep">&rsaquo;</span> Settings &rsaquo; Affiliate Theme Settings</span></p>
-  <p class="intro">Scroll down the page to <span class="ui">Your legal pages</span>. Edit each legal page and publish. Each legal page uses square-bracket placeholders wherever your own details belong. On all four pages replace every <code>[PLACEHOLDER]</code> <strong>before you publish</strong>. A published legal page joins your site's footer as a link.</p>
-  <figure class="shot half"><img src="{{SCREENS}}/09-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
-  <p>Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
-  <figure class="shot"><img src="{{SCREENS}}/10-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>These legal pages are a starting template, not legal advice.</figcaption></figure>
+  <div>
+    <span class="eyebrow">Step 10</span>
+    <h2>Fill in and publish your legal pages</h2>
+    <p class="where">Go to <span class="path">wp-admin <span class="sep">&rsaquo;</span> Settings &rsaquo; Affiliate Theme Settings</span></p>
+    <p class="intro">Scroll down the page to <span class="ui">Your legal pages</span>. Edit each legal page and publish. Each legal page uses square-bracket placeholders wherever your own details belong. On all four pages replace every <code>[PLACEHOLDER]</code> <strong>before you publish</strong>. A published legal page joins your site's footer as a link.</p>
+    <figure class="shot half"><img src="{{SCREENS}}/09-legal-list.png" alt="The legal pages list with Privacy Policy marked"></figure>
+    <p>Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</p>
+    <figure class="shot"><img src="{{SCREENS}}/10-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>These legal pages are a starting template, not legal advice.</figcaption></figure>
 
-  <table>
-    <thead><tr><th>Placeholder</th><th>Replace it with</th></tr></thead>
-    <tbody>
-      <tr><td class="ph"><code>[Your Business Name]</code></td><td>Your name or your business's legal name</td></tr>
-      <tr><td class="ph"><code>[yoursite.com]</code></td><td>Your domain, for example <em>mysite.com</em></td></tr>
-      <tr><td class="ph"><code>[you@example.com]</code></td><td>An email address where visitors can reach you</td></tr>
-      <tr><td class="ph"><code>[Your Mailing Address]</code></td><td>Your postal address, the same one as in your emails</td></tr>
-      <tr><td class="ph"><code>[Your State/Country]</code></td><td>The state or country whose law applies to your business</td></tr>
-      <tr><td class="ph"><code>[Month Day, Year]</code></td><td>The date the page takes effect, usually the day you publish it</td></tr>
-    </tbody>
-  </table>
+    <table>
+      <thead><tr><th>Placeholder</th><th>Replace it with</th></tr></thead>
+      <tbody>
+        <tr><td class="ph"><code>[Your Business Name]</code></td><td>Your name or your business's legal name</td></tr>
+        <tr><td class="ph"><code>[yoursite.com]</code></td><td>Your domain, for example <em>mysite.com</em></td></tr>
+        <tr><td class="ph"><code>[you@example.com]</code></td><td>An email address where visitors can reach you</td></tr>
+        <tr><td class="ph"><code>[Your Mailing Address]</code></td><td>Your postal address, the same one as in your emails</td></tr>
+        <tr><td class="ph"><code>[Your State/Country]</code></td><td>The state or country whose law applies to your business</td></tr>
+        <tr><td class="ph"><code>[Month Day, Year]</code></td><td>The date the page takes effect, usually the day you publish it</td></tr>
+      </tbody>
+    </table>
 
-  <div class="box warn">
-    <h4>If you add analytics, advertising or cookies</h4>
-    <p class="where">Go to <span class="path">wp-admin <span class="sep">&rsaquo;</span> Appearance &rsaquo; Editor</span></p>
-    <p>Your Privacy Policy says you don't sell or share visitors' information. That stays true only while your site runs no analytics, no advertising pixels and no tracking cookies. Keep each page true to your business. If you start using Google Analytics, any advertising platform or cookies, replace that section of your Privacy Policy:</p>
-    <ol class="steps">
-      <li>Click <span class="ui">Pages</span>.</li>
-      <li>Click <span class="ui">Privacy Policy</span>.</li>
-      <li>Remove the heading <span class="ui"><em>We Do Not Sell Or Share Your Information</em></span> and the paragraph after it.</li>
-      <li>Click the button in the top-left corner <span class="ui"><b>+</b></span>.</li>
-      <li>Click the tab <span class="ui">Patterns</span>.</li>
-      <li>Click <span class="ui">Affiliate Theme</span>.</li>
-      <li>Click <span class="ui">Legal &mdash; Privacy: Analytics and Advertising</span> and it will insert itself after the section <span class="ui">Who We Share It With</span>. Replace its bracket <code>[Provider Name]</code> with each tool you use.</li>
-      <lo>Click <span class="ui">Save</span>.</lo>
-    </ol>
+    <div class="box warn">
+      <h4>If you add analytics, advertising or cookies</h4>
+      <p class="where">Go to <span class="path">wp-admin <span class="sep">&rsaquo;</span> Appearance &rsaquo; Editor</span></p>
+      <p>Your Privacy Policy says you don't sell or share visitors' information. That stays true only while your site runs no analytics, no advertising pixels and no tracking cookies. Keep each page true to your business. If you start using Google Analytics, any advertising platform or cookies, replace that section of your Privacy Policy:</p>
+      <ol class="steps">
+        <li>Click <span class="ui">Pages</span>.</li>
+        <li>Click <span class="ui">Privacy Policy</span>.</li>
+        <li>Remove the heading <span class="ui"><em>We Do Not Sell Or Share Your Information</em></span> and the paragraph after it.</li>
+        <li>Click the button in the top-left corner <span class="ui"><b>+</b></span>.</li>
+        <li>Click the tab <span class="ui">Patterns</span>.</li>
+        <li>Click <span class="ui">Affiliate Theme</span>.</li>
+        <li>Click <span class="ui">Legal &mdash; Privacy: Analytics and Advertising</span> and it will insert itself after the section <span class="ui">Who We Share It With</span>. Replace its bracket <code>[Provider Name]</code> with each tool you use.</li>
+        <li>Click <span class="ui">Save</span>.</li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -440,11 +443,10 @@
     <table>
       <thead><tr><th>Status</th><th>What it means</th></tr></thead>
       <tbody>
-        <tr><td><span class="ui">Live</span></td><td>The email sequence is turned on and will deliver its emails to new sign-ups when assignd to a published landing page.</td></tr>
+        <tr><td><span class="ui">Live</span></td><td>The email sequence is turned on and will deliver its emails to new sign-ups when assigned to a published landing page.</td></tr>
         <tr><td><span class="ui">Waiting</span></td><td>The email sequence is ready but still needs something before it can be live. The form on that page stays hidden until then.</td></tr>
         <tr><td><span class="ui">Needs update</span></td><td>Something in Resend is out of date, often because you changed a setting. Click <span class="ui">Finish setting up emails</span>. If it says an email <em>has an edit in Resend that is not published</em>, publish or discard that edit in Resend first, then save the settings again.</td></tr>
         <tr><td><span class="ui">Off</span></td><td>You turned it off. New sign-ups on that page get no emails and people partway through stop getting emails. If you see <em>It was turned off in Resend.</em>, someone switched the automation off in Resend.</td></tr>
-        <tr><td><span class="ui">On</span></td><td>You turned it on. If you are turning it back on it starts it again for new sign-ups, but doesn't restart anyone who was stopped.</td></tr>    
         <tr><td><span class="ui">Not set up</span></td><td>The emails aren't in Resend yet, or Resend refused them. The line under it gives Resend's reason. Click <span class="ui">Finish setting up emails</span> to try again.</td></tr>
       </tbody>
     </table>
