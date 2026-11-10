@@ -474,99 +474,81 @@
 
 <!-- ============================== TROUBLESHOOTING ============================== -->
 <section class="section">
-  <span class="eyebrow">Help</span>
-  <h2>Troubleshooting</h2>
+  <div>
+    <span class="eyebrow">Help</span>
+    <h2>Troubleshooting</h2>
 
-  <div class="qa">
-    <h4>Uploading the theme shows <span class="msg">The theme is missing the style.css stylesheet.</span></h4>
-    <p>You uploaded a different zip, or one whose contents were changed. Download <code>affiliate-theme.zip</code> again and upload it exactly as downloaded (see the Mac note in Step 1).</p>
-  </div>
-  <div class="qa">
-    <h4>Uploading shows <span class="msg">The link you followed has expired.</span></h4>
-    <p>Reload the <span class="ui">Add Themes</span> page and upload again. If it keeps happening, your host's upload limit is too small. The theme is under 2&nbsp;MB, so ask your host to allow uploads of at least 2&nbsp;MB.</p>
-  </div>
-  <div class="qa">
-    <h4>WordPress says <span class="msg">This theme is already installed.</span></h4>
-    <p>You're uploading a newer copy over an older one. Click <span class="ui">Replace installed with uploaded</span>. Your pages are safe: a theme update never overwrites a landing page or legal page you've edited, nor emails you've edited in Resend.</p>
-  </div>
-  <div class="qa">
-    <h4>Under the API key: <span class="msg">This key can only send email. The theme needs a key with Full access.</span></h4>
-    <p>You pasted a key with <span class="ui">Sending access</span>, such as Resend's <em>Onboarding</em> key. Make a new key with <span class="ui">Full access</span> (Step 5), paste it over the dots and save.</p>
-  </div>
-  <div class="qa">
-    <h4>Under the API key: <span class="msg">Resend did not accept this key.</span></h4>
-    <p>The key is wrong or was deleted in Resend. Make a new key with <span class="ui">Full access</span>, paste it over the dots and save.</p>
-  </div>
-  <div class="qa">
-    <h4>Under the API key: <span class="msg">WordPress could not reach Resend. Reload this page in a minute.</span></h4>
-    <p>Your server couldn't reach Resend just then, or Resend was busy. It says nothing about your key. Reload the page in a minute. If it keeps happening, ask your host whether they block outgoing connections.</p>
-  </div>
-  <div class="qa">
-    <h4>Saving shows <span class="msg">That is not a Resend API key. A Resend API key starts with re_.</span></h4>
-    <p>The text you pasted isn't a key. Copy it again from Resend; if you no longer have it, make a new one. The key you had before, if any, is kept.</p>
-  </div>
-  <div class="qa">
-    <h4>Saving shows <span class="msg">The affiliate link is not a usable address. Start it with https://.</span></h4>
-    <p>Paste the complete link, including the <code>https://</code> at the start.</p>
-  </div>
-  <div class="qa">
-    <h4>Resend says the domain is <span class="msg">already in use in another Resend account</span></h4>
-    <p>A domain can belong to only one Resend account. Use that account's API key here, or a different domain.</p>
-  </div>
-  <div class="qa">
-    <h4>My DNS records still aren't verified</h4>
-    <p>DNS changes can take a few hours to propagate. Check each record's name and value against <span class="ui">Your sending domain</span>, look for a name with your domain added twice, and make sure the CNAME records are <span class="ui">DNS only</span> on Cloudflare. Then click <span class="ui">Check</span> once more. You can also check <span class="path">www.whatsmydns.net</span>.</p>
-  </div>
-  <div class="qa">
-    <h4>Resend says <span class="msg">Partially Verified</span></h4>
-    <p>One record, often the <code>links</code> one, isn't verified yet, and Resend can't send until it is. Add the missing record or fix it.</p>
-  </div>
-  <div class="qa">
-    <h4>My landing page says <span class="msg">Opt-in form is not ready:</span></h4>
-    <p>Only administrators see this note. Visitors see no form at all until it's fixed.</p>
-  </div>
-  <div class="qa">
-    <h4>My forms vanished and every email sequence says <span class="ui">Not set up</span></h4>
-    <p>Open <span class="path">Affiliate Theme Settings</span> and click <span class="ui">Finish setting up emails</span>: the theme finds them again without making new ones.</p>
-  </div>
-  <div class="qa">
-    <h4>An email sequence says <span class="ui">Needs update</span>, or <span class="msg">It was turned off in Resend.</span></h4>
-    <p>The theme will turn off an email sequence you or someone else switched off in Resend; click <span class="ui">Turn on</span>.</p>
-  </div>
-  <div class="qa">
-    <h4><span class="msg">Open tracking is off for this domain.</span></h4>
-    <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
-  </div>
-  <div class="qa">
-    <h4><span class="msg">Click tracking is off for this domain.</span></h4>
-    <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
-  </div>
-  <div class="qa">
-    <h4>Visitors see <span class="msg">Please try again in a moment.</span> or <span class="msg">Please try again in a few minutes.</span></h4>
-    <p>The first means Resend was busy for a second. The second means more than five sign-ups came from one internet address within ten minutes, which stops someone filling your list with fake addresses.</p>
-  </div>
-  <div class="qa">
-    <h4>Visitors see <span class="msg">Service unavailable. Please try again shortly.</span></h4>
-    <p>Your server got no answer from Resend. It's usually brief. If it lasts, check that the line under your API key reads <span class="ui">Resend accepted this key.</span></p>
-  </div>
-  <div class="qa">
-    <h4>Visitors see <span class="msg">Something went wrong. Please try again.</span></h4>
-    <p>Resend refused the sign-up, or the page's email sequence is turned off.</p>
-  </div>
-  <div class="qa">
-    <h4>Emails stopped arriving</h4>
-    <p>You may have reached your Resend plan's daily or monthly limit. Check your usage in Resend, under <span class="ui">Metrics</span>.</p>
-  </div>
-  <div class="qa">
-    <h4>A legal page isn't in my footer</h4>
-    <p>Only published pages are linked. Open the page and click <span class="ui">Publish</span>. The link then appears on every page at once.</p>
-  </div>
-  <div class="qa">
-    <h4>How do I change the copyright line in the footer?</h4>
-    <p>Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Editor <span class="sep">&rsaquo;</span> Patterns <span class="sep">&rsaquo;</span> Footer</span>, open the footer, click the <em>&copy; 2026 &mdash; All rights reserved.</em> line and type your own. Then save.</p>
-  </div>
+    <div class="qa">
+      <h4>WordPress says <span class="msg">This theme is already installed.</span></h4>
+      <p>You're uploading a newer copy over an older one. Click <span class="ui">Replace installed with uploaded</span>. Your pages are safe: a theme update never overwrites a landing page or legal page you've edited, nor emails you've edited in Resend.</p>
+    </div>
+    <div class="qa">
+      <h4>Under the API key: <span class="msg">This key can only send email. The theme needs a key with Full access.</span></h4>
+      <p>You pasted a key with <span class="ui">Sending access</span>, such as Resend's <em>Onboarding</em> key. Make a new key with <span class="ui">Full access</span> (Step 5), paste it over the dots and save.</p>
+    </div>
+    <div class="qa">
+      <h4>Under the API key: <span class="msg">Resend did not accept this key.</span></h4>
+      <p>The key is wrong or was deleted in Resend. Make a new key with <span class="ui">Full access</span>, paste it over the dots and save.</p>
+    </div>
+    <div class="qa">
+      <h4>Under the API key: <span class="msg">WordPress could not reach Resend. Reload this page in a minute.</span></h4>
+      <p>Reload the page in a minute. If it keeps happening, ask your host whether they block outgoing connections.</p>
+    </div>
+    <div class="qa">
+      <h4>Saving shows <span class="msg">The affiliate link is not a usable address. Start it with https://.</span></h4>
+      <p>Paste the complete link, including the <code>https://</code> at the start.</p>
+    </div>
+    <div class="qa">
+      <h4>Resend says the domain is <span class="msg">already in use in another Resend account</span></h4>
+      <p>A domain can belong to only one Resend account. Use that account's API key here, or a different domain.</p>
+    </div>
+    <div class="qa">
+      <h4>My DNS records still aren't verified</h4>
+      <p>DNS changes can take a few hours to propagate. Check each record's name and value against <span class="ui">Your sending domain</span>, look for a name with your domain added twice, and make sure the CNAME records are <span class="ui">DNS only</span> on Cloudflare. Then click <span class="ui">Check</span> once more. You can also check <span class="path">www.whatsmydns.net</span>.</p>
+    </div>
+    <div class="qa">
+      <h4>My landing page says <span class="msg">Opt-in form is not ready:</span></h4>
+      <p>Only administrators see this note. Visitors see no form at all until it's fixed.</p>
+    </div>
+    <div class="qa">
+      <h4>My forms vanished and every email sequence says <span class="ui">Not set up</span></h4>
+      <p>Open <span class="path">Affiliate Theme Settings</span> and click <span class="ui">Finish setting up emails</span>: the theme finds them again without making new ones.</p>
+    </div>
+    <div class="qa">
+      <h4>An email sequence says <span class="ui">Needs update</span>, or <span class="msg">It was turned off in Resend.</span></h4>
+      <p>If you switched off an email sequence in Resend, the theme will turn it off too; click <span class="ui">Turn on</span>.</p>
+    </div>
+    <div class="qa">
+      <h4>Your email sequences say <span class="msg">Open tracking is off for this domain.</span></h4>
+      <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
+    </div>
+    <div class="qa">
+      <h4>Your email sequences say <span class="msg">Click tracking is off for this domain.</span></h4>
+      <p>Your emails still send. To turn it on, see <em>Configuring your domain in Resend</em> in Step 7.</p>
+    </div>
+    <div class="qa">
+      <h4>Visitors see <span class="msg">Service unavailable. Please try again shortly.</span></h4>
+      <p>Your server got no answer from Resend. It's usually brief. If it lasts, check that the line under your API key reads <span class="ui">Resend accepted this key.</span></p>
+    </div>
+    <div class="qa">
+      <h4>Visitors see <span class="msg">Something went wrong. Please try again.</span></h4>
+      <p>Resend refused the sign-up, or the page's email sequence is turned off.</p>
+    </div>
+    <div class="qa">
+      <h4>Emails stopped arriving</h4>
+      <p>You may have reached your Resend plan's daily or monthly limit. Check your usage in Resend, under <span class="ui">Metrics</span>.</p>
+    </div>
+    <div class="qa">
+      <h4>A legal page isn't in my footer</h4>
+      <p>Only published pages are linked. Open the page and click <span class="ui">Publish</span>. The link then appears on every page at once.</p>
+    </div>
+    <div class="qa">
+      <h4>How do I change the copyright line in the footer?</h4>
+      <p>Go to <span class="path">Appearance <span class="sep">&rsaquo;</span> Editor <span class="sep">&rsaquo;</span> Patterns <span class="sep">&rsaquo;</span> Footer</span>, edit the line <em>&copy; 2026 &mdash; All rights reserved.</em> then save.</p>
+    </div>
 
-  <p class="closing">The legal pages that come with this theme are a starting template, not legal advice. Review them for your own business, or have a professional review them.</p>
+    <p class="closing">The legal pages that come with this theme are a starting template, not legal advice. Review them for your own business, or have a professional review them.</p>
+  </div>
 </section>
 
 </body>
