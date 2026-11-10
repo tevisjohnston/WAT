@@ -161,6 +161,8 @@ ol.steps > li { margin-bottom: 6pt; }
 ol.steps > li::marker { font: 700 10pt var(--sans); color: var(--primary); }
 
 /* ---------- Troubleshooting ---------- */
+/* Keeps a heading, its lead-in and the box after it on one page. */
+.keep { break-inside: avoid; }
 .qa { break-inside: avoid; border-top: 0.6pt solid var(--line); padding: 9pt 0 3pt; }
 .qa h4 { margin: 0 0 4pt; font-size: 10pt; }
 .msg { font-family: var(--sans); font-weight: 600; color: var(--deep); background: var(--surface);
