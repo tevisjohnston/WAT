@@ -29,6 +29,9 @@ OUT = WAT / ".tmp" / "affiliate-theme-guide" / "screens"
 
 # name: (source file under SRC, its size, crop x,y,w,h, marks [(x,y,w,h, label[, pad])])
 SHOTS = {
+    # Step 1: the members page's Downloadable Resources card, with the theme's zip row marked.
+    "amc-1-download": ("affiliate-market-connect/screenshot-1-amc.png", (1308, 2125),
+                       (350, 1334, 928, 555), [(383, 1660, 862, 90, "1", 3)]),
     # Step 5: the API key.
     "rs-1-api-keys": ("resend/screenshot-2-home-page-click-sidebar-to-navigate-to-api-keys-resend.png", (1366, 570),
                       (0, 64, 640, 410), [(16, 358, 217, 32, "1")]),
