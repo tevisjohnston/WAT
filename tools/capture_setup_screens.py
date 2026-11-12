@@ -253,8 +253,7 @@ def shoot(page: Page, name: str, clip: dict | None = None) -> None:
 
 def shot_add_new(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/themes.php")
-    mark(page, "#menu-appearance > a", "1", pad=2, side="right")
-    mark(page, "a.page-title-action", "2")
+    mark(page, "a.page-title-action", "1")
     shoot(page, "01-add-new-theme", {"x": 0, "y": 32, "width": 575, "height": 300})
 
 

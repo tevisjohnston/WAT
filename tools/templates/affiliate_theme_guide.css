@@ -145,6 +145,7 @@ ol.marks > li::before {
 ol.marks.start-2 { counter-reset: m 1; }
 ol.marks.start-3 { counter-reset: m 2; }
 ol.marks.start-4 { counter-reset: m 3; }
+ol.marks.start-5 { counter-reset: m 4; }
 ol.marks.start-6 { counter-reset: m 5; }
 ol.marks.start-7 { counter-reset: m 6; }
 
