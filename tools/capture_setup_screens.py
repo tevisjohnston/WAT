@@ -220,6 +220,12 @@ def open_editor(page: Page, post_id: int) -> None:
         "() => window.wp && wp.data && wp.data.select('core/block-editor').getBlocks().length > 0",
         timeout=60000,
     )
+    # A user left in the Code editor has no canvas iframe to wait for (wp-test's
+    # user 1 was, 2026-11-11). Switching is saved to their preferences.
+    page.evaluate(
+        """() => { if (wp.data.select('core/editor').getEditorMode() !== 'visual') {
+             wp.data.dispatch('core/editor').switchEditorMode('visual'); } }"""
+    )
     page.evaluate(
         """() => {
           const p = wp.data.dispatch('core/preferences');
@@ -411,6 +417,12 @@ def shot_legal_editor(page: Page, ids: dict) -> None:
     page.evaluate(
         "(html) => wp.data.dispatch('core/block-editor').resetBlocks(wp.blocks.parse(html))",
         current,
+    )
+    # WordPress's "Need help putting together your new Privacy Policy page?" notice
+    # shows when this is the site's selected privacy page (wp-test's is).
+    page.evaluate(
+        """() => wp.data.select('core/notices').getNotices()
+             .forEach(n => wp.data.dispatch('core/notices').removeNotice(n.id))"""
     )
     page.wait_for_timeout(600)
     canvas = page.frame_locator('iframe[name="editor-canvas"]')
