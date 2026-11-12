@@ -23,7 +23,7 @@ Each landing page promises its visitors emails. These emails keep that promise, 
 
 ### Legal Pages
 
-1. Replace every bracketed placeholder on all four pages: [Your Business Name], [yoursite.com], [you@example.com], [Your Mailing Address], [Your State/Country] and [Month Day, Year]. The Analytics and Advertising section below has a seventh, [Provider Name].
+1. Replace every bracketed placeholder on all four pages: [YOUR BUSINESS NAME], [YOURSITE.COM], [YOU@EXAMPLE.COM], [YOUR MAILING ADDRESS], [YOUR STATE/COUNTRY] and [MONTH DAY, YEAR]. The Analytics and Advertising section below has a seventh, [Provider Name].
 2. Keep each legal page true to your business.
 3. Then publish. A published legal page adds itself to the site footer and there is a footer at the bottom of every landing page.
 
