@@ -305,9 +305,16 @@ def shot_domain(page: Page, ids: dict) -> None:
     h2 = "#affiliate-theme-domain"
     table = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::table[1]"
     check = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::form[1]//button"
+    # The "Open yoursite.com in Resend" link in the paragraph above the table.
+    link = ("xpath=(//h2[@id='affiliate-theme-domain']/following-sibling::p"
+            "//a[contains(normalize-space(), ' in Resend')])[1]")
     page.locator(h2).scroll_into_view_if_needed()
+    # The link sits mid-sentence, so its badge would cover the "you:" before it;
+    # a small gap in front of the link gives the badge room.
+    page.locator(link).evaluate("a => { a.style.marginLeft = '18px'; }")
     mark(page, table, "1", pad=4)
-    mark(page, check, "2")
+    mark(page, link, "2", pad=3)
+    mark(page, check, "3")
     shoot(page, "05b-domain", region(page, [h2, check], pad=24, left=160, right=1366))
 
 

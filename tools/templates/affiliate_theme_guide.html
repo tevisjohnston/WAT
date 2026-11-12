@@ -152,9 +152,8 @@
     <span class="eyebrow">Step 5</span>
     <h2>Create your Resend account and API key</h2>
     <p class="where">Go to <span class="path"><b>resend.com <span class="sep">&rsaquo;</span> API keys</b></span></p>
-    <p class="intro">Resend is the email service that sends your automated emails. The theme builds emails, templates and automations in your Resend account, so you don't have to build an email or automation yourself.</p>
+    <p class="intro">Resend is the email service that sends your automated emails. If you don't have an account you can sign up for free. The theme builds emails, templates and automations in your Resend account, so you don't have to build an email or automation yourself.</p>
     <ol class="marks cards">
-      <li>Sign up for a free account</li>
       <li><figure class="shot"><img data-rs src="{{SCREENS}}/rs-1-api-keys.png" alt="Resend's menu with API keys marked"></figure>
         Click <span class="ui">API keys</span>.</li>
       <li><figure class="shot"><img data-rs src="{{SCREENS}}/rs-2-create-key.png" alt="The API keys page with Create API key marked; the key's characters are hidden"></figure>
@@ -221,7 +220,7 @@
     <figure class="shot"><img src="{{SCREENS}}/05b-domain.png" alt="Your sending domain with the five DNS records and the Check button marked"></figure>
     <ol class="marks">
       <li>Scroll down the page to <span class="ui">Your sending domain</span>.</li>
-      <li>Click on the link <b><u>Open yoursite.com in Resend</u></b></li>
+      <li>Click on the link <b><u>Open yoursite.com in Resend</u></b>.</li>
       <li>Add all five records Resend needs to verify before you click <span class="ui">Check</span>.</li>
     </ol>
 
@@ -236,12 +235,12 @@
     <h3>Adding the records in Cloudflare</h3>
     <p class="where">Go to <span class="path"><b>cloudflare.com <span class="sep">&rsaquo;</span> Dashboard <span class="sep">&rsaquo;</span> Domains <span class="sep">&rsaquo;</span> yoursite.com <span class="sep">&rsaquo;</span> DNS &rsaquo; Records</b></span></p>
     <figure class="shot"><img data-rs src="{{SCREENS}}/cf-2-records.png" alt="Cloudflare's DNS records page with Add record marked"></figure>
-    <ol class="marks start-3">
+    <ol class="marks">
       <li>Click <span class="ui">Add record</span>.</li>
     </ol>
 
     <figure class="shot w80"><img data-rs src="{{SCREENS}}/cf-4-cname.png" alt="Cloudflare's Add record box for a CNAME record with Type, Name, Target, Proxy status and TTL, and Save marked"></figure>
-    <ol class="marks start-4">
+    <ol class="marks start-2">
       <li>Choose the record's <span class="ui">Type</span>.</li>
       <li>Paste its <span class="ui">Name</span>.</li>
       <li>Paste its <span class="ui">Content</span> (<span class="ui">Target</span> for a CNAME record).</li>
@@ -273,7 +272,7 @@
 
     <div class="box tip">
       <h4>Changing your settings later</h4>
-      <p>The theme will update all your emails in Resend if there are any changes that are made to these settings when you click <span class="ui">Save Changes</span>.</p>
+      <p>If you change your <code>From name</code>, <code>Reply-to address</code>, <code>Mailing address</code>, or <code>Affiliate link</code> and click <span class="ui">Save Changes</span>, the theme updates all your emails in Resend.</p>
       <p>People partway through an email sequence get the new details in their next email as long as the sequence wasn't turned off.</p>
     </div>
 
@@ -401,7 +400,7 @@
         <li>Click the tab <span class="ui">Patterns</span>.</li>
         <li>Click <span class="ui">Affiliate Theme</span>.</li>
         <li>Click <span class="ui"><em>Legal &mdash; Privacy: Analytics and Advertising</em></span> and it will insert itself after the section <span class="ui"><em>Who We Share It With</em></span>.</li>
-        <li>Replace its <code>[PLACEHOLDER]</code> with each tool you use.</li>
+        <li>Replace its placeholder <code>[PROVIDER NAME]</code> with each tool you use.</li>
         <li>Click <span class="ui">Save</span>.</li>
       </ol>
     </div>
