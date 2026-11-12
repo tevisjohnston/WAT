@@ -41,7 +41,7 @@
       <li><strong>WordPress installation you can log into as an admin</strong></li>
       <li><strong>Domain</strong></li>
       <li><strong>Resend account</strong></li>
-      <li><strong>Your postal mailing address</strong></li>
+      <li><strong>Postal mailing address</strong></li>
       <li><strong>Affiliate link</strong></li>
     </ul>
 
@@ -75,10 +75,6 @@
     <ol class="marks">
       <li>Download your done-for-you website.</li>
     </ol>
-
-    <div class="box warn">
-      <p><strong>Keep <code>affiliate-theme.zip</code> zipped.</strong> WordPress installs the theme exactly as you downloaded it.</p>
-    </div>
   </div>
 </section>
 
@@ -90,7 +86,7 @@
     <p class="where">Go to <span class="path"><b>yoursite.com/wp-admin <span class="sep">&rsaquo;</span> Appearance &rsaquo; Themes</b></span></p>
     <figure class="shot narrow"><img src="{{SCREENS}}/01-add-new-theme.png" alt="The Themes screen with Appearance and Add Theme marked"></figure>
     <ol class="marks">
-      <li>In the left menu, click <span class="ui">Appearance</span> &rsaquo; <span class="ui">Themes</span>.</li>
+      <li>Click <span class="ui">Appearance</span> &rsaquo; <span class="ui">Themes</span>.</li>
       <li>Click <span class="ui">Add Theme</span>.</li>
     </ol>
 
@@ -128,10 +124,9 @@
         <li><strong><span class="ui">Affiliate Disclosure</span></strong></li>
       </ul>
       <p>It also adds a new settings page, <span class="path">Settings &rsaquo; Affiliate Theme Settings</span>.</p>
-    </div>
-
-    <div class="box warn">
-      <h4>Nothing goes public until you publish it</h4>
+      <div class="box warn">
+        <h4>Nothing goes public until you publish it</h4>
+      </div>
     </div>
   </div>
 </section>
@@ -157,8 +152,9 @@
     <span class="eyebrow">Step 5</span>
     <h2>Create your Resend account and API key</h2>
     <p class="where">Go to <span class="path"><b>resend.com <span class="sep">&rsaquo;</span> API keys</b></span></p>
-    <p class="intro">Go to resend.com and sign up for a free account. Resend is the email service that sends your automated emails. The theme builds emails, templates and automations in your Resend account, so you never have to build an email in Resend yourself.</p>
+    <p class="intro">Resend is the email service that sends your automated emails. The theme builds emails, templates and automations in your Resend account, so you don't have to build an email or automation yourself.</p>
     <ol class="marks cards">
+      <li>Sign up for a free account</li>
       <li><figure class="shot"><img data-rs src="{{SCREENS}}/rs-1-api-keys.png" alt="Resend's menu with API keys marked"></figure>
         Click <span class="ui">API keys</span>.</li>
       <li><figure class="shot"><img data-rs src="{{SCREENS}}/rs-2-create-key.png" alt="The API keys page with Create API key marked; the key's characters are hidden"></figure>
@@ -221,10 +217,11 @@
     <span class="eyebrow">Step 7</span>
     <h2>Add your DNS records</h2>
     <p class="where">Go to <span class="path"><b>wp-admin <span class="sep">&rsaquo;</span> Settings &rsaquo; Affiliate Theme Settings</b></span></p>
-    <p class="intro">Add each record where your domain's DNS is managed. Resend may offer to add the records for you, click on the link <b><u>Open yoursite.com in Resend</u></b>. If Resend does not offer to add the records for you, add them manually by copying and pasting.</p>
+    <p class="intro">Add each record where your domain's DNS is managed. Resend may offer to add the records for you. If Resend does not offer to add the records for you, add them manually by copying and pasting.</p>
     <figure class="shot"><img src="{{SCREENS}}/05b-domain.png" alt="Your sending domain with the five DNS records and the Check button marked"></figure>
     <ol class="marks">
       <li>Scroll down the page to <span class="ui">Your sending domain</span>.</li>
+      <li>Click on the link <b><u>Open yoursite.com in Resend</u></b></li>
       <li>Add all five records Resend needs to verify before you click <span class="ui">Check</span>.</li>
     </ol>
 
@@ -274,14 +271,8 @@
       </tbody>
     </table>
 
-    <div class="box">
+    <div class="box tip">
       <h4>Changing your settings later</h4>
-      <ol class="marks">
-        <li><span class="ui">From name</span></li>
-        <li><span class="ui">Reply-to address</span></li>
-        <li><span class="ui">Mailing address</span></li>
-        <li><span class="ui">Affiliate link</span></li>
-      </ol>
       <p>The theme will update all your emails in Resend if there are any changes that are made to these settings when you click <span class="ui">Save Changes</span>.</p>
       <p>People partway through an email sequence get the new details in their next email as long as the sequence wasn't turned off.</p>
     </div>
@@ -381,7 +372,7 @@
     <ol class="marks">
       <li>Scroll down the page to <span class="ui">Your legal pages</span>.</li>
       <li>Edit each legal page.</li>
-      <li>Replace every <code>[PLACEHOLDER]</code> with your own details before you publish.</li>
+      <li>Replace every <code>[PLACEHOLDER]</code> with your own details.</li>
       <li>Click <span class="ui">Publish</span>.</li>
     </ol>
     <figure class="shot"><img src="{{SCREENS}}/10-legal-editor.png" alt="The Privacy Policy in the editor with its placeholders highlighted"><figcaption>Each placeholder is spelled the same way everywhere, so your browser's find command (<code>Ctrl + F</code>, or <code>Cmd + F</code> on a Mac) finds them all.</figcaption></figure>
@@ -410,7 +401,7 @@
         <li>Click the tab <span class="ui">Patterns</span>.</li>
         <li>Click <span class="ui">Affiliate Theme</span>.</li>
         <li>Click <span class="ui"><em>Legal &mdash; Privacy: Analytics and Advertising</em></span> and it will insert itself after the section <span class="ui"><em>Who We Share It With</em></span>.</li>
-        <li>Replace its bracket <code>[Provider Name]</code> with each tool you use.</li>
+        <li>Replace its <code>[PLACEHOLDER]</code> with each tool you use.</li>
         <li>Click <span class="ui">Save</span>.</li>
       </ol>
     </div>
@@ -425,8 +416,8 @@
     <p class="where">Go to <span class="path"><b>wp-admin <span class="sep">&rsaquo;</span> Settings &rsaquo; Privacy</b></span></p>
     <figure class="shot"><img src="{{SCREENS}}/11-privacy.png" alt="The Privacy Policy page list with the theme's page and Use This Page marked"><figcaption><span class="ui">Privacy Policy</span> appears twice. The one that's already selected with the checkmark is WordPress's own unpublished draft.</figcaption></figure>
     <ol class="marks">
-      <li>Click the dropdown list in <span class="ui">Change your Privacy Policy page</span>.</li>
-      <li>Click the other <span class="ui">Privacy Policy</span>.</li>
+      <li>Click the dropdown list.</li>
+      <li>Choose the other <span class="ui">Privacy Policy</span>.</li>
       <li>Click <span class="ui">Use This Page</span>.</li>
     </ol>
   </div>
@@ -444,7 +435,7 @@
       <li>Within a few minutes, the first email arrives in your inbox.</li>
       <li>In Resend, click on the <span class="ui">Audience</span> tab and the email address you submitted will show as a <span class="ui">Contact</span>.</li>
     </ol>
-    <p>If you sign up again with the same address on the same page, you're still sent to your affiliate link, but no new emails start: each email address gets each page's email sequence once. The same address on a different landing page starts that page's email sequence.</p>
+    <p>If you sign up again with the same address on the same page, you're still sent to your affiliate link, but no new emails start: each landing page can send its email sequence to the same email address once.</p>
   </div>
 </section>
 
