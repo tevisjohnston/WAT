@@ -59,14 +59,7 @@ This loop is how the framework improves over time.
 - **Deliverables**: Final outputs go into deliverables so I can access them
 - **Intermediates**: Temporary processing files that can be regenerated
 
-**Directory layout:**
-```
-.tmp/           # Temporary files (scraped data, intermediate exports). Regenerated as needed.
-deliverables/   # Markdown, PDF files, HTML files, zip files
-tools/          # Python scripts for deterministic execution
-workflows/      # Markdown SOPs defining what to do and how
-.env            # API keys and environment variables (NEVER store secrets anywhere else)
-```
+**Secrets:** API keys and environment variables go in `.env` only (NEVER store secrets anywhere else).
 
 **Also in this repo:**
 - `tools/templates/` — HTML/CSS that `build_affiliate_theme_guide.py`, `build_lead_guide.py` and `build_blueprint.py` fill and print to PDF (copy is edited here, not in Python)
