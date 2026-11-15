@@ -14,7 +14,7 @@ It does not cover VPS or Docker deployment. DNS is covered only as far as adding
 
 **Theme 2.0.0 is published (2026-11-13)**: `amc-secure-assets/` holds the same zip and guide as `deliverables/`. Rebuild into `deliverables/` on the triggers below. A zip for testing on wp-guide still goes to `.tmp/wp-guide/affiliate-theme.zip` (`build_theme_zip.py --out`), and a guide with missing shots is built with `--draft --out .tmp/affiliate-theme-guide/affiliate-theme-guide-draft.pdf`.
 
-- The theme's `Version` in `style.css` changes. The cover prints it, and the zip must match it.
+- The theme's `Version` in `style.css` changes.
 - Any settings-screen label, help text, status or error string that the guide quotes changes (`inc/affiliate-theme-funnel.php`, `inc/affiliate-theme-resend.php`, `inc/affiliate-theme-legal.php`, `assets/js/admin-settings.js`, `blocks/optin-form/`).
 - The buyer path in the theme's CLAUDE.md changes.
 - A WordPress core update renames a screen or button that the guide quotes (for example, 7.1 says **Add Theme**, not "Add New Theme").
