@@ -20,7 +20,7 @@ from pathlib import Path
 REPO = Path("/home/tevis/wp-test")
 THEME_PATH = "wp-content/themes/affiliate-theme"
 PREFIX = "affiliate-theme/"
-EXCLUDE = {"CLAUDE.md"}
+EXCLUDE = {"CLAUDE.md", "AGENTS.md"}
 WAT = Path(__file__).resolve().parent.parent
 
 
