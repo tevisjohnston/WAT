@@ -12,7 +12,7 @@ It does not cover VPS or Docker deployment. DNS is covered only as far as adding
 
 ## When to rebuild
 
-**Theme 2.0.0 is published (2026-11-13)**: `amc-secure-assets/` holds the same zip and guide as `deliverables/`. Rebuild into `deliverables/` on the triggers below. A zip for testing on wp-guide still goes to `.tmp/wp-guide/affiliate-theme.zip` (`build_theme_zip.py --out`), and a guide with missing shots is built with `--draft --out .tmp/affiliate-theme-guide/affiliate-theme-guide-draft.pdf`.
+**Theme 2.0.1 is published (2026-11-20; 2.0.0 on 2026-11-13)**: `amc-secure-assets/` holds the same zip and guide as `deliverables/`. Rebuild into `deliverables/` on the triggers below. A zip for testing on wp-guide still goes to `.tmp/wp-guide/affiliate-theme.zip` (`build_theme_zip.py --out`), and a guide with missing shots is built with `--draft --out .tmp/affiliate-theme-guide/affiliate-theme-guide-draft.pdf`.
 
 - The theme's `Version` in `style.css` changes.
 - Any settings-screen label, help text, status or error string that the guide quotes changes (`inc/affiliate-theme-funnel.php`, `inc/affiliate-theme-resend.php`, `inc/affiliate-theme-legal.php`, `assets/js/admin-settings.js`, `blocks/optin-form/`).
@@ -166,7 +166,7 @@ docker exec affiliatemarketconnectcom-wordpress-1 test -r /var/www/html/wp-conte
 
 Members download them through `/wp-json/amc/v1/download?file=affiliate-theme-guide.pdf` and `?file=affiliate-theme.zip`. The download buttons on the Domain + Web Hosting step are added by hand in the affiliate-market-connect theme. This workflow doesn't touch that theme. Those files are tracked in the affiliatemarketconnect.com repo, so commit there only when asked.
 
-The guide was named `SETUP-GUIDE.pdf` until 2026-11-08, and 1.4.1's copy still sits in `amc-secure-assets/` under that name (2.0.0 was published beside it on 2026-11-13). Remove that old file and point any download button that uses `?file=SETUP-GUIDE.pdf` to `?file=affiliate-theme-guide.pdf`, or members get the old guide.
+The guide was named `SETUP-GUIDE.pdf` until 2026-11-08. 1.4.1's copy of it is gone from `amc-secure-assets/` (checked 2026-11-20), and the Domain + Web Hosting buttons link `?file=affiliate-theme-guide.pdf`.
 
 ## Known quirks
 
