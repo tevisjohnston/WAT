@@ -57,14 +57,14 @@ CHECKLIST_AT = (319, 578)          # where the scaled copy goes, near the foot o
 
 
 def prepare_images() -> Path:
-    """Write the cover and the JPEG copies of the art into .tmp/blueprint/images/."""
+    """Write the cover and the JPEG copy of the art into .tmp/blueprint/images/."""
     out = OUT_DIR / "images"
     out.mkdir(parents=True, exist_ok=True)
-    for name in STEP_ART + ["funnel.jpg", "clipboard.jpg"]:
+    for name in STEP_ART + ["clipboard.jpg"]:
         if not (IMAGES / name).is_file():
             raise FileNotFoundError(IMAGES / name)
 
-    for name in STEP_ART + ["funnel.jpg"]:
+    for name in STEP_ART:
         Image.open(IMAGES / name).convert("RGB").save(out / (Path(name).stem + ".jpg"), quality=JPEG_QUALITY, optimize=True)
 
     board = Image.open(IMAGES / "clipboard.jpg").convert("RGB")

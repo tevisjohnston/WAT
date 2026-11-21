@@ -179,20 +179,6 @@ a { color: var(--ink); text-decoration-color: var(--amber); text-decoration-thic
 .source td { padding: 2pt 0; border-bottom: 0.6pt solid var(--line); }
 .source td:last-child { text-align: right; font-weight: 700; color: var(--ink); }
 
-/* ---------- The Road to $5k opener ---------- */
-.opener { page: bleed; break-before: page; break-after: page; position: relative; width: 8.5in; height: 11in; overflow: hidden; color: #e2e8f0; }
-/* The image is on a child, not on .opener itself: Chrome paints a 1px sliver of .opener's own
-   background at the foot of the page before it. */
-.opener .bg { position: absolute; inset: 0; background: #0b0d12 url("{{IMAGES}}/funnel.jpg") top center / 8.5in auto no-repeat; }
-.opener::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2.6in;
-  background: linear-gradient(to bottom, rgba(11,13,18,.92), rgba(11,13,18,.7) 55%, rgba(11,13,18,0)); }
-.opener .top { position: absolute; left: 0.8in; right: 0.8in; top: 0.55in; text-align: center; }
-.opener .eyebrow { color: var(--amber-2); }
-.opener h2 { color: #fff; font-size: 40pt; margin: 0; }
-.opener .bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.3in 1in 0.75in;
-  background: linear-gradient(to bottom, rgba(11,13,18,0), rgba(11,13,18,.88) 40%, rgba(11,13,18,.96)); }
-.opener .bottom p { font: 500 13.5pt/1.55 var(--sans); color: #e2e8f0; text-align: center; margin: 0; }
-
 /* ---------- Your numbers ---------- */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16pt 12pt; margin: 14pt 0 8pt; }
 .stat { text-align: center; break-inside: avoid; }
