@@ -24,8 +24,8 @@ from playwright.sync_api import sync_playwright
 from capture_setup_screens import MARK_JS
 
 WAT = Path(__file__).resolve().parent.parent
-SRC = WAT / "materials" / "guides" / "affiliate-theme" / "screenshots"
-OUT = WAT / ".tmp" / "affiliate-theme-guide" / "screens"
+SRC = WAT / "materials" / "guides" / "affiliate-engine" / "screenshots"
+OUT = WAT / ".tmp" / "affiliate-engine-guide" / "screens"
 
 # name: (source file under SRC, its size, crop x,y,w,h, marks [(x,y,w,h, label[, pad])])
 SHOTS = {

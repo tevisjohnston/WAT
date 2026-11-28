@@ -1,10 +1,10 @@
 # WAT project instructions
 
-WAT (Workflows, Agents, Tools) builds WordPress affiliate-theme buyer packages and PDF lead magnets. Agents coordinate Markdown SOPs in `workflows/`; Python scripts in `tools/` perform execution. This repository builds publishing artifacts; the WordPress theme source lives in neighboring repositories. Read the relevant workflow before running tools; `CLAUDE.md` provides detailed history and additional constraints.
+WAT (Workflows, Agents, Tools) builds WordPress affiliate-engine buyer packages and PDF lead magnets. Agents coordinate Markdown SOPs in `workflows/`; Python scripts in `tools/` perform execution. This repository builds publishing artifacts; the WordPress theme source lives in neighboring repositories. Read the relevant workflow before running tools; `CLAUDE.md` provides detailed history and additional constraints.
 
 ## Layout and workflow selection
 
-- `workflows/build_affiliate_theme_guide.md`: buyer ZIP, setup-guide screenshots/PDF, verification, and secure-download publishing.
+- `workflows/build_affiliate_engine_guide.md`: buyer ZIP, setup-guide screenshots/PDF, verification, and secure-download publishing.
 - `workflows/build_lead_guide.md`: subscriber guide promised by the theme's Long Form landing page.
 - `workflows/build_blueprint.md`: 7figure's Affiliate Marketing Blueprint lead magnet.
 - `tools/templates/`: editable HTML copy and CSS layout; edit these rather than generated PDFs or copy embedded in Python.
@@ -30,17 +30,17 @@ Buyer package pipeline (run only the steps required by the workflow's rebuild tr
 .venv/bin/python tools/build_theme_zip.py
 .venv/bin/python tools/capture_setup_screens.py
 .venv/bin/python tools/mark_resend_shots.py
-.venv/bin/python tools/build_affiliate_theme_guide.py
+.venv/bin/python tools/build_affiliate_engine_guide.py
 ```
 
-ZIP and guide default to `deliverables/affiliate-theme.zip` and `deliverables/affiliate-theme-guide.pdf`. Capture defaults to the live `wp-guide` site, not the dev site.
+ZIP and guide default to `deliverables/affiliate-engine.zip` and `deliverables/affiliate-engine-guide.pdf`. Capture defaults to the live `wp-guide` site, not the dev site.
 
 Documented draft and targeted invocations:
 
 ```bash
-.venv/bin/python tools/build_theme_zip.py --out .tmp/wp-guide/affiliate-theme.zip
+.venv/bin/python tools/build_theme_zip.py --out .tmp/wp-guide/affiliate-engine.zip
 .venv/bin/python tools/capture_setup_screens.py --site wp-test --only 05b-domain
-.venv/bin/python tools/build_affiliate_theme_guide.py --draft --out .tmp/affiliate-theme-guide/affiliate-theme-guide-draft.pdf
+.venv/bin/python tools/build_affiliate_engine_guide.py --draft --out .tmp/affiliate-engine-guide/affiliate-engine-guide-draft.pdf
 .venv/bin/python tools/build_lead_guide.py --no-copy
 .venv/bin/python tools/build_blueprint.py --out .tmp/blueprint/draft.pdf
 ```
@@ -54,19 +54,19 @@ Production lead-magnet builds:
 .venv/bin/python tools/build_blueprint.py
 ```
 
-Lead-guide also writes `/home/tevis/wp-test/wp-content/themes/affiliate-theme/assets/lead-magnets/landing-3-guide.pdf`; `--no-copy` avoids that cross-repo write. Blueprint defaults to `deliverables/The-Affiliate-Marketing-Blueprint.pdf`; it does not publish to the 7figure site.
+Lead-guide also writes `/home/tevis/wp-test/wp-content/themes/affiliate-engine/assets/lead-magnets/landing-3-guide.pdf`; `--no-copy` avoids that cross-repo write. Blueprint defaults to `deliverables/The-Affiliate-Marketing-Blueprint.pdf`; it does not publish to the 7figure site.
 
 ## Verification (no test or lint suite)
 
 There is no configured test runner, linter, Makefile, or CI workflow. Follow the selected workflow's full verification checklist, not just a successful build exit.
 
 ```bash
-unzip -l deliverables/affiliate-theme.zip
-zipinfo deliverables/affiliate-theme.zip
-stat -c %s deliverables/affiliate-theme.zip
+unzip -l deliverables/affiliate-engine.zip
+zipinfo deliverables/affiliate-engine.zip
+stat -c %s deliverables/affiliate-engine.zip
 ```
 
-- ZIP: `affiliate-theme/style.css` one level down; exclude both `CLAUDE.md` and `AGENTS.md` (the builder's `EXCLUDE` is newer than the workflow's CLAUDE-only wording). Compare against the committed theme tree minus these exclusions; lint every extracted PHP file with `php -l`. Folders are 0755; ordinary files are 0644, with tracked executable modes preserved.
+- ZIP: `affiliate-engine/style.css` one level down; exclude both `CLAUDE.md` and `AGENTS.md` (the builder's `EXCLUDE` is newer than the workflow's CLAUDE-only wording). Compare against the committed theme tree minus these exclusions; lint every extracted PHP file with `php -l`. Folders are 0755; ordinary files are 0644, with tracked executable modes preserved.
 - ZIP must stay below 2,097,152 bytes. The ZIP builder does not enforce this; a passing lead-guide PDF size check does not guarantee the combined ZIP fits.
 - PDFs: use `pdfinfo` for Letter size, `pdffonts` for embedded fonts, and render/review every page with `pdftoppm` at the workflow's specified resolution. Inspect page breaks, clipped badges, overflow, and font fallback.
 - Setup guide: run the workflow's exact UI-label grep and inspect every screenshot for exposed keys, account names, real domains/addresses, and obscured controls.
@@ -83,7 +83,7 @@ stat -c %s deliverables/affiliate-theme.zip
 
 ## Pitfalls
 
-- Capture mints a user-1 session and briefly switches the live theme to `twentytwentyfive`. If it reports “site not restored,” restore `affiliate-theme` in the target container and compare the page list. After wp-test capture, check `git -C /home/tevis/wp-test status`: Permalinks can rewrite `.htaccess`.
+- Capture mints a user-1 session and briefly switches the live theme to `twentytwentyfive`. If it reports “site not restored,” restore `affiliate-engine` in the target container and compare the page list. After wp-test capture, check `git -C /home/tevis/wp-test status`: Permalinks can rewrite `.htaccess`.
 - WordPress's editor never reaches network-idle because of heartbeat polling; wait on `wp.data` state. Site Editor saves can shadow theme template files with database overrides.
 - Never commit unredacted API-key screenshots. Use `tools/redact_image.py` as described in the workflow and visually inspect the result; only redacted key-list copies are build inputs. The ignore pattern does not protect every possible filename.
 - A host Python upgrade can break `.venv`; recreate it using the setup command after removing the obsolete environment.

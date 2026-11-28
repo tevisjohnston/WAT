@@ -1,4 +1,4 @@
-/* affiliate-theme-guide.pdf — print stylesheet. Colors and fonts are the Affiliate Theme's own
+/* affiliate-engine-guide.pdf — print stylesheet. Colors and fonts are the Affiliate Engine's own
    (theme.json palette; Archivo + Newsreader variable woff2 from the theme). */
 
 @font-face { font-family: "Archivo"; font-weight: 100 900; font-stretch: 62% 125%;
@@ -26,7 +26,7 @@
   size: Letter;
   margin: 0.75in 0.8in 0.8in;
   @bottom-left {
-    content: "Affiliate Theme Guide";
+    content: "Affiliate Engine Guide";
     font: 500 8pt var(--sans); color: var(--muted); letter-spacing: 0.02em;
   }
   @bottom-right {

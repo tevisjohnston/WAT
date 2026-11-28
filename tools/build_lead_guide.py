@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render the landing-3 guide.pdf from tools/templates/lead_guide.{html,css}.
 
-The Long Form landing page of the wp-test affiliate theme promises "the guide",
+The Long Form landing page of the wp-test affiliate engine promises "the guide",
 and its first email links it. This tool prints the guide and copies it into the
 theme at assets/lead-magnets/landing-3-guide.pdf (theme 2.0.0), creating the
 folder, which is then committed in wp-test like any theme file.
@@ -28,23 +28,23 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 WAT = Path(__file__).resolve().parent.parent
-THEME = Path("/home/tevis/wp-test/wp-content/themes/affiliate-theme")
+THEME = Path("/home/tevis/wp-test/wp-content/themes/affiliate-engine")
 TEMPLATES = WAT / "tools" / "templates"
 OUT_DIR = WAT / ".tmp" / "lead-guide"
 RENDERED = OUT_DIR / "guide.html"
 PDF = OUT_DIR / "guide.pdf"
 THEME_PDF = THEME / "assets" / "lead-magnets" / "landing-3-guide.pdf"
-# The guide ships inside affiliate-theme.zip, which must stay under PHP's 2 MB
+# The guide ships inside affiliate-engine.zip, which must stay under PHP's 2 MB
 # upload limit; this caps the guide alone.
 MAX_BYTES = 2 * 1024 * 1024
 
 
 def landing_promises() -> list[str]:
     """The <li> texts under "What Is In The Guide" in the Long Form pattern function."""
-    src = (THEME / "inc" / "affiliate-theme-funnel.php").read_text()
-    body = re.search(r"function Affiliate_Theme_Theme_landing_pattern_long\b(.*?)\nfunction ", src, re.S)
+    src = (THEME / "inc" / "affiliate-engine-funnel.php").read_text()
+    body = re.search(r"function Affiliate_Engine_Theme_landing_pattern_long\b(.*?)\nfunction ", src, re.S)
     if not body:
-        raise RuntimeError("Affiliate_Theme_Theme_landing_pattern_long() not found")
+        raise RuntimeError("Affiliate_Engine_Theme_landing_pattern_long() not found")
     section = body.group(1).split("What Is In The Guide", 1)
     if len(section) != 2:
         raise RuntimeError('"What Is In The Guide" not found in the Long Form pattern')

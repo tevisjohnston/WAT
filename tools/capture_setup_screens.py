@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Capture the WordPress admin screen-shots for affiliate-theme-guide.pdf from the wp-guide test site.
+"""Capture the WordPress admin screen-shots for affiliate-engine-guide.pdf from the wp-guide test site.
 
 wp-guide is a buyer-style install with the theme uploaded from a zip; --site wp-test
 drives the dev site instead.
@@ -12,7 +12,7 @@ affiliate URL, page statuses) is replaced in the DOM before the shot and never
 saved.
 
 The Activate shot switches the site to twentytwentyfive and back. The theme's
-seeder is guarded by the affiliate-theme_pages_created flag, which this tool
+seeder is guarded by the affiliate-engine_pages_created flag, which this tool
 checks first, so switching back creates no pages.
 
 Usage:
@@ -35,7 +35,7 @@ SITES = {
 CONTAINER, HOST = SITES["wp-guide"]
 BASE = f"https://{HOST}"
 WAT = Path(__file__).resolve().parent.parent
-OUT = WAT / ".tmp" / "affiliate-theme-guide" / "screens"
+OUT = WAT / ".tmp" / "affiliate-engine-guide" / "screens"
 
 SITE_NAME = "My Site"
 SITE_URL = "https://yoursite.com"
@@ -162,7 +162,7 @@ def region(page: Page, selectors: list[str], pad: int = 24, left: int | None = N
 
 def site_swaps() -> list[list[str]]:
     """The site's identifying values, each paired with its sample, longest first."""
-    real = json.loads(wp_eval(r'''$s = Affiliate_Theme_Theme_get_settings();
+    real = json.loads(wp_eval(r'''$s = Affiliate_Engine_Theme_get_settings();
 echo json_encode( array(
   "from_name" => $s["from_name"], "reply_to" => $s["reply_to"], "mailing" => $s["mailing_address"],
   "url" => $s["redirect_url"], "blogname" => get_option( "blogname" ), "admin" => get_option( "admin_email" ),
@@ -269,7 +269,7 @@ def shot_upload(page: Page, ids: dict) -> None:
 
 def shot_activate(page: Page, ids: dict) -> None:
     open_admin(page, "/wp-admin/themes.php")
-    card = ".theme[data-slug='affiliate-theme']"
+    card = ".theme[data-slug='affiliate-engine']"
     page.hover(card)
     page.wait_for_timeout(300)
     mark(page, f"{card} a.activate", "3")
@@ -297,21 +297,21 @@ def shot_permalinks(page: Page, ids: dict) -> None:
 
 
 def shot_settings(page: Page, ids: dict) -> None:
-    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-engine-settings")
     for n, field in enumerate(["resend-api-key", "sending-domain", "from-name", "from-local",
                                "reply-to", "mailing-address", "redirect-url"], 1):
-        mark(page, f"#affiliate-theme-{field}", str(n))
+        mark(page, f"#affiliate-engine-{field}", str(n))
     mark(page, "#submit", "8")
     shoot(page, "05-settings", region(page, [".wrap h1", "#submit"], pad=28, left=0, right=1366, top=32))
 
 
 def shot_domain(page: Page, ids: dict) -> None:
-    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
-    h2 = "#affiliate-theme-domain"
-    table = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::table[1]"
-    check = "xpath=//h2[@id='affiliate-theme-domain']/following-sibling::form[1]//button"
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-engine-settings")
+    h2 = "#affiliate-engine-domain"
+    table = "xpath=//h2[@id='affiliate-engine-domain']/following-sibling::table[1]"
+    check = "xpath=//h2[@id='affiliate-engine-domain']/following-sibling::form[1]//button"
     # The "Open yoursite.com in Resend" link in the paragraph above the table.
-    link = ("xpath=(//h2[@id='affiliate-theme-domain']/following-sibling::p"
+    link = ("xpath=(//h2[@id='affiliate-engine-domain']/following-sibling::p"
             "//a[contains(normalize-space(), ' in Resend')])[1]")
     page.locator(h2).scroll_into_view_if_needed()
     # The link sits mid-sentence, so its badge would cover the "you:" before it;
@@ -324,10 +324,10 @@ def shot_domain(page: Page, ids: dict) -> None:
 
 
 def shot_sequences(page: Page, ids: dict) -> None:
-    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
-    h2 = "#affiliate-theme-sequences"
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-engine-settings")
+    h2 = "#affiliate-engine-sequences"
     page.locator(h2).scroll_into_view_if_needed()
-    shoot(page, "05c-sequences", region(page, [h2, "#affiliate-theme-setup"], pad=12, left=160, right=1366))
+    shoot(page, "05c-sequences", region(page, [h2, "#affiliate-engine-setup"], pad=12, left=160, right=1366))
 
 
 def _status_all_draft(page: Page) -> None:
@@ -340,7 +340,7 @@ def _status_all_draft(page: Page) -> None:
 
 
 def shot_landing_list(page: Page, ids: dict) -> None:
-    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-engine-settings")
     _status_all_draft(page)
     h2 = "xpath=//h2[normalize-space()='Your landing pages']"
     ul = "xpath=//h2[normalize-space()='Your landing pages']/following-sibling::ul[1]"
@@ -353,14 +353,14 @@ def shot_editor(page: Page, ids: dict) -> None:
     page.evaluate(
         """() => {
           const be = wp.data.select('core/block-editor');
-          const id = be.getClientIdsWithDescendants().find(c => be.getBlockName(c) === 'affiliate-theme/optin-form');
+          const id = be.getClientIdsWithDescendants().find(c => be.getBlockName(c) === 'affiliate-engine/optin-form');
           wp.data.dispatch('core/block-editor').selectBlock(id);
           wp.data.dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
         }"""
     )
     page.wait_for_timeout(1200)
     # Scroll the canvas so the selected form is in view.
-    page.frame_locator('iframe[name="editor-canvas"]').locator(".wp-block-affiliate-theme-optin-form").first.scroll_into_view_if_needed()
+    page.frame_locator('iframe[name="editor-canvas"]').locator(".wp-block-affiliate-engine-optin-form").first.scroll_into_view_if_needed()
     page.wait_for_timeout(800)
     panel = page.locator(".components-panel__body", has=page.locator("button", has_text="Form")).first
     if "is-opened" not in (panel.get_attribute("class") or ""):
@@ -368,7 +368,7 @@ def shot_editor(page: Page, ids: dict) -> None:
         page.wait_for_timeout(400)
     form = ".components-panel__body.is-opened:has(button:text-is('Form'))"
     # Badges follow Step 8's list: the form, the panel, its fields in sidebar order, Publish.
-    mark(page, ".wp-block-affiliate-theme-optin-form", "1", pad=2, frame='iframe[name="editor-canvas"]')
+    mark(page, ".wp-block-affiliate-engine-optin-form", "1", pad=2, frame='iframe[name="editor-canvas"]')
     mark(page, form, "2", pad=2)
     for n, label in (("3", "Button text"), ("4", "Email field label"), ("5", "Name field label")):
         mark(page, f"{form} .components-base-control:has(label:text-is('{label}')) input", n, pad=3)
@@ -397,7 +397,7 @@ def shot_reading(page: Page, ids: dict) -> None:
 
 
 def shot_legal_list(page: Page, ids: dict) -> None:
-    open_admin(page, "/wp-admin/options-general.php?page=affiliate-theme-settings")
+    open_admin(page, "/wp-admin/options-general.php?page=affiliate-engine-settings")
     _status_all_draft(page)
     ul = "xpath=//h2[normalize-space()='Your legal pages']/following-sibling::ul[1]"
     mark(page, f"{ul}/li[1]/a", "1", pad=4)
@@ -412,7 +412,7 @@ def shot_legal_editor(page: Page, ids: dict) -> None:
     # Show the theme's current Privacy Policy, as a buyer's fresh install seeds it.
     # The site's page holds whatever was seeded (or edited) on it, which can be an
     # older copy. Only the editor's blocks change: nothing is saved.
-    current = wp_eval('echo Affiliate_Theme_Theme_legal_pattern( "privacy" );')
+    current = wp_eval('echo Affiliate_Engine_Theme_legal_pattern( "privacy" );')
     page.evaluate(
         "(html) => wp.data.dispatch('core/block-editor').resetBlocks(wp.blocks.parse(html))",
         current,
@@ -506,8 +506,8 @@ def main() -> int:
     names = args.only or list(SHOTS)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    if wp("option", "get", "stylesheet") != "affiliate-theme":
-        print("ERROR: affiliate-theme must be the active theme on the site", file=sys.stderr)
+    if wp("option", "get", "stylesheet") != "affiliate-engine":
+        print("ERROR: affiliate-engine must be the active theme on the site", file=sys.stderr)
         return 1
     ids = {k: int(wp_eval(f'echo get_page_by_path( "{slug}" )->ID;')) for k, slug in PAGE_SLUGS.items()}
     SWAPS = site_swaps()
@@ -529,18 +529,18 @@ def main() -> int:
             run(page, active, ids)
 
             if inactive:
-                if wp("option", "get", "affiliate-theme_pages_created") != "1":
+                if wp("option", "get", "affiliate-engine_pages_created") != "1":
                     raise RuntimeError("seed flag not set; re-activating would seed pages")
                 before = page_snapshot()
                 wp("theme", "activate", "twentytwentyfive")
                 try:
                     run(page, inactive, ids)
                 finally:
-                    wp("theme", "activate", "affiliate-theme")
+                    wp("theme", "activate", "affiliate-engine")
                     after = page_snapshot()
-                    if wp("option", "get", "stylesheet") != "affiliate-theme" or before != after:
+                    if wp("option", "get", "stylesheet") != "affiliate-engine" or before != after:
                         raise RuntimeError("site not restored: check the active theme and pages")
-                    print("site restored: affiliate-theme active, pages unchanged")
+                    print("site restored: affiliate-engine active, pages unchanged")
             browser.close()
     finally:
         destroy_session(session["token"])

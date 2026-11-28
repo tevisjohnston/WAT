@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build the buyer-facing affiliate-theme.zip from the committed wp-test theme.
+"""Build the buyer-facing affiliate-engine.zip from the committed wp-test theme.
 
 The zip holds exactly what `git archive HEAD` has for the theme directory,
-under a single top-level `affiliate-theme/` folder (what WordPress's
+under a single top-level `affiliate-engine/` folder (what WordPress's
 Upload Theme screen expects), minus the developer-only CLAUDE.md.
 
 Usage:
-    .venv/bin/python tools/build_theme_zip.py [--out deliverables/affiliate-theme.zip]
+    .venv/bin/python tools/build_theme_zip.py [--out deliverables/affiliate-engine.zip]
 """
 
 import argparse
@@ -18,8 +18,8 @@ import zipfile
 from pathlib import Path
 
 REPO = Path("/home/tevis/wp-test")
-THEME_PATH = "wp-content/themes/affiliate-theme"
-PREFIX = "affiliate-theme/"
+THEME_PATH = "wp-content/themes/affiliate-engine"
+PREFIX = "affiliate-engine/"
 EXCLUDE = {"CLAUDE.md", "AGENTS.md"}
 WAT = Path(__file__).resolve().parent.parent
 
@@ -35,7 +35,7 @@ def git(*args: str, binary: bool = False):
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--out", default=str(WAT / "deliverables" / "affiliate-theme.zip"))
+    parser.add_argument("--out", default=str(WAT / "deliverables" / "affiliate-engine.zip"))
     args = parser.parse_args()
     out = Path(args.out)
 

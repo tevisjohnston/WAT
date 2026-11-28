@@ -1,4 +1,4 @@
-# Affiliate Theme Settings Theme Copy -> `affiliate-theme-guide.pdf`
+# Affiliate Engine Settings Theme Copy -> `affiliate-engine-guide.pdf`
 
 ## Your sending domain
 
@@ -17,7 +17,7 @@ Create a free account at resend.com. In Resend, open API Keys → Create API Key
 
 Each landing page promises its visitors emails. These emails keep that promise, and every one of them links to your affiliate redirect URL. The theme puts them in your Resend account as one automation for each landing page: the first email goes out as soon as someone signs up, then one a day. Set up the emails for the landing page that you publish.
 
-1. Setting up takes up to a minute. You can see the emails in Resend, under Templates and Automations; their names start with “Affiliate Theme”.
+1. Setting up takes up to a minute. You can see the emails in Resend, under Templates and Automations; their names start with “Affiliate Engine”.
 2. The emails match the landing pages as the theme made them. If you change what your page promises, change the emails to match. When you change your affiliate redirect URL, your mailing address or your Site Title, the status says “out of date”: click Update these emails. An update replaces any change that you made to these emails inside Resend.
 3. Check the sending limits of your Resend plan before you send a lot of traffic.
 
@@ -35,7 +35,7 @@ The Privacy Policy says you do not sell or share your visitors’ information. T
 2. Remove the “We Do Not Sell Or Share Your Information” heading block and the paragraph block after it.
 3. Click the + box in the upper left corner.
 4. Switch from the Blocks tab to the Patterns tab.
-5. Select Affiliate Theme.
+5. Select Affiliate Engine.
 6. Insert Legal — Privacy: Analytics and Advertising where the removed section was, after “Who We Share It With”, and replace [Provider Name] with each provider you use.
 
 ## Search and Social
